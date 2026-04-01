@@ -67,6 +67,131 @@ button {
   letter-spacing: 0.04em;
 }
 
+.search-panel {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.search-label {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: rgba(16, 36, 49, 0.72);
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 4px 6px 4px 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow:
+    inset 0 0 0 1px rgba(15, 91, 145, 0.12),
+    0 14px 28px rgba(16, 36, 49, 0.08);
+}
+
+.search-input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  padding: 12px 0;
+  background: transparent;
+  color: #102431;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.search-input::placeholder {
+  color: rgba(16, 36, 49, 0.42);
+  font-weight: 600;
+}
+
+.search-clear {
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(15, 91, 145, 0.1);
+  color: #0f5b91;
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.search-feedback {
+  min-height: 1.1rem;
+  padding-inline: 8px;
+  color: rgba(16, 36, 49, 0.62);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.search-results {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 24;
+  display: grid;
+  gap: 6px;
+  max-height: min(44vh, 360px);
+  overflow: auto;
+  padding: 10px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow:
+    0 28px 54px rgba(16, 36, 49, 0.16),
+    inset 0 0 0 1px rgba(15, 91, 145, 0.08);
+  backdrop-filter: blur(18px);
+}
+
+.search-result {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border: 0;
+  border-radius: 16px;
+  padding: 12px 14px;
+  background: rgba(15, 91, 145, 0.06);
+  color: #102431;
+  text-align: left;
+}
+
+.search-result.is-active {
+  background: linear-gradient(135deg, rgba(15, 91, 145, 0.14), rgba(21, 114, 184, 0.18));
+}
+
+.search-result-label {
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.search-result-floor {
+  flex: 0 0 auto;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(16, 36, 49, 0.08);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.search-result-empty {
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(16, 36, 49, 0.05);
+  color: rgba(16, 36, 49, 0.66);
+  font-weight: 700;
+}
+
 .floor-tabs {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -142,6 +267,17 @@ button {
   gap: 20px;
   transform-origin: 0 0;
   will-change: transform;
+  pointer-events: none;
+}
+
+.pdf-page {
+  position: relative;
+}
+
+.highlight-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }
 
 .pdf-canvas {
@@ -151,6 +287,16 @@ button {
   box-shadow:
     0 16px 40px rgba(16, 36, 49, 0.16),
     0 0 0 1px rgba(16, 36, 49, 0.06);
+}
+
+.search-highlight {
+  position: absolute;
+  border-radius: 999px;
+  background: rgba(255, 215, 72, 0.3);
+  box-shadow:
+    0 0 0 2px rgba(255, 149, 0, 0.82),
+    0 0 0 8px rgba(255, 213, 63, 0.16);
+  animation: pulse-highlight 1.8s ease-in-out infinite;
 }
 
 .status-pill {
@@ -194,6 +340,19 @@ button {
   transform: scale(0.96);
 }
 
+@keyframes pulse-highlight {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.92;
+  }
+
+  50% {
+    transform: scale(1.06);
+    opacity: 1;
+  }
+}
+
 @media (max-width: 720px) {
   :root {
     --shell-padding: 10px;
@@ -208,6 +367,27 @@ button {
 
   .topbar {
     gap: 10px;
+  }
+
+  .search-box {
+    padding-left: 14px;
+  }
+
+  .search-input {
+    font-size: 0.96rem;
+    padding-block: 11px;
+  }
+
+  .search-results {
+    left: 0;
+    right: 0;
+    max-height: min(46vh, 280px);
+    padding: 8px;
+    border-radius: 18px;
+  }
+
+  .search-result {
+    padding: 11px 12px;
   }
 
   .floor-tabs {
@@ -264,6 +444,20 @@ button {
     font-size: 1.05rem;
   }
 
+  .search-label {
+    font-size: 0.75rem;
+  }
+
+  .search-clear {
+    width: 34px;
+    height: 34px;
+    font-size: 1.2rem;
+  }
+
+  .search-feedback {
+    font-size: 0.8rem;
+  }
+
   .floor-tab {
     flex-basis: 68px;
     min-width: 68px;
@@ -291,6 +485,10 @@ button {
 
   .app-title {
     font-size: 1rem;
+  }
+
+  .search-results {
+    max-height: min(62vh, 220px);
   }
 
   .floor-tabs {
