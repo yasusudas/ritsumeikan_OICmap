@@ -1,4 +1,12 @@
 :root {
+  --shell-padding: 18px;
+  --card-radius: 28px;
+  --topbar-padding-top: 18px;
+  --topbar-padding-side: 20px;
+  --topbar-padding-bottom: 14px;
+  --map-stage-padding-bottom: 18px;
+  --zoom-offset-right: 18px;
+  --zoom-offset-bottom: 18px;
   font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
   color: #102431;
   background:
@@ -20,7 +28,9 @@ body {
 
 body {
   min-height: 100vh;
+  min-height: 100dvh;
   overscroll-behavior: none;
+  overflow: hidden;
 }
 
 button {
@@ -29,8 +39,10 @@ button {
 
 .app-shell {
   min-height: 100vh;
-  display: grid;
-  grid-template-rows: auto 1fr;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .topbar {
@@ -39,7 +51,10 @@ button {
   z-index: 10;
   display: grid;
   gap: 14px;
-  padding: 18px 20px 14px;
+  padding:
+    calc(var(--topbar-padding-top) + env(safe-area-inset-top, 0px))
+    var(--topbar-padding-side)
+    var(--topbar-padding-bottom);
   background: rgba(248, 252, 255, 0.86);
   backdrop-filter: blur(18px);
   border-bottom: 1px solid rgba(16, 36, 49, 0.1);
@@ -56,6 +71,7 @@ button {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 8px;
+  min-width: 0;
 }
 
 .floor-tab {
@@ -84,14 +100,18 @@ button {
 }
 
 .map-stage {
-  padding: 18px;
+  flex: 1;
+  min-height: 0;
+  padding: var(--shell-padding) var(--shell-padding) var(--map-stage-padding-bottom);
+  overflow: hidden;
 }
 
 .map-card {
   position: relative;
-  height: calc(100vh - 138px);
-  min-height: 420px;
-  border-radius: 28px;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  border-radius: var(--card-radius);
   overflow: hidden;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.72)),
@@ -149,8 +169,8 @@ button {
 
 .zoom-controls {
   position: absolute;
-  right: 18px;
-  bottom: 18px;
+  right: calc(var(--zoom-offset-right) + env(safe-area-inset-right, 0px));
+  bottom: calc(var(--zoom-offset-bottom) + env(safe-area-inset-bottom, 0px));
   z-index: 2;
   display: grid;
   gap: 10px;
@@ -175,30 +195,135 @@ button {
 }
 
 @media (max-width: 720px) {
+  :root {
+    --shell-padding: 10px;
+    --card-radius: 20px;
+    --topbar-padding-top: 12px;
+    --topbar-padding-side: 12px;
+    --topbar-padding-bottom: 10px;
+    --map-stage-padding-bottom: 10px;
+    --zoom-offset-right: 12px;
+    --zoom-offset-bottom: 12px;
+  }
+
   .topbar {
-    padding: 14px 14px 12px;
+    gap: 10px;
   }
 
   .floor-tabs {
-    gap: 6px;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 2px;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .floor-tabs::-webkit-scrollbar {
+    display: none;
   }
 
   .floor-tab {
-    padding: 10px 8px;
+    flex: 0 0 74px;
+    min-width: 74px;
+    padding: 11px 8px;
     font-size: 0.95rem;
+    scroll-snap-align: start;
   }
 
   .map-stage {
-    padding: 12px;
+    padding-inline: 0;
   }
 
   .map-card {
-    height: calc(100vh - 122px);
-    border-radius: 24px;
+    border-radius: 22px 22px 0 0;
+  }
+
+  .status-pill {
+    top: 14px;
+    left: 14px;
+    padding: 9px 12px;
+    font-size: 0.82rem;
   }
 
   .zoom-button {
-    width: 52px;
-    height: 52px;
+    width: 50px;
+    height: 50px;
+    font-size: 1.8rem;
+  }
+
+  .pdf-canvas {
+    border-radius: 14px;
+  }
+}
+
+@media (max-width: 430px) {
+  .app-title {
+    font-size: 1.05rem;
+  }
+
+  .floor-tab {
+    flex-basis: 68px;
+    min-width: 68px;
+    padding-block: 10px;
+  }
+
+  .status-pill {
+    max-width: calc(100% - 84px);
+  }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  :root {
+    --shell-padding: 8px;
+    --card-radius: 16px;
+    --topbar-padding-top: 8px;
+    --topbar-padding-side: 10px;
+    --topbar-padding-bottom: 8px;
+    --map-stage-padding-bottom: 8px;
+  }
+
+  .topbar {
+    gap: 8px;
+  }
+
+  .app-title {
+    font-size: 1rem;
+  }
+
+  .floor-tabs {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .floor-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .floor-tab {
+    flex: 0 0 72px;
+    min-width: 72px;
+    padding: 9px 8px;
+  }
+
+  .status-pill {
+    top: 10px;
+    left: 10px;
+    padding: 8px 10px;
+    font-size: 0.78rem;
+  }
+
+  .zoom-controls {
+    gap: 8px;
+  }
+
+  .zoom-button {
+    width: 44px;
+    height: 44px;
+    font-size: 1.55rem;
   }
 }
