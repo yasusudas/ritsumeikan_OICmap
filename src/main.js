@@ -14,9 +14,11 @@ if (window.__FILE_MODE__) {
     { id: '4F', label: '4F', url: new URL('../フロア/4F.pdf', import.meta.url).href },
     { id: '5F', label: '5F', url: new URL('../フロア/5F.pdf', import.meta.url).href }
   ];
+  const PDF_SUPPORT_ASSET_BASE = import.meta.env.BASE_URL;
+  const CMAP_URL = `${PDF_SUPPORT_ASSET_BASE}cmaps/`;
 
-  const MIN_RENDER_QUALITY = 2;
-  const MAX_RENDER_QUALITY = 6;
+  const MIN_RENDER_QUALITY = 1;
+  const MAX_RENDER_QUALITY = 4;
   const QUALITY_STEP = 0.25;
   const RERENDER_DELAY_MS = 140;
   const PAGE_GAP = 20;
@@ -103,7 +105,7 @@ if (window.__FILE_MODE__) {
   }
 
   function getDesiredRenderQuality() {
-    const rawQuality = Math.max(MIN_RENDER_QUALITY, state.zoom);
+    const rawQuality = Math.max(MIN_RENDER_QUALITY, state.zoom * 1.15);
     const steppedQuality = Math.round(rawQuality / QUALITY_STEP) * QUALITY_STEP;
     return clamp(steppedQuality, MIN_RENDER_QUALITY, MAX_RENDER_QUALITY);
   }
@@ -138,7 +140,11 @@ if (window.__FILE_MODE__) {
     await destroyCurrentDocument();
     setStatus(`${selectedFloor.label} を読み込み中...`);
 
-    const loadingTask = pdfjsLib.getDocument(selectedFloor.url);
+    const loadingTask = pdfjsLib.getDocument({
+      url: selectedFloor.url,
+      cMapUrl: CMAP_URL,
+      cMapPacked: true
+    });
     const pdfDocument = await loadingTask.promise;
     state.pdfDocument = pdfDocument;
     state.loadedFloorId = selectedFloor.id;
@@ -206,6 +212,8 @@ if (window.__FILE_MODE__) {
         if (renderToken !== state.renderToken) {
           return;
         }
+
+        setStatus(`${getFloorDefinition().label} | ページ ${pageNumber} を描画中...`);
 
         const initialViewport = page.getViewport({ scale: 1 });
         const fitWidth = (viewerSize.width - 32) / initialViewport.width;
