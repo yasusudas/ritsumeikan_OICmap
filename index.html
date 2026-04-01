@@ -31,7 +31,13 @@
   <body>
     <div class="app-shell">
       <header class="topbar">
-        <h1 class="app-title">立命館キャンパスマップ</h1>
+        <div class="topbar-row">
+          <h1 class="app-title">立命館キャンパスマップ</h1>
+          <div class="search-wrapper" role="combobox" aria-expanded="false" aria-haspopup="listbox">
+            <input id="search-input" class="search-input" type="text" placeholder="教室を検索 (例: AC130)" autocomplete="off" aria-label="教室検索" />
+            <ul id="search-suggestions" class="search-suggestions" role="listbox"></ul>
+          </div>
+        </div>
         <nav class="floor-tabs" aria-label="フロア切替">
           <button class="floor-tab" data-floor="1F" type="button">1F</button>
           <button class="floor-tab" data-floor="2F" type="button">2F</button>
@@ -45,6 +51,7 @@
         <section class="map-card">
           <div id="viewer" class="viewer" aria-label="フロアマップ">
             <div id="canvas-layer" class="canvas-layer"></div>
+            <div id="highlight-layer" class="highlight-layer"></div>
             <div id="status" class="status-pill" aria-live="polite">読み込み中...</div>
           </div>
 
