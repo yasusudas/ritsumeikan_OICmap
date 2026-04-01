@@ -1,0 +1,204 @@
+:root {
+  font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+  color: #102431;
+  background:
+    radial-gradient(circle at top, rgba(145, 198, 255, 0.45), transparent 42%),
+    linear-gradient(180deg, #eef7ff 0%, #dbe9f7 100%);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  overscroll-behavior: none;
+}
+
+button {
+  font: inherit;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: grid;
+  gap: 14px;
+  padding: 18px 20px 14px;
+  background: rgba(248, 252, 255, 0.86);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(16, 36, 49, 0.1);
+}
+
+.app-title {
+  margin: 0;
+  font-size: clamp(1.1rem, 2vw, 1.45rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.floor-tabs {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.floor-tab {
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 10px;
+  background: rgba(16, 36, 49, 0.08);
+  color: #234;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  transition:
+    transform 140ms ease,
+    background-color 140ms ease,
+    color 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.floor-tab.is-active {
+  background: linear-gradient(135deg, #0f5b91 0%, #1572b8 100%);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(15, 91, 145, 0.28);
+}
+
+.floor-tab:active {
+  transform: scale(0.97);
+}
+
+.map-stage {
+  padding: 18px;
+}
+
+.map-card {
+  position: relative;
+  height: calc(100vh - 138px);
+  min-height: 420px;
+  border-radius: 28px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.72)),
+    linear-gradient(135deg, #bfd8f0 0%, #edf4fb 100%);
+  box-shadow:
+    0 30px 60px rgba(16, 36, 49, 0.12),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.7);
+}
+
+.viewer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  touch-action: none;
+  cursor: grab;
+}
+
+.viewer:active {
+  cursor: grabbing;
+}
+
+.canvas-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  gap: 20px;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+.pdf-canvas {
+  display: block;
+  border-radius: 18px;
+  background: white;
+  box-shadow:
+    0 16px 40px rgba(16, 36, 49, 0.16),
+    0 0 0 1px rgba(16, 36, 49, 0.06);
+}
+
+.status-pill {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  z-index: 2;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(16, 36, 49, 0.72);
+  color: #fff;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  backdrop-filter: blur(10px);
+}
+
+.zoom-controls {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  z-index: 2;
+  display: grid;
+  gap: 10px;
+}
+
+.zoom-button {
+  width: 56px;
+  height: 56px;
+  border: 0;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #ffffff 0%, #deebf8 100%);
+  color: #0f5b91;
+  font-size: 2rem;
+  line-height: 1;
+  box-shadow:
+    0 14px 30px rgba(15, 91, 145, 0.24),
+    inset 0 0 0 1px rgba(15, 91, 145, 0.12);
+}
+
+.zoom-button:active {
+  transform: scale(0.96);
+}
+
+@media (max-width: 720px) {
+  .topbar {
+    padding: 14px 14px 12px;
+  }
+
+  .floor-tabs {
+    gap: 6px;
+  }
+
+  .floor-tab {
+    padding: 10px 8px;
+    font-size: 0.95rem;
+  }
+
+  .map-stage {
+    padding: 12px;
+  }
+
+  .map-card {
+    height: calc(100vh - 122px);
+    border-radius: 24px;
+  }
+
+  .zoom-button {
+    width: 52px;
+    height: 52px;
+  }
+}

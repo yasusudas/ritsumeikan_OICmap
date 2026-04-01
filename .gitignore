@@ -1,0 +1,5 @@
+.DS_Store
+node_modules
+dist
+.map-server.pid
+.map-server.log
