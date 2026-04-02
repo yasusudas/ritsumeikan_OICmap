@@ -8,30 +8,47 @@ if (window.__FILE_MODE__) {
   pdfjsLib.GlobalWorkerOptions.workerSrc = workerUrl;
 
   const FLOOR_FILES = [
-    { id: '1F', label: '1F', url: new URL('../フロア/1F.pdf', import.meta.url).href },
-    { id: '2F', label: '2F', url: new URL('../フロア/2F.pdf', import.meta.url).href },
-    { id: '3F', label: '3F', url: new URL('../フロア/3F.pdf', import.meta.url).href },
-    { id: '4F', label: '4F', url: new URL('../フロア/4F.pdf', import.meta.url).href },
-    { id: '5F', label: '5F', url: new URL('../フロア/5F.pdf', import.meta.url).href }
+    {
+      id: '1F',
+      label: '1F',
+      svgUrl: new URL('../フロア/1F.svg', import.meta.url).href,
+      searchUrl: new URL('../pdf/1F.pdf', import.meta.url).href
+    },
+    {
+      id: '2F',
+      label: '2F',
+      svgUrl: new URL('../フロア/2F.svg', import.meta.url).href,
+      searchUrl: new URL('../pdf/2F.pdf', import.meta.url).href
+    },
+    {
+      id: '3F',
+      label: '3F',
+      svgUrl: new URL('../フロア/3F.svg', import.meta.url).href,
+      searchUrl: new URL('../pdf/3F.pdf', import.meta.url).href
+    },
+    {
+      id: '4F',
+      label: '4F',
+      svgUrl: new URL('../フロア/4F.svg', import.meta.url).href,
+      searchUrl: new URL('../pdf/4F.pdf', import.meta.url).href
+    },
+    {
+      id: '5F',
+      label: '5F',
+      svgUrl: new URL('../フロア/5F.svg', import.meta.url).href,
+      searchUrl: new URL('../pdf/5F.pdf', import.meta.url).href
+    }
   ];
   const PDF_SUPPORT_ASSET_BASE = import.meta.env.BASE_URL;
   const CMAP_URL = `${PDF_SUPPORT_ASSET_BASE}cmaps/`;
   const STANDARD_FONT_DATA_URL = `${PDF_SUPPORT_ASSET_BASE}standard_fonts/`;
 
-  const MIN_RENDER_QUALITY = 1;
-  const MAX_RENDER_QUALITY = 10;
-  const QUALITY_STEP = 0.25;
-  const RERENDER_DELAY_MS = 90;
-  const PAGE_GAP = 20;
-  const MAX_CANVAS_SIDE = 12288;
-  const MAX_CANVAS_PIXELS = 48_000_000;
-  const MOBILE_MAX_CANVAS_SIDE = 8192;
-  const MOBILE_MAX_CANVAS_PIXELS = 16_000_000;
-  const MOBILE_MAX_RENDER_QUALITY = 6;
+  const MAP_PADDING = 32;
   const SEARCH_RESULT_LIMIT = 18;
   const SEARCH_FOCUS_ZOOM = 3.6;
   const ROOM_CODE_PATTERN = /[A-Z]{1,3}\s*-?\s*\d{2,4}[A-Z]?/g;
   const roomCodeCollator = new Intl.Collator('ja', { numeric: true, sensitivity: 'base' });
+  const svgCache = new Map();
 
   const viewer = document.querySelector('#viewer');
   const canvasLayer = document.querySelector('#canvas-layer');
@@ -52,9 +69,10 @@ if (window.__FILE_MODE__) {
     maxZoom: 10,
     x: 0,
     y: 0,
-    contentWidth: 0,
-    contentHeight: 0,
-    pageLayouts: [],
+    baseWidth: 0,
+    baseHeight: 0,
+    intrinsicWidth: 0,
+    intrinsicHeight: 0,
     isDragging: false,
     isPinching: false,
     dragStartX: 0,
@@ -67,15 +85,8 @@ if (window.__FILE_MODE__) {
     pinchStartY: 0,
     pinchStartCenterX: 0,
     pinchStartCenterY: 0,
-    renderToken: 0,
-    renderTimeoutId: null,
-    renderInFlight: false,
-    pendingRenderRequest: null,
-    activeRenderTask: null,
-    renderQuality: 0,
-    pdfDocument: null,
-    loadedFloorId: null,
-    touchZoomDirty: false,
+    floorLoadToken: 0,
+    highlightLayer: null,
     searchReady: false,
     searchLoading: false,
     searchPromise: null,
@@ -129,30 +140,92 @@ if (window.__FILE_MODE__) {
     };
   }
 
-  function isMobileViewport() {
-    return window.matchMedia('(max-width: 720px) and (pointer: coarse)').matches;
-  }
-
-  function getRenderBudget() {
-    if (isMobileViewport()) {
-      return {
-        maxCanvasSide: MOBILE_MAX_CANVAS_SIDE,
-        maxCanvasPixels: MOBILE_MAX_CANVAS_PIXELS,
-        maxRenderQuality: MOBILE_MAX_RENDER_QUALITY
-      };
+  function parseSvgLength(value) {
+    if (!value) {
+      return 0;
     }
 
+    const parsed = Number.parseFloat(String(value).replace(/[^\d.+-]/g, ''));
+    return Number.isFinite(parsed) ? parsed : 0;
+  }
+
+  function extractSvgMetrics(svgElement) {
+    const viewBox = svgElement.getAttribute('viewBox');
+
+    if (viewBox) {
+      const values = viewBox
+        .trim()
+        .split(/[\s,]+/)
+        .map((value) => Number.parseFloat(value));
+
+      if (values.length === 4 && values[2] > 0 && values[3] > 0) {
+        return { width: values[2], height: values[3] };
+      }
+    }
+
+    const width = parseSvgLength(svgElement.getAttribute('width'));
+    const height = parseSvgLength(svgElement.getAttribute('height'));
+
+    if (width > 0 && height > 0) {
+      return { width, height };
+    }
+
+    throw new Error('SVG size could not be determined.');
+  }
+
+  async function fetchSvgAsset(floor) {
+    if (svgCache.has(floor.id)) {
+      return svgCache.get(floor.id);
+    }
+
+    const response = await fetch(floor.svgUrl);
+
+    if (!response.ok) {
+      throw new Error(`Failed to load SVG for ${floor.id}`);
+    }
+
+    const text = await response.text();
+    const svgDocument = new DOMParser().parseFromString(text, 'image/svg+xml');
+    const svgElement = svgDocument.documentElement;
+
+    if (!svgElement || svgElement.nodeName.toLowerCase() !== 'svg') {
+      throw new Error(`Invalid SVG for ${floor.id}`);
+    }
+
+    const metrics = extractSvgMetrics(svgElement);
+    const asset = { text, width: metrics.width, height: metrics.height };
+    svgCache.set(floor.id, asset);
+    return asset;
+  }
+
+  function createSvgNode(svgText) {
+    const svgDocument = new DOMParser().parseFromString(svgText, 'image/svg+xml');
+    const importedSvg = document.importNode(svgDocument.documentElement, true);
+    importedSvg.classList.add('floor-svg');
+    importedSvg.removeAttribute('width');
+    importedSvg.removeAttribute('height');
+    importedSvg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    importedSvg.setAttribute('aria-hidden', 'true');
+    importedSvg.setAttribute('focusable', 'false');
+    return importedSvg;
+  }
+
+  function getFittedBaseSize(intrinsicWidth, intrinsicHeight) {
+    const viewport = getViewportSize();
+    const availableWidth = Math.max(viewport.width - MAP_PADDING, 80);
+    const availableHeight = Math.max(viewport.height - MAP_PADDING, 80);
+    const fitScale = Math.min(availableWidth / intrinsicWidth, availableHeight / intrinsicHeight);
+
     return {
-      maxCanvasSide: MAX_CANVAS_SIDE,
-      maxCanvasPixels: MAX_CANVAS_PIXELS,
-      maxRenderQuality: MAX_RENDER_QUALITY
+      width: intrinsicWidth * fitScale,
+      height: intrinsicHeight * fitScale
     };
   }
 
   function clampPosition() {
     const { width: viewportWidth, height: viewportHeight } = getViewportSize();
-    const scaledWidth = state.contentWidth * state.zoom;
-    const scaledHeight = state.contentHeight * state.zoom;
+    const scaledWidth = state.baseWidth * state.zoom;
+    const scaledHeight = state.baseHeight * state.zoom;
 
     if (scaledWidth <= viewportWidth) {
       state.x = (viewportWidth - scaledWidth) / 2;
@@ -168,37 +241,17 @@ if (window.__FILE_MODE__) {
   }
 
   function applyTransform() {
-    canvasLayer.style.transform = `translate(${state.x}px, ${state.y}px) scale(${state.zoom})`;
+    canvasLayer.style.width = `${state.baseWidth * state.zoom}px`;
+    canvasLayer.style.height = `${state.baseHeight * state.zoom}px`;
+    canvasLayer.style.transform = `translate(${state.x}px, ${state.y}px)`;
   }
 
-  function updateView({ rendering = false } = {}) {
+  function updateView() {
     clampPosition();
     applyTransform();
 
     const percent = Math.round(state.zoom * 100);
-    const floor = getFloorDefinition().label;
-    const suffix = rendering ? ' | 高精細化中...' : '';
-    setStatus(`${floor} | ${percent}%${suffix}`);
-  }
-
-  function getDesiredRenderQuality(layoutWidth, layoutHeight) {
-    const outputScale = Math.max(1, window.devicePixelRatio || 1);
-    const renderBudget = getRenderBudget();
-    const baseQuality = Math.max(MIN_RENDER_QUALITY, state.zoom);
-    const steppedQuality = Math.round(baseQuality / QUALITY_STEP) * QUALITY_STEP;
-    const maxBySide =
-      renderBudget.maxCanvasSide / Math.max(Math.max(layoutWidth, layoutHeight) * outputScale, 1);
-    const maxByArea = Math.sqrt(
-      renderBudget.maxCanvasPixels /
-        Math.max(layoutWidth * layoutHeight * outputScale * outputScale, 1)
-    );
-    const qualityCap = clamp(
-      Math.min(renderBudget.maxRenderQuality, maxBySide, maxByArea),
-      MIN_RENDER_QUALITY,
-      renderBudget.maxRenderQuality
-    );
-
-    return clamp(steppedQuality, MIN_RENDER_QUALITY, qualityCap);
+    setStatus(`${getFloorDefinition().label} | ${percent}%`);
   }
 
   function updateTabSelection() {
@@ -210,56 +263,49 @@ if (window.__FILE_MODE__) {
     });
   }
 
-  async function destroyCurrentDocument() {
-    if (!state.pdfDocument) {
-      return;
-    }
-
-    const documentToDestroy = state.pdfDocument;
-    state.pdfDocument = null;
-    state.loadedFloorId = null;
-
-    try {
-      await documentToDestroy.destroy();
-    } catch (error) {
-      console.warn('Failed to destroy PDF document cleanly.', error);
-    }
-  }
-
-  async function ensurePdfDocument() {
-    const selectedFloor = getFloorDefinition();
-
-    if (state.pdfDocument && state.loadedFloorId === selectedFloor.id) {
-      return state.pdfDocument;
-    }
-
-    await destroyCurrentDocument();
-    setStatus(`${selectedFloor.label} を読み込み中...`);
-
-    const loadingTask = pdfjsLib.getDocument(getDocumentOptions(selectedFloor.url));
-    const pdfDocument = await loadingTask.promise;
-    state.pdfDocument = pdfDocument;
-    state.loadedFloorId = selectedFloor.id;
-    return pdfDocument;
-  }
-
   function getActiveSearchEntry() {
     return state.searchEntries.find((entry) => entry.id === state.activeSearchEntryId) ?? null;
   }
 
   function resetView() {
     state.zoom = 1;
-    state.minZoom = 1;
     const { width, height } = getViewportSize();
-    state.x = (width - state.contentWidth) / 2;
-    state.y = (height - state.contentHeight) / 2;
+    state.x = (width - state.baseWidth) / 2;
+    state.y = (height - state.baseHeight) / 2;
+    updateView();
+  }
+
+  function captureViewportCenterRatios() {
+    const { width, height } = getViewportSize();
+
+    if (!state.baseWidth || !state.baseHeight || !state.zoom) {
+      return { xRatio: 0.5, yRatio: 0.5 };
+    }
+
+    const mapX = (width / 2 - state.x) / state.zoom;
+    const mapY = (height / 2 - state.y) / state.zoom;
+
+    return {
+      xRatio: clamp(mapX / state.baseWidth, 0, 1),
+      yRatio: clamp(mapY / state.baseHeight, 0, 1)
+    };
+  }
+
+  function restoreViewportCenterRatios(centerRatios) {
+    const { width, height } = getViewportSize();
+    const targetX = state.baseWidth * centerRatios.xRatio;
+    const targetY = state.baseHeight * centerRatios.yRatio;
+    state.x = width / 2 - targetX * state.zoom;
+    state.y = height / 2 - targetY * state.zoom;
     updateView();
   }
 
   function renderSearchHighlights() {
-    state.pageLayouts.forEach((pageLayout) => {
-      pageLayout.highlightLayer.replaceChildren();
-    });
+    if (!state.highlightLayer) {
+      return;
+    }
+
+    state.highlightLayer.replaceChildren();
 
     const activeEntry = getActiveSearchEntry();
 
@@ -267,51 +313,38 @@ if (window.__FILE_MODE__) {
       return;
     }
 
-    state.pageLayouts.forEach((pageLayout) => {
-      const rects = activeEntry.rects.filter((rect) => rect.pageNumber === pageLayout.pageNumber);
-
-      if (rects.length === 0) {
-        return;
-      }
-
-      const fragment = document.createDocumentFragment();
-      rects.forEach((rect, index) => {
-        const highlight = document.createElement('div');
-        highlight.className = 'search-highlight';
-        highlight.style.left = `${rect.xRatio * pageLayout.width}px`;
-        highlight.style.top = `${rect.yRatio * pageLayout.height}px`;
-        highlight.style.width = `${Math.max(rect.widthRatio * pageLayout.width, 18)}px`;
-        highlight.style.height = `${Math.max(rect.heightRatio * pageLayout.height, 14)}px`;
-        highlight.style.animationDelay = `${index * 120}ms`;
-        fragment.append(highlight);
-      });
-
-      pageLayout.highlightLayer.append(fragment);
+    const fragment = document.createDocumentFragment();
+    activeEntry.rects.forEach((rect, index) => {
+      const highlight = document.createElement('div');
+      highlight.className = 'search-highlight';
+      highlight.style.left = `${rect.xRatio * 100}%`;
+      highlight.style.top = `${rect.yRatio * 100}%`;
+      highlight.style.width = `${Math.max(rect.widthRatio * 100, 1.1)}%`;
+      highlight.style.height = `${Math.max(rect.heightRatio * 100, 0.9)}%`;
+      highlight.style.minWidth = '16px';
+      highlight.style.minHeight = '12px';
+      highlight.style.animationDelay = `${index * 120}ms`;
+      fragment.append(highlight);
     });
+
+    state.highlightLayer.append(fragment);
   }
 
   function focusSearchEntry(entry, targetZoom = SEARCH_FOCUS_ZOOM) {
-    if (!entry || entry.floorId !== getFloorDefinition().id) {
+    if (!entry || entry.floorId !== getFloorDefinition().id || entry.rects.length === 0) {
       return;
     }
 
-    const pageLayout = state.pageLayouts.find((layout) => layout.pageNumber === entry.pageNumber);
-    const focusRect = entry.rects.find((rect) => rect.pageNumber === entry.pageNumber);
-
-    if (!pageLayout || !focusRect) {
-      return;
-    }
-
+    const focusRect = entry.rects[0];
     const nextZoom = clamp(Math.max(state.zoom, targetZoom), state.minZoom, state.maxZoom);
-    const targetX = pageLayout.width * (focusRect.xRatio + focusRect.widthRatio / 2);
-    const targetY = pageLayout.top + pageLayout.height * (focusRect.yRatio + focusRect.heightRatio / 2);
+    const targetX = state.baseWidth * (focusRect.xRatio + focusRect.widthRatio / 2);
+    const targetY = state.baseHeight * (focusRect.yRatio + focusRect.heightRatio / 2);
     const { width: viewportWidth, height: viewportHeight } = getViewportSize();
 
     state.zoom = nextZoom;
     state.x = viewportWidth / 2 - targetX * state.zoom;
     state.y = viewportHeight / 2 - targetY * state.zoom;
     updateView();
-    scheduleRerender({ immediate: true, force: true });
   }
 
   function renderSearchSuggestions() {
@@ -324,6 +357,7 @@ if (window.__FILE_MODE__) {
       searchResults.replaceChildren();
       state.searchSuggestions = [];
       state.activeSuggestionIndex = -1;
+
       if (getActiveSearchEntry()) {
         setSearchFeedback(`${getActiveSearchEntry().label} を ${getActiveSearchEntry().floorLabel} で表示中`);
       } else {
@@ -335,7 +369,7 @@ if (window.__FILE_MODE__) {
     if (state.searchLoading && !state.searchReady) {
       const loading = document.createElement('div');
       loading.className = 'search-result-empty';
-      loading.textContent = 'OCR テキストを読み込み中...';
+      loading.textContent = '教室データを読み込み中...';
       searchResults.replaceChildren(loading);
       searchResults.hidden = false;
       state.searchSuggestions = [];
@@ -455,7 +489,7 @@ if (window.__FILE_MODE__) {
     setSearchFeedback(`${entry.label} を ${entry.floorLabel} で表示中`);
   }
 
-  function createTextMatchRect(item, viewport, matchIndex, matchLength, sourceLength, pageNumber) {
+  function createTextMatchRect(item, viewport, matchIndex, matchLength, sourceLength) {
     const transformed = pdfjsLib.Util.transform(viewport.transform, item.transform);
     const fontHeight = Math.max(
       Math.abs(Math.hypot(transformed[2], transformed[3])),
@@ -473,7 +507,6 @@ if (window.__FILE_MODE__) {
     const height = clamp(fontHeight * 1.14, 8, viewport.height - y);
 
     return {
-      pageNumber,
       xRatio: x / viewport.width,
       yRatio: y / viewport.height,
       widthRatio: width / viewport.width,
@@ -493,7 +526,7 @@ if (window.__FILE_MODE__) {
       const searchEntries = [];
 
       for (const floor of FLOOR_FILES) {
-        const loadingTask = pdfjsLib.getDocument(getDocumentOptions(floor.url));
+        const loadingTask = pdfjsLib.getDocument(getDocumentOptions(floor.searchUrl));
         const pdfDocument = await loadingTask.promise;
         const floorEntryMap = new Map();
 
@@ -517,14 +550,13 @@ if (window.__FILE_MODE__) {
                   continue;
                 }
 
-                const id = `${floor.id}-${pageNumber}-${normalized}`;
+                const id = `${floor.id}-${normalized}`;
                 const rect = createTextMatchRect(
                   item,
                   viewport,
                   match.index ?? 0,
                   match[0].length,
-                  source.length,
-                  pageNumber
+                  source.length
                 );
 
                 if (!floorEntryMap.has(id)) {
@@ -535,7 +567,6 @@ if (window.__FILE_MODE__) {
                     floorId: floor.id,
                     floorLabel: floor.label,
                     floorOrder: getFloorOrder(floor.id),
-                    pageNumber,
                     rects: []
                   });
                 }
@@ -543,6 +574,8 @@ if (window.__FILE_MODE__) {
                 floorEntryMap.get(id).rects.push(rect);
               }
             });
+
+            page.cleanup();
           }
         } finally {
           await pdfDocument.destroy();
@@ -576,7 +609,7 @@ if (window.__FILE_MODE__) {
     return state.searchPromise;
   }
 
-  function zoomAt(nextZoom, focalX, focalY, { immediateRerender = false } = {}) {
+  function zoomAt(nextZoom, focalX, focalY) {
     const previousZoom = state.zoom;
     const clampedZoom = clamp(nextZoom, state.minZoom, state.maxZoom);
 
@@ -589,197 +622,56 @@ if (window.__FILE_MODE__) {
     state.y = focalY - ratio * (focalY - state.y);
     state.zoom = clampedZoom;
     updateView();
-    scheduleRerender({
-      immediate: immediateRerender,
-      force: immediateRerender && isMobileViewport(),
-      cancelActive: immediateRerender && isMobileViewport()
-    });
   }
 
-  async function renderFloor({ resetZoom = false, force = false } = {}) {
-    if (state.renderInFlight) {
-      state.pendingRenderRequest = {
-        resetZoom: state.pendingRenderRequest?.resetZoom || resetZoom,
-        force: state.pendingRenderRequest?.force || force
-      };
-      return;
-    }
+  async function renderFloor({ resetZoom = false, preserveView = false } = {}) {
+    const floor = getFloorDefinition();
+    const floorLoadToken = ++state.floorLoadToken;
+    const centerRatios = preserveView ? captureViewportCenterRatios() : null;
 
-    state.renderInFlight = true;
-    const renderToken = ++state.renderToken;
-    const previousQuality = state.renderQuality;
-    const currentLayout = state.pageLayouts[0];
-    const desiredQuality = currentLayout
-      ? getDesiredRenderQuality(currentLayout.width, currentLayout.height)
-      : MIN_RENDER_QUALITY;
-
-    updateView({ rendering: true });
+    setStatus(`${floor.label} を読み込み中...`);
 
     try {
-      const pdfDocument = await ensurePdfDocument();
+      const asset = await fetchSvgAsset(floor);
 
-      if (renderToken !== state.renderToken) {
+      if (floorLoadToken !== state.floorLoadToken) {
         return;
       }
 
-      if (
-        !force &&
-        currentLayout &&
-        Math.abs(state.renderQuality - desiredQuality) < QUALITY_STEP / 2 &&
-        canvasLayer.childElementCount > 0
-      ) {
-        updateView();
-        renderSearchHighlights();
-        return;
-      }
+      const mapAsset = document.createElement('article');
+      mapAsset.className = 'map-asset';
 
-      const viewerSize = getViewportSize();
-      const fragment = document.createDocumentFragment();
-      const nextPageLayouts = [];
-      let totalHeight = 0;
-      let maxWidth = 0;
-      let appliedQuality = Number.POSITIVE_INFINITY;
+      const svgNode = createSvgNode(asset.text);
+      const highlightLayer = document.createElement('div');
+      highlightLayer.className = 'highlight-layer';
 
-      for (let pageNumber = 1; pageNumber <= pdfDocument.numPages; pageNumber += 1) {
-        const page = await pdfDocument.getPage(pageNumber);
+      mapAsset.append(svgNode, highlightLayer);
+      canvasLayer.replaceChildren(mapAsset);
 
-        if (renderToken !== state.renderToken) {
-          return;
-        }
+      state.highlightLayer = highlightLayer;
+      state.intrinsicWidth = asset.width;
+      state.intrinsicHeight = asset.height;
 
-        setStatus(`${getFloorDefinition().label} | ページ ${pageNumber} を描画中...`);
+      const baseSize = getFittedBaseSize(asset.width, asset.height);
+      const hadDimensions = state.baseWidth > 0 && state.baseHeight > 0;
+      state.baseWidth = baseSize.width;
+      state.baseHeight = baseSize.height;
 
-        const baseViewport = page.getViewport({ scale: 1 });
-        const fitWidth = Math.max((viewerSize.width - 32) / baseViewport.width, 0.1);
-        const fitHeight = Math.max((viewerSize.height - 32) / baseViewport.height, 0.1);
-        const layoutScale = Math.min(fitWidth, fitHeight);
-        const layoutViewport = page.getViewport({ scale: layoutScale });
-        const pageQuality = getDesiredRenderQuality(layoutViewport.width, layoutViewport.height);
-        const renderViewport = page.getViewport({ scale: layoutScale * pageQuality });
-        const outputScale = Math.max(1, window.devicePixelRatio || 1);
-
-        const pageElement = document.createElement('article');
-        pageElement.className = 'pdf-page';
-        pageElement.style.width = `${layoutViewport.width}px`;
-        pageElement.style.height = `${layoutViewport.height}px`;
-
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d', { alpha: false });
-
-        if (!context) {
-          throw new Error('Canvas 2D context is not available.');
-        }
-
-        context.imageSmoothingEnabled = true;
-        context.imageSmoothingQuality = 'high';
-
-        canvas.width = Math.ceil(renderViewport.width * outputScale);
-        canvas.height = Math.ceil(renderViewport.height * outputScale);
-        canvas.style.width = `${layoutViewport.width}px`;
-        canvas.style.height = `${layoutViewport.height}px`;
-        canvas.className = 'pdf-canvas';
-
-        state.activeRenderTask = page.render({
-          canvasContext: context,
-          transform: [outputScale, 0, 0, outputScale, 0, 0],
-          viewport: renderViewport
-        });
-        await state.activeRenderTask.promise;
-        state.activeRenderTask = null;
-
-        const highlightLayer = document.createElement('div');
-        highlightLayer.className = 'highlight-layer';
-        highlightLayer.dataset.pageNumber = String(pageNumber);
-
-        pageElement.append(canvas, highlightLayer);
-        fragment.append(pageElement);
-
-        nextPageLayouts.push({
-          pageNumber,
-          width: layoutViewport.width,
-          height: layoutViewport.height,
-          top: totalHeight,
-          highlightLayer
-        });
-
-        maxWidth = Math.max(maxWidth, layoutViewport.width);
-        totalHeight += layoutViewport.height;
-        if (pageNumber < pdfDocument.numPages) {
-          totalHeight += PAGE_GAP;
-        }
-
-        appliedQuality = Math.min(appliedQuality, pageQuality);
-      }
-
-      if (renderToken !== state.renderToken) {
-        return;
-      }
-
-      canvasLayer.replaceChildren(fragment);
-      state.pageLayouts = nextPageLayouts;
-      state.contentWidth = maxWidth;
-      state.contentHeight = totalHeight;
-      state.renderQuality = Number.isFinite(appliedQuality) ? appliedQuality : MIN_RENDER_QUALITY;
-
-      if (resetZoom || previousQuality === 0) {
+      if (resetZoom || !hadDimensions) {
         resetView();
+      } else if (centerRatios) {
+        restoreViewportCenterRatios(centerRatios);
       } else {
         updateView();
       }
 
       renderSearchHighlights();
     } catch (error) {
-      if (error?.name === 'RenderingCancelledException') {
-        return;
-      }
-
       console.error(error);
-      setStatus('PDFの描画に失敗しました');
-    } finally {
-      state.activeRenderTask = null;
-      state.renderInFlight = false;
-
-      if (state.pendingRenderRequest) {
-        const pendingRenderRequest = state.pendingRenderRequest;
-        state.pendingRenderRequest = null;
-        void renderFloor(pendingRenderRequest);
-      }
+      canvasLayer.replaceChildren();
+      state.highlightLayer = null;
+      setStatus('地図の読み込みに失敗しました');
     }
-  }
-
-  function cancelActiveRenderTask() {
-    if (!state.activeRenderTask) {
-      return;
-    }
-
-    try {
-      state.activeRenderTask.cancel();
-    } catch (error) {
-      console.warn('Failed to cancel active PDF render task.', error);
-    }
-  }
-
-  function scheduleRerender({ immediate = false, force = false, cancelActive = false } = {}) {
-    if (state.renderTimeoutId) {
-      window.clearTimeout(state.renderTimeoutId);
-      state.renderTimeoutId = null;
-    }
-
-    if (cancelActive) {
-      cancelActiveRenderTask();
-    }
-
-    const run = () => {
-      state.renderTimeoutId = null;
-      void renderFloor({ force });
-    };
-
-    if (immediate) {
-      run();
-      return;
-    }
-
-    state.renderTimeoutId = window.setTimeout(run, RERENDER_DELAY_MS);
   }
 
   async function setActiveFloor(floorId, { resetZoom = true } = {}) {
@@ -789,21 +681,9 @@ if (window.__FILE_MODE__) {
       return;
     }
 
-    if (state.renderTimeoutId) {
-      window.clearTimeout(state.renderTimeoutId);
-      state.renderTimeoutId = null;
-    }
-
-    const floorChanged = nextIndex !== state.floorIndex;
     state.floorIndex = nextIndex;
-    state.renderQuality = 0;
     updateTabSelection();
-
-    if (floorChanged) {
-      await destroyCurrentDocument();
-    }
-
-    await renderFloor({ resetZoom, force: true });
+    await renderFloor({ resetZoom, preserveView: !resetZoom });
   }
 
   function getTouchDistance(touches) {
@@ -835,7 +715,6 @@ if (window.__FILE_MODE__) {
   function beginPinch(touches) {
     const center = getTouchCenter(touches);
     state.isPinching = true;
-    state.touchZoomDirty = false;
     state.pinchStartDistance = getTouchDistance(touches);
     state.pinchStartZoom = state.zoom;
     state.pinchStartX = state.x;
@@ -852,12 +731,12 @@ if (window.__FILE_MODE__) {
 
   zoomInButton.addEventListener('click', () => {
     const { width, height } = getViewportSize();
-    zoomAt(state.zoom * 1.2, width / 2, height / 2, { immediateRerender: true });
+    zoomAt(state.zoom * 1.2, width / 2, height / 2);
   });
 
   zoomOutButton.addEventListener('click', () => {
     const { width, height } = getViewportSize();
-    zoomAt(state.zoom / 1.2, width / 2, height / 2, { immediateRerender: true });
+    zoomAt(state.zoom / 1.2, width / 2, height / 2);
   });
 
   searchClearButton.addEventListener('click', () => {
@@ -1025,37 +904,14 @@ if (window.__FILE_MODE__) {
         state.x = center.x - ratio * (state.pinchStartCenterX - state.pinchStartX);
         state.y = center.y - ratio * (state.pinchStartCenterY - state.pinchStartY);
         updateView();
-
-        if (isMobileViewport()) {
-          state.touchZoomDirty = true;
-          scheduleRerender({
-            immediate: true,
-            force: true,
-            cancelActive: true
-          });
-          return;
-        }
-
-        scheduleRerender();
       }
     },
     { passive: false }
   );
 
   viewer.addEventListener('touchend', (event) => {
-    const pinchEnded = state.isPinching && event.touches.length < 2;
-
     if (event.touches.length < 2) {
       state.isPinching = false;
-    }
-
-    if (pinchEnded) {
-      scheduleRerender({
-        immediate: true,
-        force: true,
-        cancelActive: isMobileViewport() || state.touchZoomDirty
-      });
-      state.touchZoomDirty = false;
     }
 
     if (event.touches.length === 1) {
@@ -1066,40 +922,26 @@ if (window.__FILE_MODE__) {
 
     if (event.touches.length === 0) {
       endDrag();
-      if (!pinchEnded) {
-        scheduleRerender({
-          immediate: true,
-          force: true,
-          cancelActive: isMobileViewport()
-        });
-      }
+      updateView();
     }
   });
 
   viewer.addEventListener('touchcancel', () => {
     state.isPinching = false;
-    state.touchZoomDirty = false;
     endDrag();
-    scheduleRerender({
-      immediate: true,
-      force: true,
-      cancelActive: isMobileViewport()
-    });
+    updateView();
   });
 
   window.addEventListener('resize', () => {
-    state.renderQuality = 0;
-    void renderFloor({ force: true });
-  });
-
-  window.addEventListener('beforeunload', () => {
-    if (state.renderTimeoutId) {
-      window.clearTimeout(state.renderTimeoutId);
+    if (!state.intrinsicWidth || !state.intrinsicHeight) {
+      return;
     }
+
+    void renderFloor({ resetZoom: false, preserveView: true });
   });
 
   updateTabSelection();
-  void renderFloor({ resetZoom: true, force: true });
+  void renderFloor({ resetZoom: true });
   window.setTimeout(() => {
     void buildSearchIndex();
   }, 120);
