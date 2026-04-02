@@ -79,6 +79,8 @@ if (window.__FILE_MODE__) {
   const editorClearPointButton = document.querySelector('#editor-clear-point');
   const editorCopyButton = document.querySelector('#editor-copy');
   const editorExportButton = document.querySelector('#editor-export');
+  const editorImportButton = document.querySelector('#editor-import');
+  const editorImportInput = document.querySelector('#editor-import-input');
   const editorFeedback = document.querySelector('#editor-feedback');
   const editorList = document.querySelector('#editor-list');
   const editorJson = document.querySelector('#editor-json');
@@ -240,6 +242,18 @@ if (window.__FILE_MODE__) {
     };
   }
 
+  function hydrateManualEntriesCollection(source) {
+    const sourceEntries = Array.isArray(source) ? source : source?.entries;
+
+    if (!Array.isArray(sourceEntries)) {
+      return [];
+    }
+
+    return sourceEntries
+      .map((entry) => hydrateManualEntry(entry))
+      .filter((entry) => entry !== null);
+  }
+
   function loadManualEntries() {
     try {
       const raw = window.localStorage.getItem(MANUAL_STORAGE_KEY);
@@ -249,15 +263,7 @@ if (window.__FILE_MODE__) {
       }
 
       const parsed = JSON.parse(raw);
-      const sourceEntries = Array.isArray(parsed) ? parsed : parsed?.entries;
-
-      if (!Array.isArray(sourceEntries)) {
-        return [];
-      }
-
-      return sourceEntries
-        .map((entry) => hydrateManualEntry(entry))
-        .filter((entry) => entry !== null);
+      return hydrateManualEntriesCollection(parsed);
     } catch (error) {
       console.warn('Failed to load manual search entries.', error);
       return [];
@@ -1409,6 +1415,37 @@ if (window.__FILE_MODE__) {
     setEditorFeedback(`${MANUAL_EXPORT_FILENAME} を保存しました`);
   }
 
+  async function importManualEntriesJson(file) {
+    if (!isEditorSite || !file) {
+      return;
+    }
+
+    try {
+      const payload = await file.text();
+      const parsed = JSON.parse(payload);
+      const importedEntries = hydrateManualEntriesCollection(parsed);
+
+      if (importedEntries.length === 0) {
+        setEditorFeedback('読み込みできる手入力データが見つかりませんでした');
+        return;
+      }
+
+      state.manualEntries = importedEntries;
+      state.activeSearchEntryId = null;
+      state.activeEditorPinKey = null;
+      state.pendingEditorPoint = null;
+      persistManualEntries();
+      refreshSearchEntries();
+      renderSearchHighlights();
+      refreshEditorUi();
+      renderSearchSuggestions();
+      setEditorFeedback(`${importedEntries.length} 件の手入力データを読み込みました`);
+    } catch (error) {
+      console.warn('Failed to import manual search entries.', error);
+      setEditorFeedback('JSON の読み込みに失敗しました');
+    }
+  }
+
   function captureEditorPointAtClient(clientX, clientY) {
     if (!isEditorSite || !state.editMode || state.dragMoved || state.isPinching) {
       return;
@@ -1575,6 +1612,18 @@ if (window.__FILE_MODE__) {
   if (editorExportButton) {
     editorExportButton.addEventListener('click', () => {
       exportManualEntriesJson();
+    });
+  }
+
+  if (editorImportButton && editorImportInput) {
+    editorImportButton.addEventListener('click', () => {
+      editorImportInput.click();
+    });
+
+    editorImportInput.addEventListener('change', async (event) => {
+      const [file] = Array.from(event.target.files ?? []);
+      await importManualEntriesJson(file);
+      event.target.value = '';
     });
   }
 
