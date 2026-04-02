@@ -84,7 +84,6 @@ if (window.__FILE_MODE__) {
   const editorFloor = document.querySelector('#editor-floor');
   const editorCoords = document.querySelector('#editor-coords');
   const editorLabelInput = document.querySelector('#editor-label');
-  const editorAliasesInput = document.querySelector('#editor-aliases');
   const editorWidthInput = document.querySelector('#editor-width');
   const editorHeightInput = document.querySelector('#editor-height');
   const editorSaveButton = document.querySelector('#editor-save');
@@ -1382,7 +1381,7 @@ if (window.__FILE_MODE__) {
   }
 
   function saveManualEntry() {
-    if (!isEditorSite || !editorLabelInput || !editorAliasesInput) {
+    if (!isEditorSite || !editorLabelInput) {
       return;
     }
 
@@ -1402,12 +1401,11 @@ if (window.__FILE_MODE__) {
     }
 
     const floor = getFloorDefinition();
-    const aliases = sanitizeAliases(editorAliasesInput.value);
     const entry = hydrateManualEntry({
       id: createManualEntryId(floor.id),
       floorId: floor.id,
       label,
-      aliases,
+      aliases: [],
       rects: [rect]
     });
 
@@ -1422,7 +1420,6 @@ if (window.__FILE_MODE__) {
     state.pendingEditorPoint = null;
     state.activeEditorPinKey = null;
     editorLabelInput.value = '';
-    editorAliasesInput.value = '';
     setEditorFeedback(`${entry.label} を ${floor.label} に記録しました`);
     refreshEditorUi();
     renderSearchSuggestions();
