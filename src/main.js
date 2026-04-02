@@ -1028,6 +1028,11 @@ if (window.__FILE_MODE__) {
 
         if (isMobileViewport()) {
           state.touchZoomDirty = true;
+          scheduleRerender({
+            immediate: true,
+            force: true,
+            cancelActive: true
+          });
           return;
         }
 
