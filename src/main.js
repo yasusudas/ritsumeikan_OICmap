@@ -46,7 +46,9 @@ if (window.__FILE_MODE__) {
   const MAP_PADDING = 32;
   const SEARCH_RESULT_LIMIT = 18;
   const SEARCH_FOCUS_ZOOM = 3.6;
-  const MANUAL_STORAGE_KEY = 'campus-map-manual-entries-v2';
+  const LEGACY_MANUAL_STORAGE_KEY = 'campus-map-manual-entries-v2';
+  const MANUAL_DRAFT_STORAGE_KEY = 'campus-map-manual-draft-v3';
+  const MANUAL_PUBLISHED_STORAGE_KEY = 'campus-map-manual-published-v3';
   const MANUAL_EXPORT_FILENAME = 'manual-search-index.json';
   const ROOM_CODE_PATTERN = /[A-Z]{1,3}\s*-?\s*\d{2,4}[A-Z]?/g;
   const SEARCHABLE_CHAR_PATTERN = /[\p{L}\p{N}]/u;
@@ -81,6 +83,7 @@ if (window.__FILE_MODE__) {
   const editorExportButton = document.querySelector('#editor-export');
   const editorImportButton = document.querySelector('#editor-import');
   const editorImportInput = document.querySelector('#editor-import-input');
+  const editorPublishButton = document.querySelector('#editor-publish');
   const editorFeedback = document.querySelector('#editor-feedback');
   const editorList = document.querySelector('#editor-list');
   const editorJson = document.querySelector('#editor-json');
@@ -254,24 +257,88 @@ if (window.__FILE_MODE__) {
       .filter((entry) => entry !== null);
   }
 
-  function loadManualEntries() {
+  function getActiveManualStorageKey() {
+    return isEditorSite ? MANUAL_DRAFT_STORAGE_KEY : MANUAL_PUBLISHED_STORAGE_KEY;
+  }
+
+  function readStoredManualEntries(storageKey) {
     try {
-      const raw = window.localStorage.getItem(MANUAL_STORAGE_KEY);
+      const raw = window.localStorage.getItem(storageKey);
 
       if (!raw) {
-        return [];
+        return {
+          exists: false,
+          entries: []
+        };
       }
 
       const parsed = JSON.parse(raw);
-      return hydrateManualEntriesCollection(parsed);
+      return {
+        exists: true,
+        entries: hydrateManualEntriesCollection(parsed)
+      };
     } catch (error) {
-      console.warn('Failed to load manual search entries.', error);
-      return [];
+      console.warn(`Failed to load manual search entries from ${storageKey}.`, error);
+      return {
+        exists: false,
+        entries: []
+      };
     }
   }
 
-  function serializeManualEntries() {
-    const sortedEntries = [...state.manualEntries].sort((left, right) => {
+  function loadManualEntries(storageKey = getActiveManualStorageKey()) {
+    return readStoredManualEntries(storageKey).entries;
+  }
+
+  function resolveInitialManualEntries() {
+    const legacySnapshot = readStoredManualEntries(LEGACY_MANUAL_STORAGE_KEY);
+    const publishedSnapshot = readStoredManualEntries(MANUAL_PUBLISHED_STORAGE_KEY);
+    const initialPublishedEntries =
+      publishedSnapshot.exists || publishedSnapshot.entries.length > 0
+        ? publishedSnapshot.entries
+        : legacySnapshot.entries;
+
+    if (!publishedSnapshot.exists && initialPublishedEntries.length > 0) {
+      persistManualEntries(MANUAL_PUBLISHED_STORAGE_KEY, initialPublishedEntries);
+    }
+
+    if (!isEditorSite) {
+      return initialPublishedEntries;
+    }
+
+    const draftSnapshot = readStoredManualEntries(MANUAL_DRAFT_STORAGE_KEY);
+
+    if (draftSnapshot.exists) {
+      return draftSnapshot.entries;
+    }
+
+    persistManualEntries(MANUAL_DRAFT_STORAGE_KEY, initialPublishedEntries);
+    return initialPublishedEntries;
+  }
+
+  function serializeEntries(entries) {
+    return entries.map((entry) => ({
+      id: entry.id,
+      floorId: entry.floorId,
+      label: entry.label,
+      aliases: entry.aliases,
+      rects: entry.rects.map((rect) => ({
+        xRatio: Number(rect.xRatio.toFixed(6)),
+        yRatio: Number(rect.yRatio.toFixed(6)),
+        widthRatio: Number(rect.widthRatio.toFixed(6)),
+        heightRatio: Number(rect.heightRatio.toFixed(6))
+      }))
+    }));
+  }
+
+  function cloneManualEntries(entries) {
+    return hydrateManualEntriesCollection({
+      entries: serializeEntries(entries)
+    });
+  }
+
+  function serializeManualEntries(entries = state.manualEntries) {
+    const sortedEntries = [...entries].sort((left, right) => {
       const floorOrder = left.floorOrder - right.floorOrder;
 
       if (floorOrder !== 0) {
@@ -283,26 +350,15 @@ if (window.__FILE_MODE__) {
 
     return {
       version: 1,
-      entries: sortedEntries.map((entry) => ({
-        id: entry.id,
-        floorId: entry.floorId,
-        label: entry.label,
-        aliases: entry.aliases,
-        rects: entry.rects.map((rect) => ({
-          xRatio: Number(rect.xRatio.toFixed(6)),
-          yRatio: Number(rect.yRatio.toFixed(6)),
-          widthRatio: Number(rect.widthRatio.toFixed(6)),
-          heightRatio: Number(rect.heightRatio.toFixed(6))
-        }))
-      }))
+      entries: serializeEntries(sortedEntries)
     };
   }
 
-  function persistManualEntries() {
+  function persistManualEntries(storageKey = getActiveManualStorageKey(), entries = state.manualEntries) {
     try {
-      window.localStorage.setItem(MANUAL_STORAGE_KEY, JSON.stringify(serializeManualEntries()));
+      window.localStorage.setItem(storageKey, JSON.stringify(serializeManualEntries(entries)));
     } catch (error) {
-      console.warn('Failed to persist manual search entries.', error);
+      console.warn(`Failed to persist manual search entries to ${storageKey}.`, error);
     }
   }
 
@@ -1425,11 +1481,6 @@ if (window.__FILE_MODE__) {
       const parsed = JSON.parse(payload);
       const importedEntries = hydrateManualEntriesCollection(parsed);
 
-      if (importedEntries.length === 0) {
-        setEditorFeedback('読み込みできる手入力データが見つかりませんでした');
-        return;
-      }
-
       state.manualEntries = importedEntries;
       state.activeSearchEntryId = null;
       state.activeEditorPinKey = null;
@@ -1439,11 +1490,29 @@ if (window.__FILE_MODE__) {
       renderSearchHighlights();
       refreshEditorUi();
       renderSearchSuggestions();
-      setEditorFeedback(`${importedEntries.length} 件の手入力データを読み込みました`);
+      setEditorFeedback(
+        importedEntries.length > 0
+          ? `${importedEntries.length} 件の下書きデータを読み込みました。「編集を確定」で閲覧用に反映されます`
+          : '空の JSON を読み込みました。「編集を確定」で閲覧用からも削除されます'
+      );
     } catch (error) {
       console.warn('Failed to import manual search entries.', error);
       setEditorFeedback('JSON の読み込みに失敗しました');
     }
+  }
+
+  function publishManualEntries() {
+    if (!isEditorSite) {
+      return;
+    }
+
+    const publishedEntries = cloneManualEntries(state.manualEntries);
+    persistManualEntries(MANUAL_PUBLISHED_STORAGE_KEY, publishedEntries);
+    setEditorFeedback(
+      publishedEntries.length > 0
+        ? `${publishedEntries.length} 件の編集内容を閲覧用サイトに反映しました`
+        : '閲覧用サイトの手入力データを空に反映しました'
+    );
   }
 
   function captureEditorPointAtClient(clientX, clientY) {
@@ -1488,7 +1557,7 @@ if (window.__FILE_MODE__) {
     state.pinchStartCenterY = center.y;
   }
 
-  state.manualEntries = loadManualEntries();
+  state.manualEntries = resolveInitialManualEntries();
   refreshSearchEntries();
   state.searchReady = true;
   state.searchPromise = Promise.resolve(state.searchEntries);
@@ -1624,6 +1693,12 @@ if (window.__FILE_MODE__) {
       const [file] = Array.from(event.target.files ?? []);
       await importManualEntriesJson(file);
       event.target.value = '';
+    });
+  }
+
+  if (editorPublishButton) {
+    editorPublishButton.addEventListener('click', () => {
+      publishManualEntries();
     });
   }
 
@@ -1851,7 +1926,7 @@ if (window.__FILE_MODE__) {
   });
 
   window.addEventListener('storage', (event) => {
-    if (event.key !== MANUAL_STORAGE_KEY) {
+    if (event.key !== getActiveManualStorageKey()) {
       return;
     }
 
