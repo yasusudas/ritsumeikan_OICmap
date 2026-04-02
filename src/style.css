@@ -196,11 +196,20 @@ button {
   font-weight: 700;
 }
 
+.floor-tab-stack {
+  display: grid;
+  gap: 8px;
+}
+
 .floor-tabs {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 8px;
   min-width: 0;
+}
+
+.floor-tabs-secondary {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .floor-tab {
@@ -216,6 +225,10 @@ button {
     background-color 140ms ease,
     color 140ms ease,
     box-shadow 140ms ease;
+}
+
+.floor-tab-wide {
+  letter-spacing: 0.02em;
 }
 
 .floor-tab.is-active {
@@ -774,6 +787,12 @@ body[data-app-mode="editor"] .map-card {
     scroll-snap-align: start;
   }
 
+  .floor-tab-wide {
+    flex-basis: 140px;
+    min-width: 140px;
+    font-size: 0.88rem;
+  }
+
   .map-stage {
     padding-inline: 0;
   }
@@ -844,6 +863,12 @@ body[data-app-mode="editor"] .map-card {
     padding-block: 10px;
   }
 
+  .floor-tab-wide {
+    flex-basis: 132px;
+    min-width: 132px;
+    font-size: 0.82rem;
+  }
+
   .status-pill {
     max-width: calc(100% - 84px);
   }
@@ -900,6 +925,12 @@ body[data-app-mode="editor"] .map-card {
     flex: 0 0 72px;
     min-width: 72px;
     padding: 9px 8px;
+  }
+
+  .floor-tab-wide {
+    flex-basis: 136px;
+    min-width: 136px;
+    font-size: 0.84rem;
   }
 
   .status-pill {

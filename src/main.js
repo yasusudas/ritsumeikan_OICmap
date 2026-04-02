@@ -37,6 +37,16 @@ if (window.__FILE_MODE__) {
       label: '5F',
       svgUrl: new URL('../フロア/5F.svg', import.meta.url).href,
       searchUrl: new URL('../pdf/5F.pdf', import.meta.url).href
+    },
+    {
+      id: 'A-6-9F',
+      label: 'A棟6,7,8,9F',
+      svgUrl: new URL('../フロア/6F7F8F9F_BldgA.svg', import.meta.url).href
+    },
+    {
+      id: 'H-6-9F',
+      label: 'H棟6,7,8,9F',
+      svgUrl: new URL('../フロア/6F7F8F9F_BldgH.svg', import.meta.url).href
     }
   ];
   const PDF_SUPPORT_ASSET_BASE = import.meta.env.BASE_URL;
@@ -843,7 +853,7 @@ if (window.__FILE_MODE__) {
       } else if (state.searchEntries.length === 0) {
         setSearchFeedback('手入力データはまだありません');
       } else {
-        setSearchFeedback('1F〜5F を横断検索できます');
+        setSearchFeedback('登録済みの全フロアを横断検索できます');
       }
       return;
     }

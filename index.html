@@ -50,17 +50,23 @@
             </button>
           </div>
           <div id="search-feedback" class="search-feedback" aria-live="polite">
-            1F〜5F を横断検索できます
+            登録済みの全フロアを横断検索できます
           </div>
           <div id="search-results" class="search-results" role="listbox" hidden></div>
         </div>
-        <nav class="floor-tabs" aria-label="フロア切替">
-          <button class="floor-tab" data-floor="1F" type="button">1F</button>
-          <button class="floor-tab" data-floor="2F" type="button">2F</button>
-          <button class="floor-tab" data-floor="3F" type="button">3F</button>
-          <button class="floor-tab" data-floor="4F" type="button">4F</button>
-          <button class="floor-tab" data-floor="5F" type="button">5F</button>
-        </nav>
+        <div class="floor-tab-stack">
+          <nav class="floor-tabs floor-tabs-primary" aria-label="フロア切替">
+            <button class="floor-tab" data-floor="1F" type="button">1F</button>
+            <button class="floor-tab" data-floor="2F" type="button">2F</button>
+            <button class="floor-tab" data-floor="3F" type="button">3F</button>
+            <button class="floor-tab" data-floor="4F" type="button">4F</button>
+            <button class="floor-tab" data-floor="5F" type="button">5F</button>
+          </nav>
+          <nav class="floor-tabs floor-tabs-secondary" aria-label="棟別フロア切替">
+            <button class="floor-tab floor-tab-wide" data-floor="A-6-9F" type="button">A棟6,7,8,9F</button>
+            <button class="floor-tab floor-tab-wide" data-floor="H-6-9F" type="button">H棟6,7,8,9F</button>
+          </nav>
+        </div>
       </header>
 
       <main class="map-stage">
