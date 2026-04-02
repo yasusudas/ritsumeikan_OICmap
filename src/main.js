@@ -47,6 +47,8 @@ if (window.__FILE_MODE__) {
   const SEARCH_RESULT_LIMIT = 18;
   const SEARCH_FOCUS_ZOOM = 3.6;
   const ROOM_CODE_PATTERN = /[A-Z]{1,3}\s*-?\s*\d{2,4}[A-Z]?/g;
+  const SEARCHABLE_CHAR_PATTERN = /[\p{L}\p{N}]/u;
+  const LETTER_PATTERN = /\p{L}/u;
   const roomCodeCollator = new Intl.Collator('ja', { numeric: true, sensitivity: 'base' });
   const svgCache = new Map();
 
@@ -116,7 +118,7 @@ if (window.__FILE_MODE__) {
   }
 
   function normalizeSearchValue(value) {
-    return value.normalize('NFKC').toUpperCase().replace(/[^A-Z0-9]/g, '');
+    return value.normalize('NFKC').toUpperCase().replace(/[^\p{L}\p{N}]+/gu, '');
   }
 
   function normalizeMatchSource(value) {
@@ -514,6 +516,196 @@ if (window.__FILE_MODE__) {
     };
   }
 
+  function createItemGeometry(item, viewport) {
+    const transformed = pdfjsLib.Util.transform(viewport.transform, item.transform);
+    const fontHeight = Math.max(
+      Math.abs(Math.hypot(transformed[2], transformed[3])),
+      Math.abs(item.height || 0),
+      8
+    );
+    const source = typeof item.str === 'string' ? item.str : '';
+    const sourceLength = Math.max(source.length, 1);
+    const totalWidth = Math.max(
+      Math.abs((item.width || 0) * viewport.scale),
+      fontHeight * sourceLength * 0.52
+    );
+    const x = clamp(transformed[4], 0, viewport.width);
+    const y = clamp(transformed[5] - fontHeight, 0, viewport.height);
+    const width = clamp(totalWidth, 8, viewport.width - x);
+    const height = clamp(fontHeight * 1.14, 8, viewport.height - y);
+
+    return {
+      x,
+      y,
+      width,
+      height,
+      centerX: x + width / 2,
+      centerY: y + height / 2
+    };
+  }
+
+  function geometryToRatioRect(geometry, viewport) {
+    return {
+      xRatio: geometry.x / viewport.width,
+      yRatio: geometry.y / viewport.height,
+      widthRatio: geometry.width / viewport.width,
+      heightRatio: geometry.height / viewport.height
+    };
+  }
+
+  function mergeRatioRects(rects) {
+    const left = Math.min(...rects.map((rect) => rect.xRatio));
+    const top = Math.min(...rects.map((rect) => rect.yRatio));
+    const right = Math.max(...rects.map((rect) => rect.xRatio + rect.widthRatio));
+    const bottom = Math.max(...rects.map((rect) => rect.yRatio + rect.heightRatio));
+
+    return {
+      xRatio: left,
+      yRatio: top,
+      widthRatio: right - left,
+      heightRatio: bottom - top
+    };
+  }
+
+  function hasRoomCodeShape(normalized) {
+    return /^[A-Z]{1,3}\d{2,4}[A-Z]?$/u.test(normalized);
+  }
+
+  function isSearchableLabel(rawLabel, normalizedLabel) {
+    const trimmedRaw = rawLabel.trim();
+
+    if (!trimmedRaw || normalizedLabel.length < 2) {
+      return false;
+    }
+
+    if (!SEARCHABLE_CHAR_PATTERN.test(normalizedLabel)) {
+      return false;
+    }
+
+    if (/^\p{N}+$/u.test(normalizedLabel)) {
+      return false;
+    }
+
+    if (hasRoomCodeShape(normalizedLabel)) {
+      return true;
+    }
+
+    return LETTER_PATTERN.test(normalizedLabel);
+  }
+
+  function joinSearchLabels(parts) {
+    return parts.reduce((joined, part, index) => {
+      if (index === 0) {
+        return part;
+      }
+
+      const previous = joined.at(-1) ?? '';
+      const next = part[0] ?? '';
+      const needsSpace =
+        /[A-Z0-9]$/u.test(previous) &&
+        /^[A-Z0-9]/u.test(next) &&
+        !joined.endsWith(' ') &&
+        !part.startsWith(' ');
+
+      return `${joined}${needsSpace ? ' ' : ''}${part}`;
+    }, '');
+  }
+
+  function canMergeSearchParts(previousPart, nextPart) {
+    const horizontalGap = nextPart.geometry.x - (previousPart.geometry.x + previousPart.geometry.width);
+    const verticalGap = nextPart.geometry.y - (previousPart.geometry.y + previousPart.geometry.height);
+    const sameLine =
+      Math.abs(previousPart.geometry.centerY - nextPart.geometry.centerY) <=
+      Math.max(previousPart.geometry.height, nextPart.geometry.height) * 0.8;
+    const sameColumn =
+      Math.abs(previousPart.geometry.centerX - nextPart.geometry.centerX) <=
+      Math.max(previousPart.geometry.width, nextPart.geometry.width, 28);
+
+    if (sameLine && horizontalGap >= -12 && horizontalGap <= 84) {
+      return true;
+    }
+
+    if (sameColumn && Math.abs(verticalGap) <= Math.max(previousPart.geometry.height, nextPart.geometry.height) * 1.5) {
+      return true;
+    }
+
+    const pointDistance = Math.hypot(
+      previousPart.geometry.centerX - nextPart.geometry.centerX,
+      previousPart.geometry.centerY - nextPart.geometry.centerY
+    );
+
+    return pointDistance <= Math.max(previousPart.geometry.height, nextPart.geometry.height) * 3.2;
+  }
+
+  function collectSearchCandidates(textContent, viewport) {
+    const candidates = [];
+    const searchableParts = [];
+
+    textContent.items.forEach((item) => {
+      if (!('str' in item)) {
+        return;
+      }
+
+      const rawLabel = item.str.trim();
+      const normalizedLabel = normalizeSearchValue(rawLabel);
+
+      if (!isSearchableLabel(rawLabel, normalizedLabel)) {
+        return;
+      }
+
+      const geometry = createItemGeometry(item, viewport);
+      const rect = geometryToRatioRect(geometry, viewport);
+      const part = {
+        rawLabel,
+        normalizedLabel,
+        rect,
+        geometry
+      };
+
+      searchableParts.push(part);
+      if (!hasRoomCodeShape(normalizedLabel)) {
+        candidates.push({
+          label: rawLabel,
+          normalized: normalizedLabel,
+          rect
+        });
+      }
+    });
+
+    for (let startIndex = 0; startIndex < searchableParts.length; startIndex += 1) {
+      const parts = [searchableParts[startIndex]];
+
+      for (
+        let nextIndex = startIndex + 1;
+        nextIndex < Math.min(searchableParts.length, startIndex + 4);
+        nextIndex += 1
+      ) {
+        const nextPart = searchableParts[nextIndex];
+
+        if (!canMergeSearchParts(parts.at(-1), nextPart)) {
+          break;
+        }
+
+        parts.push(nextPart);
+
+        const label = joinSearchLabels(parts.map((part) => part.rawLabel));
+        const normalized = normalizeSearchValue(label);
+
+        if (!isSearchableLabel(label, normalized)) {
+          continue;
+        }
+
+        candidates.push({
+          label,
+          normalized,
+          rect: mergeRatioRects(parts.map((part) => part.rect))
+        });
+      }
+    }
+
+    return candidates;
+  }
+
   async function buildSearchIndex() {
     if (state.searchPromise) {
       return state.searchPromise;
@@ -573,6 +765,24 @@ if (window.__FILE_MODE__) {
 
                 floorEntryMap.get(id).rects.push(rect);
               }
+            });
+
+            collectSearchCandidates(textContent, viewport).forEach((candidate) => {
+              const id = `${floor.id}-${candidate.normalized}`;
+
+              if (!floorEntryMap.has(id)) {
+                floorEntryMap.set(id, {
+                  id,
+                  label: candidate.label,
+                  normalized: candidate.normalized,
+                  floorId: floor.id,
+                  floorLabel: floor.label,
+                  floorOrder: getFloorOrder(floor.id),
+                  rects: []
+                });
+              }
+
+              floorEntryMap.get(id).rects.push(candidate.rect);
             });
 
             page.cleanup();
