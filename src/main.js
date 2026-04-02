@@ -46,6 +46,8 @@ if (window.__FILE_MODE__) {
   const MAP_PADDING = 32;
   const SEARCH_RESULT_LIMIT = 18;
   const SEARCH_FOCUS_ZOOM = 3.6;
+  const MANUAL_STORAGE_KEY = 'campus-map-manual-entries-v1';
+  const MANUAL_EXPORT_FILENAME = 'manual-search-index.json';
   const ROOM_CODE_PATTERN = /[A-Z]{1,3}\s*-?\s*\d{2,4}[A-Z]?/g;
   const SEARCHABLE_CHAR_PATTERN = /[\p{L}\p{N}]/u;
   const LETTER_PATTERN = /\p{L}/u;
@@ -63,6 +65,21 @@ if (window.__FILE_MODE__) {
   const searchClearButton = document.querySelector('#search-clear');
   const searchFeedback = document.querySelector('#search-feedback');
   const searchResults = document.querySelector('#search-results');
+  const editorToggleButton = document.querySelector('#editor-toggle');
+  const editorPanel = document.querySelector('#editor-panel');
+  const editorFloor = document.querySelector('#editor-floor');
+  const editorCoords = document.querySelector('#editor-coords');
+  const editorLabelInput = document.querySelector('#editor-label');
+  const editorAliasesInput = document.querySelector('#editor-aliases');
+  const editorWidthInput = document.querySelector('#editor-width');
+  const editorHeightInput = document.querySelector('#editor-height');
+  const editorSaveButton = document.querySelector('#editor-save');
+  const editorClearPointButton = document.querySelector('#editor-clear-point');
+  const editorCopyButton = document.querySelector('#editor-copy');
+  const editorExportButton = document.querySelector('#editor-export');
+  const editorFeedback = document.querySelector('#editor-feedback');
+  const editorList = document.querySelector('#editor-list');
+  const editorJson = document.querySelector('#editor-json');
 
   const state = {
     floorIndex: 0,
@@ -89,13 +106,19 @@ if (window.__FILE_MODE__) {
     pinchStartCenterY: 0,
     floorLoadToken: 0,
     highlightLayer: null,
+    editorLayer: null,
     searchReady: false,
     searchLoading: false,
     searchPromise: null,
+    baseSearchEntries: [],
     searchEntries: [],
     searchSuggestions: [],
     activeSuggestionIndex: -1,
-    activeSearchEntryId: null
+    activeSearchEntryId: null,
+    manualEntries: [],
+    editMode: false,
+    pendingEditorPoint: null,
+    dragMoved: false
   };
 
   function setStatus(message) {
@@ -133,6 +156,14 @@ if (window.__FILE_MODE__) {
     return FLOOR_FILES.findIndex((floor) => floor.id === floorId);
   }
 
+  function setEditorFeedback(message) {
+    editorFeedback.textContent = message;
+  }
+
+  function getCurrentFloorLabel() {
+    return getFloorDefinition().label;
+  }
+
   function getDocumentOptions(url) {
     return {
       url,
@@ -140,6 +171,148 @@ if (window.__FILE_MODE__) {
       cMapPacked: true,
       standardFontDataUrl: STANDARD_FONT_DATA_URL
     };
+  }
+
+  function createManualEntryId(floorId) {
+    return `manual-${floorId}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+  }
+
+  function sanitizeAliases(value) {
+    if (Array.isArray(value)) {
+      return value.map((item) => String(item).trim()).filter(Boolean);
+    }
+
+    return String(value)
+      .split(/[,\n]/)
+      .map((item) => item.trim())
+      .filter(Boolean);
+  }
+
+  function normalizeRect(rect) {
+    const widthRatio = clamp(Number(rect?.widthRatio) || 0, 0.001, 1);
+    const heightRatio = clamp(Number(rect?.heightRatio) || 0, 0.001, 1);
+    const xRatio = clamp(Number(rect?.xRatio) || 0, 0, 1 - widthRatio);
+    const yRatio = clamp(Number(rect?.yRatio) || 0, 0, 1 - heightRatio);
+
+    return {
+      xRatio,
+      yRatio,
+      widthRatio,
+      heightRatio
+    };
+  }
+
+  function createEntrySearchTerms(label, aliases = []) {
+    return [...new Set([label, ...aliases].map((value) => normalizeSearchValue(value)).filter(Boolean))];
+  }
+
+  function hydrateManualEntry(entry, fallbackFloorId = getCurrentFloorLabel()) {
+    const floorId =
+      FLOOR_FILES.find((floor) => floor.id === entry?.floorId)?.id ??
+      FLOOR_FILES.find((floor) => floor.label === fallbackFloorId)?.id ??
+      getFloorDefinition().id;
+    const label = String(entry?.label ?? '').trim();
+    const rects = Array.isArray(entry?.rects) ? entry.rects.map((rect) => normalizeRect(rect)) : [];
+
+    if (!label || rects.length === 0) {
+      return null;
+    }
+
+    const aliases = sanitizeAliases(entry?.aliases ?? []);
+    const floorLabel = FLOOR_FILES.find((floor) => floor.id === floorId)?.label ?? floorId;
+
+    return {
+      id: String(entry?.id ?? createManualEntryId(floorId)),
+      label,
+      normalized: normalizeSearchValue(label),
+      searchTerms: createEntrySearchTerms(label, aliases),
+      aliases,
+      floorId,
+      floorLabel,
+      floorOrder: getFloorOrder(floorId),
+      rects,
+      source: 'manual'
+    };
+  }
+
+  function loadManualEntries() {
+    try {
+      const raw = window.localStorage.getItem(MANUAL_STORAGE_KEY);
+
+      if (!raw) {
+        return [];
+      }
+
+      const parsed = JSON.parse(raw);
+      const sourceEntries = Array.isArray(parsed) ? parsed : parsed?.entries;
+
+      if (!Array.isArray(sourceEntries)) {
+        return [];
+      }
+
+      return sourceEntries
+        .map((entry) => hydrateManualEntry(entry))
+        .filter((entry) => entry !== null);
+    } catch (error) {
+      console.warn('Failed to load manual search entries.', error);
+      return [];
+    }
+  }
+
+  function serializeManualEntries() {
+    const sortedEntries = [...state.manualEntries].sort((left, right) => {
+      const floorOrder = left.floorOrder - right.floorOrder;
+
+      if (floorOrder !== 0) {
+        return floorOrder;
+      }
+
+      return roomCodeCollator.compare(left.label, right.label);
+    });
+
+    return {
+      version: 1,
+      entries: sortedEntries.map((entry) => ({
+        id: entry.id,
+        floorId: entry.floorId,
+        label: entry.label,
+        aliases: entry.aliases,
+        rects: entry.rects.map((rect) => ({
+          xRatio: Number(rect.xRatio.toFixed(6)),
+          yRatio: Number(rect.yRatio.toFixed(6)),
+          widthRatio: Number(rect.widthRatio.toFixed(6)),
+          heightRatio: Number(rect.heightRatio.toFixed(6))
+        }))
+      }))
+    };
+  }
+
+  function persistManualEntries() {
+    try {
+      window.localStorage.setItem(MANUAL_STORAGE_KEY, JSON.stringify(serializeManualEntries()));
+    } catch (error) {
+      console.warn('Failed to persist manual search entries.', error);
+    }
+  }
+
+  function getEntrySearchTerms(entry) {
+    return entry.searchTerms?.length ? entry.searchTerms : [entry.normalized];
+  }
+
+  function refreshSearchEntries() {
+    const combinedEntries = [...state.baseSearchEntries, ...state.manualEntries];
+
+    combinedEntries.sort((left, right) => {
+      const labelOrder = roomCodeCollator.compare(left.label, right.label);
+
+      if (labelOrder !== 0) {
+        return labelOrder;
+      }
+
+      return left.floorOrder - right.floorOrder;
+    });
+
+    state.searchEntries = combinedEntries;
   }
 
   function parseSvgLength(value) {
@@ -332,6 +505,168 @@ if (window.__FILE_MODE__) {
     state.highlightLayer.append(fragment);
   }
 
+  function getEditorSizeRatios() {
+    const widthRatio = clamp((Number(editorWidthInput.value) || 5) / 100, 0.005, 0.4);
+    const heightRatio = clamp((Number(editorHeightInput.value) || 3) / 100, 0.005, 0.3);
+
+    return { widthRatio, heightRatio };
+  }
+
+  function getPendingEditorRect() {
+    if (!state.pendingEditorPoint) {
+      return null;
+    }
+
+    const { widthRatio, heightRatio } = getEditorSizeRatios();
+
+    return {
+      xRatio: clamp(state.pendingEditorPoint.xRatio - widthRatio / 2, 0, 1 - widthRatio),
+      yRatio: clamp(state.pendingEditorPoint.yRatio - heightRatio / 2, 0, 1 - heightRatio),
+      widthRatio,
+      heightRatio
+    };
+  }
+
+  function updateEditorCoords() {
+    if (!state.pendingEditorPoint) {
+      editorCoords.textContent = '位置未指定';
+      return;
+    }
+
+    editorCoords.textContent = `x ${state.pendingEditorPoint.xRatio.toFixed(4)} / y ${state.pendingEditorPoint.yRatio.toFixed(4)}`;
+  }
+
+  function updateEditorJsonOutput() {
+    editorJson.value = JSON.stringify(serializeManualEntries(), null, 2);
+  }
+
+  function renderEditorList() {
+    const currentFloorId = getFloorDefinition().id;
+    const currentFloorEntries = state.manualEntries.filter((entry) => entry.floorId === currentFloorId);
+
+    if (currentFloorEntries.length === 0) {
+      const empty = document.createElement('div');
+      empty.className = 'editor-empty';
+      empty.textContent = `${getCurrentFloorLabel()} の手入力データはまだありません`;
+      editorList.replaceChildren(empty);
+      return;
+    }
+
+    const fragment = document.createDocumentFragment();
+
+    currentFloorEntries.forEach((entry) => {
+      const row = document.createElement('div');
+      row.className = 'editor-entry';
+
+      const body = document.createElement('div');
+      body.className = 'editor-entry-body';
+
+      const label = document.createElement('div');
+      label.className = 'editor-entry-label';
+      label.textContent = entry.label;
+
+      const meta = document.createElement('div');
+      meta.className = 'editor-entry-meta';
+      meta.textContent = `${entry.rects.length} rect${entry.rects.length > 1 ? 's' : ''}${
+        entry.aliases.length ? ` / 別名: ${entry.aliases.join(', ')}` : ''
+      }`;
+
+      body.append(label, meta);
+
+      const actions = document.createElement('div');
+      actions.className = 'editor-entry-actions';
+
+      const focusButton = document.createElement('button');
+      focusButton.type = 'button';
+      focusButton.className = 'editor-entry-button';
+      focusButton.dataset.action = 'focus';
+      focusButton.dataset.entryId = entry.id;
+      focusButton.textContent = '移動';
+
+      const deleteButton = document.createElement('button');
+      deleteButton.type = 'button';
+      deleteButton.className = 'editor-entry-button';
+      deleteButton.dataset.action = 'delete';
+      deleteButton.dataset.entryId = entry.id;
+      deleteButton.textContent = '削除';
+
+      actions.append(focusButton, deleteButton);
+      row.append(body, actions);
+      fragment.append(row);
+    });
+
+    editorList.replaceChildren(fragment);
+  }
+
+  function renderEditorOverlay() {
+    if (!state.editorLayer) {
+      return;
+    }
+
+    state.editorLayer.replaceChildren();
+
+    if (!state.editMode) {
+      return;
+    }
+
+    const currentFloorId = getFloorDefinition().id;
+    const fragment = document.createDocumentFragment();
+    const floorEntries = state.manualEntries.filter((entry) => entry.floorId === currentFloorId);
+
+    floorEntries.forEach((entry) => {
+      entry.rects.forEach((rect, rectIndex) => {
+        const node = document.createElement('div');
+        node.className = 'editor-saved-rect';
+        node.style.left = `${rect.xRatio * 100}%`;
+        node.style.top = `${rect.yRatio * 100}%`;
+        node.style.width = `${rect.widthRatio * 100}%`;
+        node.style.height = `${rect.heightRatio * 100}%`;
+
+        if (rectIndex === 0) {
+          const tag = document.createElement('div');
+          tag.className = 'editor-overlay-label';
+          tag.textContent = entry.label;
+          node.append(tag);
+        }
+
+        fragment.append(node);
+      });
+    });
+
+    const pendingRect = getPendingEditorRect();
+
+    if (pendingRect) {
+      const pending = document.createElement('div');
+      pending.className = 'editor-pending-rect';
+      pending.style.left = `${pendingRect.xRatio * 100}%`;
+      pending.style.top = `${pendingRect.yRatio * 100}%`;
+      pending.style.width = `${pendingRect.widthRatio * 100}%`;
+      pending.style.height = `${pendingRect.heightRatio * 100}%`;
+
+      const label = document.createElement('div');
+      label.className = 'editor-overlay-label';
+      label.textContent = editorLabelInput.value.trim() || '保存前プレビュー';
+      pending.append(label);
+
+      const dot = document.createElement('div');
+      dot.className = 'editor-pending-dot';
+      dot.style.left = `${state.pendingEditorPoint.xRatio * 100}%`;
+      dot.style.top = `${state.pendingEditorPoint.yRatio * 100}%`;
+
+      fragment.append(pending, dot);
+    }
+
+    state.editorLayer.append(fragment);
+  }
+
+  function refreshEditorUi() {
+    editorFloor.textContent = getCurrentFloorLabel();
+    updateEditorCoords();
+    updateEditorJsonOutput();
+    renderEditorList();
+    renderEditorOverlay();
+  }
+
   function focusSearchEntry(entry, targetZoom = SEARCH_FOCUS_ZOOM) {
     if (!entry || entry.floorId !== getFloorDefinition().id || entry.rects.length === 0) {
       return;
@@ -368,7 +703,7 @@ if (window.__FILE_MODE__) {
       return;
     }
 
-    if (state.searchLoading && !state.searchReady) {
+    if (state.searchLoading && !state.searchReady && state.searchEntries.length === 0) {
       const loading = document.createElement('div');
       loading.className = 'search-result-empty';
       loading.textContent = '教室データを読み込み中...';
@@ -399,17 +734,19 @@ if (window.__FILE_MODE__) {
     const partialMatches = [];
 
     state.searchEntries.forEach((entry) => {
-      if (entry.normalized === normalizedQuery) {
+      const searchTerms = getEntrySearchTerms(entry);
+
+      if (searchTerms.some((term) => term === normalizedQuery)) {
         exactMatches.push(entry);
         return;
       }
 
-      if (entry.normalized.startsWith(normalizedQuery)) {
+      if (searchTerms.some((term) => term.startsWith(normalizedQuery))) {
         prefixMatches.push(entry);
         return;
       }
 
-      if (entry.normalized.includes(normalizedQuery)) {
+      if (searchTerms.some((term) => term.includes(normalizedQuery))) {
         partialMatches.push(entry);
       }
     });
@@ -804,9 +1141,10 @@ if (window.__FILE_MODE__) {
         return left.floorOrder - right.floorOrder;
       });
 
-      state.searchEntries = searchEntries;
+      state.baseSearchEntries = searchEntries;
+      refreshSearchEntries();
       state.searchReady = true;
-      return searchEntries;
+      return state.searchEntries;
     })();
 
     try {
@@ -854,11 +1192,14 @@ if (window.__FILE_MODE__) {
       const svgNode = createSvgNode(asset.text);
       const highlightLayer = document.createElement('div');
       highlightLayer.className = 'highlight-layer';
+      const editorLayer = document.createElement('div');
+      editorLayer.className = 'editor-layer';
 
-      mapAsset.append(svgNode, highlightLayer);
+      mapAsset.append(svgNode, highlightLayer, editorLayer);
       canvasLayer.replaceChildren(mapAsset);
 
       state.highlightLayer = highlightLayer;
+      state.editorLayer = editorLayer;
       state.intrinsicWidth = asset.width;
       state.intrinsicHeight = asset.height;
 
@@ -876,10 +1217,13 @@ if (window.__FILE_MODE__) {
       }
 
       renderSearchHighlights();
+      renderEditorOverlay();
+      renderEditorList();
     } catch (error) {
       console.error(error);
       canvasLayer.replaceChildren();
       state.highlightLayer = null;
+      state.editorLayer = null;
       setStatus('地図の読み込みに失敗しました');
     }
   }
@@ -894,6 +1238,7 @@ if (window.__FILE_MODE__) {
     state.floorIndex = nextIndex;
     updateTabSelection();
     await renderFloor({ resetZoom, preserveView: !resetZoom });
+    refreshEditorUi();
   }
 
   function getTouchDistance(touches) {
@@ -910,8 +1255,155 @@ if (window.__FILE_MODE__) {
     };
   }
 
+  function getMapPointFromClient(clientX, clientY) {
+    if (!state.baseWidth || !state.baseHeight) {
+      return null;
+    }
+
+    const rect = viewer.getBoundingClientRect();
+    const mapX = (clientX - rect.left - state.x) / state.zoom;
+    const mapY = (clientY - rect.top - state.y) / state.zoom;
+    const xRatio = mapX / state.baseWidth;
+    const yRatio = mapY / state.baseHeight;
+
+    if (xRatio < 0 || xRatio > 1 || yRatio < 0 || yRatio > 1) {
+      return null;
+    }
+
+    return {
+      xRatio: clamp(xRatio, 0, 1),
+      yRatio: clamp(yRatio, 0, 1)
+    };
+  }
+
+  function setEditMode(nextValue) {
+    state.editMode = nextValue;
+    editorPanel.hidden = !nextValue;
+    editorToggleButton.classList.toggle('is-active', nextValue);
+    editorToggleButton.setAttribute('aria-pressed', String(nextValue));
+    viewer.classList.toggle('is-editing', nextValue);
+
+    if (nextValue) {
+      setEditorFeedback('クリックした位置を中心にプレビューを作成します');
+    } else {
+      setEditorFeedback('編集モードをオンにして、地図上の文字位置をクリックしてください');
+      state.pendingEditorPoint = null;
+    }
+
+    refreshEditorUi();
+  }
+
+  function removeManualEntry(entryId) {
+    state.manualEntries = state.manualEntries.filter((entry) => entry.id !== entryId);
+    if (state.activeSearchEntryId === entryId) {
+      state.activeSearchEntryId = null;
+      renderSearchHighlights();
+    }
+    persistManualEntries();
+    refreshSearchEntries();
+    refreshEditorUi();
+    renderSearchSuggestions();
+  }
+
+  async function focusManualEntry(entryId) {
+    const entry = state.manualEntries.find((candidate) => candidate.id === entryId);
+
+    if (!entry) {
+      return;
+    }
+
+    await selectSearchEntry(entry);
+  }
+
+  function saveManualEntry() {
+    const label = editorLabelInput.value.trim();
+
+    if (!label) {
+      setEditorFeedback('表示名を入力してください');
+      editorLabelInput.focus();
+      return;
+    }
+
+    const rect = getPendingEditorRect();
+
+    if (!rect) {
+      setEditorFeedback('先に地図上をクリックして位置を指定してください');
+      return;
+    }
+
+    const floor = getFloorDefinition();
+    const aliases = sanitizeAliases(editorAliasesInput.value);
+    const entry = hydrateManualEntry({
+      id: createManualEntryId(floor.id),
+      floorId: floor.id,
+      label,
+      aliases,
+      rects: [rect]
+    });
+
+    if (!entry) {
+      setEditorFeedback('入力値から検索データを作成できませんでした');
+      return;
+    }
+
+    state.manualEntries.push(entry);
+    persistManualEntries();
+    refreshSearchEntries();
+    state.pendingEditorPoint = null;
+    editorLabelInput.value = '';
+    editorAliasesInput.value = '';
+    setEditorFeedback(`${entry.label} を ${floor.label} に記録しました`);
+    refreshEditorUi();
+    renderSearchSuggestions();
+  }
+
+  async function copyManualEntriesJson() {
+    const payload = JSON.stringify(serializeManualEntries(), null, 2);
+
+    try {
+      await navigator.clipboard.writeText(payload);
+      setEditorFeedback('JSON をクリップボードにコピーしました');
+    } catch (error) {
+      editorJson.focus();
+      editorJson.select();
+      setEditorFeedback('自動コピーに失敗したため、JSON を選択した状態にしました');
+    }
+  }
+
+  function exportManualEntriesJson() {
+    const payload = JSON.stringify(serializeManualEntries(), null, 2);
+    const blob = new Blob([payload], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = MANUAL_EXPORT_FILENAME;
+    document.body.append(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+    setEditorFeedback(`${MANUAL_EXPORT_FILENAME} を保存しました`);
+  }
+
+  function captureEditorPointAtClient(clientX, clientY) {
+    if (!state.editMode || state.dragMoved || state.isPinching) {
+      return;
+    }
+
+    const point = getMapPointFromClient(clientX, clientY);
+
+    if (!point) {
+      setEditorFeedback('地図の外側は記録できません');
+      return;
+    }
+
+    state.pendingEditorPoint = point;
+    setEditorFeedback('位置を取得しました。表示名を入れて「この位置を記録」を押してください');
+    refreshEditorUi();
+  }
+
   function startDrag(clientX, clientY) {
     state.isDragging = true;
+    state.dragMoved = false;
     state.dragStartX = clientX;
     state.dragStartY = clientY;
     state.startX = state.x;
@@ -932,6 +1424,10 @@ if (window.__FILE_MODE__) {
     state.pinchStartCenterX = center.x;
     state.pinchStartCenterY = center.y;
   }
+
+  state.manualEntries = loadManualEntries();
+  refreshSearchEntries();
+  refreshEditorUi();
 
   tabButtons.forEach((button) => {
     button.addEventListener('click', () => {
@@ -955,16 +1451,22 @@ if (window.__FILE_MODE__) {
   });
 
   searchInput.addEventListener('focus', () => {
-    void buildSearchIndex();
+    if (!state.searchPromise) {
+      void buildSearchIndex();
+    }
+
     renderSearchSuggestions();
   });
 
   searchInput.addEventListener('input', () => {
-    if (!state.searchReady) {
+    if (!state.searchPromise) {
       void buildSearchIndex();
     }
 
-    if (normalizeSearchValue(searchInput.value) !== getActiveSearchEntry()?.normalized) {
+    const activeEntry = getActiveSearchEntry();
+    const normalizedValue = normalizeSearchValue(searchInput.value);
+
+    if (activeEntry && !getEntrySearchTerms(activeEntry).includes(normalizedValue)) {
       state.activeSearchEntryId = null;
       renderSearchHighlights();
     }
@@ -1005,7 +1507,7 @@ if (window.__FILE_MODE__) {
       event.preventDefault();
       const selectedSuggestion =
         state.searchSuggestions[state.activeSuggestionIndex] ??
-        state.searchEntries.find((entry) => entry.normalized === normalizeSearchValue(searchInput.value));
+        state.searchEntries.find((entry) => getEntrySearchTerms(entry).includes(normalizeSearchValue(searchInput.value)));
 
       if (selectedSuggestion) {
         void selectSearchEntry(selectedSuggestion);
@@ -1025,6 +1527,55 @@ if (window.__FILE_MODE__) {
     if (entry) {
       void selectSearchEntry(entry);
     }
+  });
+
+  editorToggleButton.addEventListener('click', () => {
+    setEditMode(!state.editMode);
+  });
+
+  editorSaveButton.addEventListener('click', () => {
+    saveManualEntry();
+  });
+
+  editorClearPointButton.addEventListener('click', () => {
+    state.pendingEditorPoint = null;
+    setEditorFeedback('仮位置をクリアしました');
+    refreshEditorUi();
+  });
+
+  editorCopyButton.addEventListener('click', () => {
+    void copyManualEntriesJson();
+  });
+
+  editorExportButton.addEventListener('click', () => {
+    exportManualEntriesJson();
+  });
+
+  editorList.addEventListener('click', (event) => {
+    const button = event.target.closest('.editor-entry-button');
+
+    if (!button) {
+      return;
+    }
+
+    const { action, entryId } = button.dataset;
+
+    if (action === 'delete' && entryId) {
+      removeManualEntry(entryId);
+      return;
+    }
+
+    if (action === 'focus' && entryId) {
+      void focusManualEntry(entryId);
+    }
+  });
+
+  [editorWidthInput, editorHeightInput].forEach((input) => {
+    input.addEventListener('input', () => {
+      renderEditorOverlay();
+      updateEditorCoords();
+      updateEditorJsonOutput();
+    });
   });
 
   document.addEventListener('pointerdown', (event) => {
@@ -1053,9 +1604,21 @@ if (window.__FILE_MODE__) {
     startDrag(event.clientX, event.clientY);
   });
 
+  viewer.addEventListener('mouseup', (event) => {
+    captureEditorPointAtClient(event.clientX, event.clientY);
+    endDrag();
+  });
+
   window.addEventListener('mousemove', (event) => {
     if (!state.isDragging) {
       return;
+    }
+
+    if (
+      Math.abs(event.clientX - state.dragStartX) > 4 ||
+      Math.abs(event.clientY - state.dragStartY) > 4
+    ) {
+      state.dragMoved = true;
     }
 
     state.x = state.startX + (event.clientX - state.dragStartX);
@@ -1090,6 +1653,12 @@ if (window.__FILE_MODE__) {
 
       if (event.touches.length === 1 && state.isDragging && !state.isPinching) {
         const touch = event.touches[0];
+        if (
+          Math.abs(touch.clientX - state.dragStartX) > 4 ||
+          Math.abs(touch.clientY - state.dragStartY) > 4
+        ) {
+          state.dragMoved = true;
+        }
         state.x = state.startX + (touch.clientX - state.dragStartX);
         state.y = state.startY + (touch.clientY - state.dragStartY);
         updateView();
@@ -1120,6 +1689,11 @@ if (window.__FILE_MODE__) {
   );
 
   viewer.addEventListener('touchend', (event) => {
+    if (!state.isPinching && !state.dragMoved && event.changedTouches.length === 1 && event.touches.length === 0) {
+      const touch = event.changedTouches[0];
+      captureEditorPointAtClient(touch.clientX, touch.clientY);
+    }
+
     if (event.touches.length < 2) {
       state.isPinching = false;
     }
