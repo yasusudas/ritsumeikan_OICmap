@@ -28,7 +28,7 @@
     </script>
     <script type="module" src="/src/main.js"></script>
   </head>
-  <body>
+  <body data-app-mode="viewer">
     <div class="app-shell">
       <header class="topbar">
         <h1 class="app-title">立命館キャンパスマップ</h1>
@@ -61,62 +61,6 @@
           <button class="floor-tab" data-floor="4F" type="button">4F</button>
           <button class="floor-tab" data-floor="5F" type="button">5F</button>
         </nav>
-        <section class="editor-shell" aria-label="検索データ編集">
-          <div class="editor-toolbar">
-            <button id="editor-toggle" class="editor-toggle" type="button" aria-pressed="false">
-              編集モード
-            </button>
-            <div class="editor-caption">SVG をクリックして検索用の位置データを手入力登録できます</div>
-          </div>
-          <section id="editor-panel" class="editor-panel" hidden>
-            <div class="editor-meta">
-              <div id="editor-floor" class="editor-chip">1F</div>
-              <div id="editor-coords" class="editor-chip">位置未指定</div>
-            </div>
-            <div class="editor-grid">
-              <label class="editor-field">
-                <span class="editor-field-label">表示名</span>
-                <input id="editor-label" class="editor-input" type="text" placeholder="例: OIC Shop" />
-              </label>
-              <label class="editor-field">
-                <span class="editor-field-label">別名</span>
-                <input
-                  id="editor-aliases"
-                  class="editor-input"
-                  type="text"
-                  placeholder="例: Shop, ショップ, 売店"
-                />
-              </label>
-              <label class="editor-field">
-                <span class="editor-field-label">幅 (%)</span>
-                <input id="editor-width" class="editor-input" type="number" min="0.5" step="0.1" value="5" />
-              </label>
-              <label class="editor-field">
-                <span class="editor-field-label">高さ (%)</span>
-                <input id="editor-height" class="editor-input" type="number" min="0.5" step="0.1" value="3" />
-              </label>
-            </div>
-            <div class="editor-actions">
-              <button id="editor-save" class="editor-action editor-action-primary" type="button">
-                この位置を記録
-              </button>
-              <button id="editor-clear-point" class="editor-action" type="button">位置をクリア</button>
-              <button id="editor-copy" class="editor-action" type="button">JSONをコピー</button>
-              <button id="editor-export" class="editor-action" type="button">JSONを保存</button>
-            </div>
-            <div id="editor-feedback" class="editor-feedback" aria-live="polite">
-              編集モードをオンにして、地図上の文字位置をクリックしてください
-            </div>
-            <div id="editor-list" class="editor-list"></div>
-            <textarea
-              id="editor-json"
-              class="editor-json"
-              readonly
-              spellcheck="false"
-              aria-label="書き出し用JSON"
-            ></textarea>
-          </section>
-        </section>
       </header>
 
       <main class="map-stage">

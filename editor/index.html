@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>立命館キャンパスマップ編集</title>
+    <script>
+      const isFileMode = window.location.protocol === 'file:';
+      window.__FILE_MODE__ = isFileMode;
+
+      if (isFileMode) {
+        document.addEventListener('DOMContentLoaded', () => {
+          document.body.innerHTML = `
+            <main style="min-height:100vh;display:grid;place-items:center;margin:0;padding:24px;background:linear-gradient(180deg,#eef7ff 0%,#dbe9f7 100%);font-family:'Hiragino Sans','Yu Gothic','Noto Sans JP',sans-serif;color:#102431;">
+              <section style="max-width:720px;padding:28px;border-radius:24px;background:rgba(255,255,255,0.9);box-shadow:0 24px 50px rgba(16,36,49,0.12);">
+                <h1 style="margin:0 0 16px;font-size:2rem;">立命館キャンパスマップ編集</h1>
+                <p style="margin:0 0 12px;line-height:1.8;">このアプリは <strong>index.html を直接開く方式では動作しません</strong>。地図表示と編集機能はローカルサーバー経由で起動する必要があります。</p>
+                <p style="margin:0 0 12px;line-height:1.8;">ターミナルで <code>npm run dev</code> を実行して、<code>http://127.0.0.1:5173/editor/</code> を開いてください。</p>
+                <p style="margin:0;line-height:1.8;">閲覧用サイトは <code>http://127.0.0.1:5173/</code> です。</p>
+              </section>
+            </main>
+          `;
+        });
+      }
+    </script>
+    <script type="module" src="/src/main.js"></script>
+  </head>
+  <body data-app-mode="editor">
+    <div class="app-shell">
+      <header class="topbar">
+        <h1 class="app-title">立命館キャンパスマップ編集</h1>
+        <div class="search-panel">
+          <div class="editor-caption">編集用URLです。地図をクリックして検索用テキストと位置を記録できます。</div>
+        </div>
+        <div id="search-panel" class="search-panel">
+          <label class="search-label" for="search-input">教室検索</label>
+          <div class="search-box">
+            <input
+              id="search-input"
+              class="search-input"
+              type="search"
+              placeholder="教室名を検索 例: AC130 / C273 / OIC Shop"
+              autocomplete="off"
+              autocapitalize="characters"
+              spellcheck="false"
+              enterkeyhint="search"
+            />
+            <button id="search-clear" class="search-clear" type="button" aria-label="検索をクリア" hidden>
+              ×
+            </button>
+          </div>
+          <div id="search-feedback" class="search-feedback" aria-live="polite">
+            1F〜5F を横断検索できます
+          </div>
+          <div id="search-results" class="search-results" role="listbox" hidden></div>
+        </div>
+        <nav class="floor-tabs" aria-label="フロア切替">
+          <button class="floor-tab" data-floor="1F" type="button">1F</button>
+          <button class="floor-tab" data-floor="2F" type="button">2F</button>
+          <button class="floor-tab" data-floor="3F" type="button">3F</button>
+          <button class="floor-tab" data-floor="4F" type="button">4F</button>
+          <button class="floor-tab" data-floor="5F" type="button">5F</button>
+        </nav>
+        <section class="editor-shell" aria-label="検索データ編集">
+          <section id="editor-panel" class="editor-panel">
+            <div class="editor-meta">
+              <div id="editor-floor" class="editor-chip">1F</div>
+              <div id="editor-coords" class="editor-chip">位置未指定</div>
+            </div>
+            <div class="editor-grid">
+              <label class="editor-field">
+                <span class="editor-field-label">表示名</span>
+                <input id="editor-label" class="editor-input" type="text" placeholder="例: OIC Shop" />
+              </label>
+              <label class="editor-field">
+                <span class="editor-field-label">別名</span>
+                <input
+                  id="editor-aliases"
+                  class="editor-input"
+                  type="text"
+                  placeholder="例: Shop, ショップ, 売店"
+                />
+              </label>
+              <label class="editor-field">
+                <span class="editor-field-label">幅 (%)</span>
+                <input id="editor-width" class="editor-input" type="number" min="0.5" step="0.1" value="5" />
+              </label>
+              <label class="editor-field">
+                <span class="editor-field-label">高さ (%)</span>
+                <input id="editor-height" class="editor-input" type="number" min="0.5" step="0.1" value="3" />
+              </label>
+            </div>
+            <div class="editor-actions">
+              <button id="editor-save" class="editor-action editor-action-primary" type="button">
+                この位置を記録
+              </button>
+              <button id="editor-clear-point" class="editor-action" type="button">位置をクリア</button>
+              <button id="editor-copy" class="editor-action" type="button">JSONをコピー</button>
+              <button id="editor-export" class="editor-action" type="button">JSONを保存</button>
+            </div>
+            <div id="editor-feedback" class="editor-feedback" aria-live="polite">
+              地図上の文字位置をクリックしてから、表示名を入力してください
+            </div>
+            <div id="editor-list" class="editor-list"></div>
+            <textarea
+              id="editor-json"
+              class="editor-json"
+              readonly
+              spellcheck="false"
+              aria-label="書き出し用JSON"
+            ></textarea>
+          </section>
+        </section>
+      </header>
+
+      <main class="map-stage">
+        <section class="map-card">
+          <div id="viewer" class="viewer" aria-label="フロアマップ">
+            <div id="canvas-layer" class="canvas-layer"></div>
+            <div id="status" class="status-pill" aria-live="polite">読み込み中...</div>
+          </div>
+
+          <div class="zoom-controls" aria-label="ズーム操作">
+            <button id="zoom-in" class="zoom-button" type="button" aria-label="拡大">+</button>
+            <button id="zoom-out" class="zoom-button" type="button" aria-label="縮小">-</button>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
