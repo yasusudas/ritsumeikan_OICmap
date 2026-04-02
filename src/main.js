@@ -25,6 +25,9 @@ if (window.__FILE_MODE__) {
   const PAGE_GAP = 20;
   const MAX_CANVAS_SIDE = 12288;
   const MAX_CANVAS_PIXELS = 48_000_000;
+  const MOBILE_MAX_CANVAS_SIDE = 8192;
+  const MOBILE_MAX_CANVAS_PIXELS = 16_000_000;
+  const MOBILE_MAX_RENDER_QUALITY = 6;
   const SEARCH_RESULT_LIMIT = 18;
   const SEARCH_FOCUS_ZOOM = 3.6;
   const ROOM_CODE_PATTERN = /[A-Z]{1,3}\s*-?\s*\d{2,4}[A-Z]?/g;
@@ -66,9 +69,13 @@ if (window.__FILE_MODE__) {
     pinchStartCenterY: 0,
     renderToken: 0,
     renderTimeoutId: null,
+    renderInFlight: false,
+    pendingRenderRequest: null,
+    activeRenderTask: null,
     renderQuality: 0,
     pdfDocument: null,
     loadedFloorId: null,
+    touchZoomDirty: false,
     searchReady: false,
     searchLoading: false,
     searchPromise: null,
@@ -122,6 +129,26 @@ if (window.__FILE_MODE__) {
     };
   }
 
+  function isMobileViewport() {
+    return window.matchMedia('(max-width: 720px) and (pointer: coarse)').matches;
+  }
+
+  function getRenderBudget() {
+    if (isMobileViewport()) {
+      return {
+        maxCanvasSide: MOBILE_MAX_CANVAS_SIDE,
+        maxCanvasPixels: MOBILE_MAX_CANVAS_PIXELS,
+        maxRenderQuality: MOBILE_MAX_RENDER_QUALITY
+      };
+    }
+
+    return {
+      maxCanvasSide: MAX_CANVAS_SIDE,
+      maxCanvasPixels: MAX_CANVAS_PIXELS,
+      maxRenderQuality: MAX_RENDER_QUALITY
+    };
+  }
+
   function clampPosition() {
     const { width: viewportWidth, height: viewportHeight } = getViewportSize();
     const scaledWidth = state.contentWidth * state.zoom;
@@ -156,16 +183,19 @@ if (window.__FILE_MODE__) {
 
   function getDesiredRenderQuality(layoutWidth, layoutHeight) {
     const outputScale = Math.max(1, window.devicePixelRatio || 1);
+    const renderBudget = getRenderBudget();
     const baseQuality = Math.max(MIN_RENDER_QUALITY, state.zoom);
     const steppedQuality = Math.round(baseQuality / QUALITY_STEP) * QUALITY_STEP;
-    const maxBySide = MAX_CANVAS_SIDE / Math.max(Math.max(layoutWidth, layoutHeight) * outputScale, 1);
+    const maxBySide =
+      renderBudget.maxCanvasSide / Math.max(Math.max(layoutWidth, layoutHeight) * outputScale, 1);
     const maxByArea = Math.sqrt(
-      MAX_CANVAS_PIXELS / Math.max(layoutWidth * layoutHeight * outputScale * outputScale, 1)
+      renderBudget.maxCanvasPixels /
+        Math.max(layoutWidth * layoutHeight * outputScale * outputScale, 1)
     );
     const qualityCap = clamp(
-      Math.min(MAX_RENDER_QUALITY, maxBySide, maxByArea),
+      Math.min(renderBudget.maxRenderQuality, maxBySide, maxByArea),
       MIN_RENDER_QUALITY,
-      MAX_RENDER_QUALITY
+      renderBudget.maxRenderQuality
     );
 
     return clamp(steppedQuality, MIN_RENDER_QUALITY, qualityCap);
@@ -559,10 +589,23 @@ if (window.__FILE_MODE__) {
     state.y = focalY - ratio * (focalY - state.y);
     state.zoom = clampedZoom;
     updateView();
-    scheduleRerender({ immediate: immediateRerender });
+    scheduleRerender({
+      immediate: immediateRerender,
+      force: immediateRerender && isMobileViewport(),
+      cancelActive: immediateRerender && isMobileViewport()
+    });
   }
 
   async function renderFloor({ resetZoom = false, force = false } = {}) {
+    if (state.renderInFlight) {
+      state.pendingRenderRequest = {
+        resetZoom: state.pendingRenderRequest?.resetZoom || resetZoom,
+        force: state.pendingRenderRequest?.force || force
+      };
+      return;
+    }
+
+    state.renderInFlight = true;
     const renderToken = ++state.renderToken;
     const previousQuality = state.renderQuality;
     const currentLayout = state.pageLayouts[0];
@@ -636,11 +679,13 @@ if (window.__FILE_MODE__) {
         canvas.style.height = `${layoutViewport.height}px`;
         canvas.className = 'pdf-canvas';
 
-        await page.render({
+        state.activeRenderTask = page.render({
           canvasContext: context,
           transform: [outputScale, 0, 0, outputScale, 0, 0],
           viewport: renderViewport
-        }).promise;
+        });
+        await state.activeRenderTask.promise;
+        state.activeRenderTask = null;
 
         const highlightLayer = document.createElement('div');
         highlightLayer.className = 'highlight-layer';
@@ -684,15 +729,44 @@ if (window.__FILE_MODE__) {
 
       renderSearchHighlights();
     } catch (error) {
+      if (error?.name === 'RenderingCancelledException') {
+        return;
+      }
+
       console.error(error);
       setStatus('PDFの描画に失敗しました');
+    } finally {
+      state.activeRenderTask = null;
+      state.renderInFlight = false;
+
+      if (state.pendingRenderRequest) {
+        const pendingRenderRequest = state.pendingRenderRequest;
+        state.pendingRenderRequest = null;
+        void renderFloor(pendingRenderRequest);
+      }
     }
   }
 
-  function scheduleRerender({ immediate = false, force = false } = {}) {
+  function cancelActiveRenderTask() {
+    if (!state.activeRenderTask) {
+      return;
+    }
+
+    try {
+      state.activeRenderTask.cancel();
+    } catch (error) {
+      console.warn('Failed to cancel active PDF render task.', error);
+    }
+  }
+
+  function scheduleRerender({ immediate = false, force = false, cancelActive = false } = {}) {
     if (state.renderTimeoutId) {
       window.clearTimeout(state.renderTimeoutId);
       state.renderTimeoutId = null;
+    }
+
+    if (cancelActive) {
+      cancelActiveRenderTask();
     }
 
     const run = () => {
@@ -761,6 +835,7 @@ if (window.__FILE_MODE__) {
   function beginPinch(touches) {
     const center = getTouchCenter(touches);
     state.isPinching = true;
+    state.touchZoomDirty = false;
     state.pinchStartDistance = getTouchDistance(touches);
     state.pinchStartZoom = state.zoom;
     state.pinchStartX = state.x;
@@ -950,6 +1025,12 @@ if (window.__FILE_MODE__) {
         state.x = center.x - ratio * (state.pinchStartCenterX - state.pinchStartX);
         state.y = center.y - ratio * (state.pinchStartCenterY - state.pinchStartY);
         updateView();
+
+        if (isMobileViewport()) {
+          state.touchZoomDirty = true;
+          return;
+        }
+
         scheduleRerender();
       }
     },
@@ -964,7 +1045,12 @@ if (window.__FILE_MODE__) {
     }
 
     if (pinchEnded) {
-      scheduleRerender({ immediate: true, force: true });
+      scheduleRerender({
+        immediate: true,
+        force: true,
+        cancelActive: isMobileViewport() || state.touchZoomDirty
+      });
+      state.touchZoomDirty = false;
     }
 
     if (event.touches.length === 1) {
@@ -975,14 +1061,25 @@ if (window.__FILE_MODE__) {
 
     if (event.touches.length === 0) {
       endDrag();
-      scheduleRerender({ immediate: true, force: true });
+      if (!pinchEnded) {
+        scheduleRerender({
+          immediate: true,
+          force: true,
+          cancelActive: isMobileViewport()
+        });
+      }
     }
   });
 
   viewer.addEventListener('touchcancel', () => {
     state.isPinching = false;
+    state.touchZoomDirty = false;
     endDrag();
-    scheduleRerender({ immediate: true, force: true });
+    scheduleRerender({
+      immediate: true,
+      force: true,
+      cancelActive: isMobileViewport()
+    });
   });
 
   window.addEventListener('resize', () => {
