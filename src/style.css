@@ -608,6 +608,32 @@ button {
   transform: scale(0.96);
 }
 
+body[data-app-mode="editor"] {
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: auto;
+}
+
+body[data-app-mode="editor"] .app-shell {
+  min-height: auto;
+  overflow: visible;
+}
+
+body[data-app-mode="editor"] .topbar {
+  position: relative;
+}
+
+body[data-app-mode="editor"] .map-stage {
+  flex: 0 0 auto;
+  height: calc(100dvh - 36px);
+  min-height: 720px;
+  overflow: visible;
+}
+
+body[data-app-mode="editor"] .map-card {
+  min-height: 100%;
+}
+
 @keyframes pulse-highlight {
   0%,
   100% {
@@ -713,6 +739,12 @@ button {
   .map-asset {
     border-radius: 14px;
   }
+
+  body[data-app-mode="editor"] .map-stage {
+    height: max(68dvh, 560px);
+    min-height: 560px;
+    padding-inline: var(--shell-padding);
+  }
 }
 
 @media (max-width: 430px) {
@@ -755,6 +787,11 @@ button {
 
   .status-pill {
     max-width: calc(100% - 84px);
+  }
+
+  body[data-app-mode="editor"] .map-stage {
+    height: max(64dvh, 520px);
+    min-height: 520px;
   }
 }
 
@@ -821,5 +858,10 @@ button {
     width: 44px;
     height: 44px;
     font-size: 1.55rem;
+  }
+
+  body[data-app-mode="editor"] .map-stage {
+    height: max(72dvh, 460px);
+    min-height: 460px;
   }
 }
