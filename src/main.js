@@ -46,7 +46,7 @@ if (window.__FILE_MODE__) {
   const MAP_PADDING = 32;
   const SEARCH_RESULT_LIMIT = 18;
   const SEARCH_FOCUS_ZOOM = 3.6;
-  const MANUAL_STORAGE_KEY = 'campus-map-manual-entries-v1';
+  const MANUAL_STORAGE_KEY = 'campus-map-manual-entries-v2';
   const MANUAL_EXPORT_FILENAME = 'manual-search-index.json';
   const ROOM_CODE_PATTERN = /[A-Z]{1,3}\s*-?\s*\d{2,4}[A-Z]?/g;
   const SEARCHABLE_CHAR_PATTERN = /[\p{L}\p{N}]/u;
@@ -118,6 +118,7 @@ if (window.__FILE_MODE__) {
     activeSuggestionIndex: -1,
     activeSearchEntryId: null,
     manualEntries: [],
+    activeEditorPinKey: null,
     editMode: false,
     pendingEditorPoint: null,
     dragMoved: false
@@ -304,9 +305,7 @@ if (window.__FILE_MODE__) {
   }
 
   function refreshSearchEntries() {
-    const combinedEntries = isEditorSite
-      ? [...state.baseSearchEntries, ...state.manualEntries]
-      : [...state.baseSearchEntries];
+    const combinedEntries = [...state.manualEntries];
 
     combinedEntries.sort((left, right) => {
       const labelOrder = roomCodeCollator.compare(left.label, right.label);
@@ -379,9 +378,27 @@ if (window.__FILE_MODE__) {
     return asset;
   }
 
+  function stripEmbeddedSvgText(svgRoot) {
+    svgRoot.querySelectorAll('[id^="glyph-"]').forEach((node) => {
+      node.remove();
+    });
+
+    svgRoot.querySelectorAll('use').forEach((node) => {
+      const href =
+        node.getAttribute('href') ??
+        node.getAttributeNS('http://www.w3.org/1999/xlink', 'href') ??
+        node.getAttribute('xlink:href');
+
+      if (href?.startsWith('#glyph-')) {
+        node.remove();
+      }
+    });
+  }
+
   function createSvgNode(svgText) {
     const svgDocument = new DOMParser().parseFromString(svgText, 'image/svg+xml');
     const importedSvg = document.importNode(svgDocument.documentElement, true);
+    stripEmbeddedSvgText(importedSvg);
     importedSvg.classList.add('floor-svg');
     importedSvg.removeAttribute('width');
     importedSvg.removeAttribute('height');
@@ -511,6 +528,36 @@ if (window.__FILE_MODE__) {
     state.highlightLayer.append(fragment);
   }
 
+  function createEditorPinKey(entryId, rectIndex = 0) {
+    return `${entryId}:${rectIndex}`;
+  }
+
+  function getRectCenter(rect) {
+    return {
+      xRatio: rect.xRatio + rect.widthRatio / 2,
+      yRatio: rect.yRatio + rect.heightRatio / 2
+    };
+  }
+
+  function getManualEntryById(entryId) {
+    return state.manualEntries.find((entry) => entry.id === entryId) ?? null;
+  }
+
+  function setActiveEditorPin(entryId = null, rectIndex = 0) {
+    state.activeEditorPinKey = entryId ? createEditorPinKey(entryId, rectIndex) : null;
+
+    if (entryId) {
+      const entry = getManualEntryById(entryId);
+
+      if (entry) {
+        const aliasText = entry.aliases.length ? ` / 別名: ${entry.aliases.join(', ')}` : '';
+        setEditorFeedback(`${entry.label}${aliasText}`);
+      }
+    }
+
+    renderEditorOverlay();
+  }
+
   function getEditorSizeRatios() {
     const widthRatio = clamp((Number(editorWidthInput?.value) || 5) / 100, 0.005, 0.4);
     const heightRatio = clamp((Number(editorHeightInput?.value) || 3) / 100, 0.005, 0.3);
@@ -633,21 +680,54 @@ if (window.__FILE_MODE__) {
 
     floorEntries.forEach((entry) => {
       entry.rects.forEach((rect, rectIndex) => {
-        const node = document.createElement('div');
-        node.className = 'editor-saved-rect';
-        node.style.left = `${rect.xRatio * 100}%`;
-        node.style.top = `${rect.yRatio * 100}%`;
-        node.style.width = `${rect.widthRatio * 100}%`;
-        node.style.height = `${rect.heightRatio * 100}%`;
+        const pinKey = createEditorPinKey(entry.id, rectIndex);
+        const isActive = state.activeEditorPinKey === pinKey;
+        const center = getRectCenter(rect);
 
-        if (rectIndex === 0) {
-          const tag = document.createElement('div');
-          tag.className = 'editor-overlay-label';
-          tag.textContent = entry.label;
-          node.append(tag);
+        if (isActive) {
+          const focusRing = document.createElement('div');
+          focusRing.className = 'editor-pin-focus-ring';
+          focusRing.style.left = `${rect.xRatio * 100}%`;
+          focusRing.style.top = `${rect.yRatio * 100}%`;
+          focusRing.style.width = `${rect.widthRatio * 100}%`;
+          focusRing.style.height = `${rect.heightRatio * 100}%`;
+          fragment.append(focusRing);
         }
 
-        fragment.append(node);
+        const pin = document.createElement('button');
+        pin.type = 'button';
+        pin.className = 'editor-pin-button';
+        pin.dataset.entryId = entry.id;
+        pin.dataset.rectIndex = String(rectIndex);
+        pin.setAttribute('aria-label', `${entry.label} を確認`);
+        pin.style.left = `${center.xRatio * 100}%`;
+        pin.style.top = `${center.yRatio * 100}%`;
+
+        if (isActive) {
+          pin.classList.add('is-active');
+        }
+
+        fragment.append(pin);
+
+        if (isActive) {
+          const popover = document.createElement('div');
+          popover.className = 'editor-pin-popover';
+          popover.style.left = `${center.xRatio * 100}%`;
+          popover.style.top = `${center.yRatio * 100}%`;
+
+          const label = document.createElement('div');
+          label.className = 'editor-pin-popover-label';
+          label.textContent = entry.label;
+
+          const meta = document.createElement('div');
+          meta.className = 'editor-pin-popover-meta';
+          meta.textContent = entry.aliases.length
+            ? `${entry.floorLabel} / 別名: ${entry.aliases.join(', ')}`
+            : `${entry.floorLabel}`;
+
+          popover.append(label, meta);
+          fragment.append(popover);
+        }
       });
     });
 
@@ -660,11 +740,6 @@ if (window.__FILE_MODE__) {
       pending.style.top = `${pendingRect.yRatio * 100}%`;
       pending.style.width = `${pendingRect.widthRatio * 100}%`;
       pending.style.height = `${pendingRect.heightRatio * 100}%`;
-
-      const label = document.createElement('div');
-      label.className = 'editor-overlay-label';
-      label.textContent = editorLabelInput?.value.trim() || '保存前プレビュー';
-      pending.append(label);
 
       const dot = document.createElement('div');
       dot.className = 'editor-pending-dot';
@@ -721,21 +796,11 @@ if (window.__FILE_MODE__) {
 
       if (getActiveSearchEntry()) {
         setSearchFeedback(`${getActiveSearchEntry().label} を ${getActiveSearchEntry().floorLabel} で表示中`);
+      } else if (state.searchEntries.length === 0) {
+        setSearchFeedback('手入力データはまだありません');
       } else {
         setSearchFeedback('1F〜5F を横断検索できます');
       }
-      return;
-    }
-
-    if (state.searchLoading && !state.searchReady && state.searchEntries.length === 0) {
-      const loading = document.createElement('div');
-      loading.className = 'search-result-empty';
-      loading.textContent = '教室データを読み込み中...';
-      searchResults.replaceChildren(loading);
-      searchResults.hidden = false;
-      state.searchSuggestions = [];
-      state.activeSuggestionIndex = -1;
-      setSearchFeedback('検索インデックスを準備しています');
       return;
     }
 
@@ -785,10 +850,11 @@ if (window.__FILE_MODE__) {
     if (state.searchSuggestions.length === 0) {
       const empty = document.createElement('div');
       empty.className = 'search-result-empty';
-      empty.textContent = '一致する教室候補がありません';
+      empty.textContent =
+        state.searchEntries.length === 0 ? '手入力データがまだ登録されていません' : '一致する教室候補がありません';
       searchResults.replaceChildren(empty);
       searchResults.hidden = false;
-      setSearchFeedback('一致候補なし');
+      setSearchFeedback(state.searchEntries.length === 0 ? '手入力データなし' : '一致候補なし');
       return;
     }
 
@@ -1068,116 +1134,12 @@ if (window.__FILE_MODE__) {
   }
 
   async function buildSearchIndex() {
-    if (state.searchPromise) {
-      return state.searchPromise;
-    }
-
-    state.searchLoading = true;
+    state.baseSearchEntries = [];
+    state.searchReady = true;
+    state.searchLoading = false;
+    state.searchPromise = Promise.resolve(state.searchEntries);
+    refreshSearchEntries();
     renderSearchSuggestions();
-
-    state.searchPromise = (async () => {
-      const searchEntries = [];
-
-      for (const floor of FLOOR_FILES) {
-        const loadingTask = pdfjsLib.getDocument(getDocumentOptions(floor.searchUrl));
-        const pdfDocument = await loadingTask.promise;
-        const floorEntryMap = new Map();
-
-        try {
-          for (let pageNumber = 1; pageNumber <= pdfDocument.numPages; pageNumber += 1) {
-            const page = await pdfDocument.getPage(pageNumber);
-            const viewport = page.getViewport({ scale: 1 });
-            const textContent = await page.getTextContent();
-
-            textContent.items.forEach((item) => {
-              if (!('str' in item)) {
-                return;
-              }
-
-              const source = normalizeMatchSource(item.str);
-
-              for (const match of source.matchAll(ROOM_CODE_PATTERN)) {
-                const normalized = normalizeSearchValue(match[0]);
-
-                if (!normalized) {
-                  continue;
-                }
-
-                const id = `${floor.id}-${normalized}`;
-                const rect = createTextMatchRect(
-                  item,
-                  viewport,
-                  match.index ?? 0,
-                  match[0].length,
-                  source.length
-                );
-
-                if (!floorEntryMap.has(id)) {
-                  floorEntryMap.set(id, {
-                    id,
-                    label: normalized,
-                    normalized,
-                    floorId: floor.id,
-                    floorLabel: floor.label,
-                    floorOrder: getFloorOrder(floor.id),
-                    rects: []
-                  });
-                }
-
-                floorEntryMap.get(id).rects.push(rect);
-              }
-            });
-
-            collectSearchCandidates(textContent, viewport).forEach((candidate) => {
-              const id = `${floor.id}-${candidate.normalized}`;
-
-              if (!floorEntryMap.has(id)) {
-                floorEntryMap.set(id, {
-                  id,
-                  label: candidate.label,
-                  normalized: candidate.normalized,
-                  floorId: floor.id,
-                  floorLabel: floor.label,
-                  floorOrder: getFloorOrder(floor.id),
-                  rects: []
-                });
-              }
-
-              floorEntryMap.get(id).rects.push(candidate.rect);
-            });
-
-            page.cleanup();
-          }
-        } finally {
-          await pdfDocument.destroy();
-        }
-
-        searchEntries.push(...floorEntryMap.values());
-      }
-
-      searchEntries.sort((left, right) => {
-        const labelOrder = roomCodeCollator.compare(left.label, right.label);
-
-        if (labelOrder !== 0) {
-          return labelOrder;
-        }
-
-        return left.floorOrder - right.floorOrder;
-      });
-
-      state.baseSearchEntries = searchEntries;
-      refreshSearchEntries();
-      state.searchReady = true;
-      return state.searchEntries;
-    })();
-
-    try {
-      await state.searchPromise;
-    } finally {
-      state.searchLoading = false;
-      renderSearchSuggestions();
-    }
-
     return state.searchPromise;
   }
 
@@ -1326,6 +1288,7 @@ if (window.__FILE_MODE__) {
     } else {
       setEditorFeedback('編集モードをオンにして、地図上の文字位置をクリックしてください');
       state.pendingEditorPoint = null;
+      state.activeEditorPinKey = null;
     }
 
     refreshEditorUi();
@@ -1337,6 +1300,9 @@ if (window.__FILE_MODE__) {
     }
 
     state.manualEntries = state.manualEntries.filter((entry) => entry.id !== entryId);
+    if (state.activeEditorPinKey?.startsWith(`${entryId}:`)) {
+      state.activeEditorPinKey = null;
+    }
     if (state.activeSearchEntryId === entryId) {
       state.activeSearchEntryId = null;
       renderSearchHighlights();
@@ -1400,6 +1366,7 @@ if (window.__FILE_MODE__) {
     persistManualEntries();
     refreshSearchEntries();
     state.pendingEditorPoint = null;
+    state.activeEditorPinKey = null;
     editorLabelInput.value = '';
     editorAliasesInput.value = '';
     setEditorFeedback(`${entry.label} を ${floor.label} に記録しました`);
@@ -1454,6 +1421,7 @@ if (window.__FILE_MODE__) {
       return;
     }
 
+    state.activeEditorPinKey = null;
     state.pendingEditorPoint = point;
     setEditorFeedback('位置を取得しました。表示名を入れて「この位置を記録」を押してください');
     refreshEditorUi();
@@ -1483,8 +1451,10 @@ if (window.__FILE_MODE__) {
     state.pinchStartCenterY = center.y;
   }
 
-  state.manualEntries = isEditorSite ? loadManualEntries() : [];
+  state.manualEntries = loadManualEntries();
   refreshSearchEntries();
+  state.searchReady = true;
+  state.searchPromise = Promise.resolve(state.searchEntries);
   if (isEditorSite) {
     setEditMode(true);
     refreshEditorUi();
@@ -1512,18 +1482,10 @@ if (window.__FILE_MODE__) {
   });
 
   searchInput.addEventListener('focus', () => {
-    if (!state.searchPromise) {
-      void buildSearchIndex();
-    }
-
     renderSearchSuggestions();
   });
 
   searchInput.addEventListener('input', () => {
-    if (!state.searchPromise) {
-      void buildSearchIndex();
-    }
-
     const activeEntry = getActiveSearchEntry();
     const normalizedValue = normalizeSearchValue(searchInput.value);
 
@@ -1651,6 +1613,38 @@ if (window.__FILE_MODE__) {
     }
 
     searchResults.hidden = true;
+
+    if (isEditorSite && !event.target.closest('.editor-pin-button')) {
+      state.activeEditorPinKey = null;
+      renderEditorOverlay();
+    }
+  });
+
+  viewer.addEventListener('click', (event) => {
+    const pinButton = event.target.closest('.editor-pin-button');
+
+    if (!pinButton) {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+    const { entryId, rectIndex } = pinButton.dataset;
+
+    if (!entryId) {
+      return;
+    }
+
+    const pinKey = createEditorPinKey(entryId, Number(rectIndex || 0));
+    state.activeEditorPinKey = state.activeEditorPinKey === pinKey ? null : pinKey;
+    const entry = getManualEntryById(entryId);
+
+    if (entry && state.activeEditorPinKey) {
+      const aliasText = entry.aliases.length ? ` / 別名: ${entry.aliases.join(', ')}` : '';
+      setEditorFeedback(`${entry.label}${aliasText}`);
+    }
+
+    renderEditorOverlay();
   });
 
   viewer.addEventListener(
@@ -1667,11 +1661,19 @@ if (window.__FILE_MODE__) {
   );
 
   viewer.addEventListener('mousedown', (event) => {
+    if (event.target.closest('.editor-pin-button')) {
+      return;
+    }
+
     event.preventDefault();
     startDrag(event.clientX, event.clientY);
   });
 
   viewer.addEventListener('mouseup', (event) => {
+    if (event.target.closest('.editor-pin-button')) {
+      return;
+    }
+
     captureEditorPointAtClient(event.clientX, event.clientY);
     endDrag();
   });
@@ -1700,6 +1702,10 @@ if (window.__FILE_MODE__) {
   viewer.addEventListener(
     'touchstart',
     (event) => {
+      if (event.target.closest('.editor-pin-button')) {
+        return;
+      }
+
       if (event.touches.length === 1 && !state.isPinching) {
         const touch = event.touches[0];
         startDrag(touch.clientX, touch.clientY);
@@ -1756,6 +1762,10 @@ if (window.__FILE_MODE__) {
   );
 
   viewer.addEventListener('touchend', (event) => {
+    if (event.target.closest('.editor-pin-button')) {
+      return;
+    }
+
     if (!state.isPinching && !state.dragMoved && event.changedTouches.length === 1 && event.touches.length === 0) {
       const touch = event.changedTouches[0];
       captureEditorPointAtClient(touch.clientX, touch.clientY);
@@ -1791,9 +1801,32 @@ if (window.__FILE_MODE__) {
     void renderFloor({ resetZoom: false, preserveView: true });
   });
 
+  window.addEventListener('storage', (event) => {
+    if (event.key !== MANUAL_STORAGE_KEY) {
+      return;
+    }
+
+    state.manualEntries = loadManualEntries();
+
+    if (state.activeSearchEntryId && !getManualEntryById(state.activeSearchEntryId)) {
+      state.activeSearchEntryId = null;
+      renderSearchHighlights();
+    }
+
+    if (state.activeEditorPinKey) {
+      const [entryId] = state.activeEditorPinKey.split(':');
+      if (!getManualEntryById(entryId)) {
+        state.activeEditorPinKey = null;
+      }
+    }
+
+    refreshSearchEntries();
+    renderSearchSuggestions();
+    if (isEditorSite) {
+      refreshEditorUi();
+    }
+  });
+
   updateTabSelection();
   void renderFloor({ resetZoom: true });
-  window.setTimeout(() => {
-    void buildSearchIndex();
-  }, 120);
 }
