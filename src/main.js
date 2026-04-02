@@ -440,27 +440,9 @@ if (window.__FILE_MODE__) {
     return asset;
   }
 
-  function stripEmbeddedSvgText(svgRoot) {
-    svgRoot.querySelectorAll('[id^="glyph-"]').forEach((node) => {
-      node.remove();
-    });
-
-    svgRoot.querySelectorAll('use').forEach((node) => {
-      const href =
-        node.getAttribute('href') ??
-        node.getAttributeNS('http://www.w3.org/1999/xlink', 'href') ??
-        node.getAttribute('xlink:href');
-
-      if (href?.startsWith('#glyph-')) {
-        node.remove();
-      }
-    });
-  }
-
   function createSvgNode(svgText) {
     const svgDocument = new DOMParser().parseFromString(svgText, 'image/svg+xml');
     const importedSvg = document.importNode(svgDocument.documentElement, true);
-    stripEmbeddedSvgText(importedSvg);
     importedSvg.classList.add('floor-svg');
     importedSvg.removeAttribute('width');
     importedSvg.removeAttribute('height');
