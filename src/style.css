@@ -7,11 +7,28 @@
   --map-stage-padding-bottom: 18px;
   --zoom-offset-right: 18px;
   --zoom-offset-bottom: 18px;
+  --accent: #990000;
+  --accent-dark: #7a0000;
+  --accent-soft: rgba(153, 0, 0, 0.06);
+  --accent-soft-mid: rgba(153, 0, 0, 0.08);
+  --accent-soft-strong: rgba(153, 0, 0, 0.1);
+  --accent-border: rgba(153, 0, 0, 0.12);
+  --accent-glow: rgba(153, 0, 0, 0.18);
+  --accent-shadow: rgba(153, 0, 0, 0.24);
+  --accent-shadow-strong: rgba(153, 0, 0, 0.28);
+  --accent-soft-gradient-start: rgba(153, 0, 0, 0.14);
+  --accent-soft-gradient-end: rgba(122, 0, 0, 0.18);
+  --accent-page-radial: rgba(255, 196, 196, 0.45);
+  --accent-page-start: #fff1f1;
+  --accent-page-end: #eedddd;
+  --accent-surface-start: #f3d0d0;
+  --accent-surface-end: #fbf1f1;
+  --accent-button-surface-end: #f5e1e1;
   font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
   color: #102431;
   background:
-    radial-gradient(circle at top, rgba(145, 198, 255, 0.45), transparent 42%),
-    linear-gradient(180deg, #eef7ff 0%, #dbe9f7 100%);
+    radial-gradient(circle at top, var(--accent-page-radial), transparent 42%),
+    linear-gradient(180deg, var(--accent-page-start) 0%, var(--accent-page-end) 100%);
   line-height: 1.5;
   font-weight: 500;
 }
@@ -91,7 +108,7 @@ button {
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.92);
   box-shadow:
-    inset 0 0 0 1px rgba(15, 91, 145, 0.12),
+    inset 0 0 0 1px var(--accent-border),
     0 14px 28px rgba(16, 36, 49, 0.08);
 }
 
@@ -118,8 +135,8 @@ button {
   height: 38px;
   border: 0;
   border-radius: 50%;
-  background: rgba(15, 91, 145, 0.1);
-  color: #0f5b91;
+  background: var(--accent-soft-strong);
+  color: var(--accent);
   font-size: 1.35rem;
   line-height: 1;
 }
@@ -147,7 +164,7 @@ button {
   background: rgba(255, 255, 255, 0.96);
   box-shadow:
     0 28px 54px rgba(16, 36, 49, 0.16),
-    inset 0 0 0 1px rgba(15, 91, 145, 0.08);
+    inset 0 0 0 1px var(--accent-soft-mid);
   backdrop-filter: blur(18px);
 }
 
@@ -164,13 +181,13 @@ button {
   border: 0;
   border-radius: 16px;
   padding: 12px 14px;
-  background: rgba(15, 91, 145, 0.06);
+  background: var(--accent-soft);
   color: #102431;
   text-align: left;
 }
 
 .search-result.is-active {
-  background: linear-gradient(135deg, rgba(15, 91, 145, 0.14), rgba(21, 114, 184, 0.18));
+  background: linear-gradient(135deg, var(--accent-soft-gradient-start), var(--accent-soft-gradient-end));
 }
 
 .search-result-label {
@@ -233,9 +250,9 @@ button {
 }
 
 .floor-tab.is-active {
-  background: linear-gradient(135deg, #0f5b91 0%, #1572b8 100%);
+  background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 100%);
   color: #fff;
-  box-shadow: 0 8px 20px rgba(15, 91, 145, 0.28);
+  box-shadow: 0 8px 20px var(--accent-shadow-strong);
 }
 
 .floor-tab:active {
@@ -267,7 +284,7 @@ button {
 }
 
 .editor-toggle.is-active {
-  background: linear-gradient(135deg, #102431 0%, #0f5b91 100%);
+  background: linear-gradient(135deg, #4f1717 0%, var(--accent) 100%);
   color: #fff;
 }
 
@@ -284,7 +301,7 @@ button {
   border-radius: 22px;
   background: rgba(255, 255, 255, 0.9);
   box-shadow:
-    inset 0 0 0 1px rgba(15, 91, 145, 0.12),
+    inset 0 0 0 1px var(--accent-border),
     0 18px 36px rgba(16, 36, 49, 0.08);
 }
 
@@ -301,8 +318,8 @@ button {
 .editor-chip {
   padding: 7px 11px;
   border-radius: 999px;
-  background: rgba(15, 91, 145, 0.08);
-  color: #0f5b91;
+  background: var(--accent-soft-mid);
+  color: var(--accent);
   font-size: 0.82rem;
   font-weight: 800;
   letter-spacing: 0.04em;
@@ -333,11 +350,11 @@ button {
   border: 0;
   border-radius: 14px;
   padding: 11px 13px;
-  background: rgba(15, 91, 145, 0.07);
+  background: rgba(153, 0, 0, 0.07);
   color: #102431;
   font: inherit;
   font-weight: 700;
-  box-shadow: inset 0 0 0 1px rgba(15, 91, 145, 0.08);
+  box-shadow: inset 0 0 0 1px var(--accent-soft-mid);
 }
 
 .editor-actions {
@@ -357,7 +374,7 @@ button {
 }
 
 .editor-action-primary {
-  background: linear-gradient(135deg, #0f5b91 0%, #1572b8 100%);
+  background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 100%);
   color: #fff;
 }
 
@@ -383,7 +400,7 @@ button {
   gap: 12px;
   padding: 10px 12px;
   border-radius: 16px;
-  background: rgba(15, 91, 145, 0.06);
+  background: var(--accent-soft);
 }
 
 .editor-empty {
@@ -435,7 +452,7 @@ button {
   background: rgba(16, 36, 49, 0.06);
   color: #102431;
   font: 0.82rem/1.5 "SFMono-Regular", "Menlo", "Consolas", monospace;
-  box-shadow: inset 0 0 0 1px rgba(15, 91, 145, 0.08);
+  box-shadow: inset 0 0 0 1px var(--accent-soft-mid);
 }
 
 .map-stage {
@@ -477,7 +494,7 @@ button {
   overflow: hidden;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.72)),
-    linear-gradient(135deg, #bfd8f0 0%, #edf4fb 100%);
+    linear-gradient(135deg, var(--accent-surface-start) 0%, var(--accent-surface-end) 100%);
   box-shadow:
     0 30px 60px rgba(16, 36, 49, 0.12),
     inset 0 0 0 1px rgba(255, 255, 255, 0.7);
@@ -604,9 +621,9 @@ button {
   margin-top: -18px;
   border: 0;
   border-radius: 50%;
-  background: #0f5b91;
+  background: var(--accent);
   box-shadow:
-    0 0 0 4px rgba(15, 91, 145, 0.18),
+    0 0 0 4px var(--accent-glow),
     0 10px 18px rgba(16, 36, 49, 0.18);
   pointer-events: auto;
   z-index: 3;
@@ -686,13 +703,13 @@ button {
   height: 56px;
   border: 0;
   border-radius: 50%;
-  background: linear-gradient(180deg, #ffffff 0%, #deebf8 100%);
-  color: #0f5b91;
+  background: linear-gradient(180deg, #ffffff 0%, var(--accent-button-surface-end) 100%);
+  color: var(--accent);
   font-size: 2rem;
   line-height: 1;
   box-shadow:
-    0 14px 30px rgba(15, 91, 145, 0.24),
-    inset 0 0 0 1px rgba(15, 91, 145, 0.12);
+    0 14px 30px var(--accent-shadow),
+    inset 0 0 0 1px var(--accent-border);
 }
 
 .zoom-button:active {
