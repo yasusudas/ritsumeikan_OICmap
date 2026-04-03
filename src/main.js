@@ -557,6 +557,10 @@ if (window.__FILE_MODE__) {
 
     state.highlightLayer.replaceChildren();
 
+    if (!isEditorSite) {
+      return;
+    }
+
     const activeEntry = getActiveSearchEntry();
 
     if (!activeEntry || activeEntry.floorId !== getFloorDefinition().id) {
