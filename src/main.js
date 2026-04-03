@@ -55,7 +55,7 @@ if (window.__FILE_MODE__) {
 
   const MAP_PADDING = 32;
   const SEARCH_RESULT_LIMIT = 18;
-  const SEARCH_FOCUS_ZOOM = 3.6;
+  const SEARCH_FOCUS_ZOOM = 6;
   const SEARCH_PIN_VERTICAL_OFFSET_RATIO = 0.01;
   const DOUBLE_TAP_SUPPRESSION_WINDOW_MS = 320;
   const MANUAL_POINT_RECT_RATIO = 0.001;
@@ -829,7 +829,7 @@ if (window.__FILE_MODE__) {
     }
 
     const focusRect = entry.rects[0];
-    const nextZoom = clamp(Math.max(state.zoom, targetZoom), state.minZoom, state.maxZoom);
+    const nextZoom = clamp(targetZoom, state.minZoom, state.maxZoom);
     const targetX = state.baseWidth * (focusRect.xRatio + focusRect.widthRatio / 2);
     const targetY = state.baseHeight * (focusRect.yRatio + focusRect.heightRatio / 2);
     const { width: viewportWidth, height: viewportHeight } = getViewportSize();
