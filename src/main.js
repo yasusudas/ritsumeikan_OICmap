@@ -56,6 +56,7 @@ if (window.__FILE_MODE__) {
   const MAP_PADDING = 32;
   const SEARCH_RESULT_LIMIT = 18;
   const SEARCH_FOCUS_ZOOM = 3.6;
+  const MANUAL_POINT_RECT_RATIO = 0.001;
   const LEGACY_MANUAL_STORAGE_KEY = 'campus-map-manual-entries-v2';
   const MANUAL_DRAFT_STORAGE_KEY = 'campus-map-manual-draft-v3';
   const MANUAL_PUBLISHED_STORAGE_KEY = 'campus-map-manual-published-v3';
@@ -84,8 +85,6 @@ if (window.__FILE_MODE__) {
   const editorFloor = document.querySelector('#editor-floor');
   const editorCoords = document.querySelector('#editor-coords');
   const editorLabelInput = document.querySelector('#editor-label');
-  const editorWidthInput = document.querySelector('#editor-width');
-  const editorHeightInput = document.querySelector('#editor-height');
   const editorSaveButton = document.querySelector('#editor-save');
   const editorClearPointButton = document.querySelector('#editor-clear-point');
   const editorCopyButton = document.querySelector('#editor-copy');
@@ -611,23 +610,17 @@ if (window.__FILE_MODE__) {
     renderEditorOverlay();
   }
 
-  function getEditorSizeRatios() {
-    const widthRatio = clamp((Number(editorWidthInput?.value) || 5) / 100, 0.005, 0.4);
-    const heightRatio = clamp((Number(editorHeightInput?.value) || 3) / 100, 0.005, 0.3);
-
-    return { widthRatio, heightRatio };
-  }
-
-  function getPendingEditorRect() {
-    if (!state.pendingEditorPoint) {
+  function createPointRect(point) {
+    if (!point) {
       return null;
     }
 
-    const { widthRatio, heightRatio } = getEditorSizeRatios();
+    const widthRatio = MANUAL_POINT_RECT_RATIO;
+    const heightRatio = MANUAL_POINT_RECT_RATIO;
 
     return {
-      xRatio: clamp(state.pendingEditorPoint.xRatio - widthRatio / 2, 0, 1 - widthRatio),
-      yRatio: clamp(state.pendingEditorPoint.yRatio - heightRatio / 2, 0, 1 - heightRatio),
+      xRatio: clamp(point.xRatio - widthRatio / 2, 0, 1 - widthRatio),
+      yRatio: clamp(point.yRatio - heightRatio / 2, 0, 1 - heightRatio),
       widthRatio,
       heightRatio
     };
@@ -797,22 +790,13 @@ if (window.__FILE_MODE__) {
       });
     });
 
-    const pendingRect = getPendingEditorRect();
-
-    if (pendingRect) {
-      const pending = document.createElement('div');
-      pending.className = 'editor-pending-rect';
-      pending.style.left = `${pendingRect.xRatio * 100}%`;
-      pending.style.top = `${pendingRect.yRatio * 100}%`;
-      pending.style.width = `${pendingRect.widthRatio * 100}%`;
-      pending.style.height = `${pendingRect.heightRatio * 100}%`;
-
+    if (state.pendingEditorPoint) {
       const dot = document.createElement('div');
       dot.className = 'editor-pending-dot';
       dot.style.left = `${state.pendingEditorPoint.xRatio * 100}%`;
       dot.style.top = `${state.pendingEditorPoint.yRatio * 100}%`;
 
-      fragment.append(pending, dot);
+      fragment.append(dot);
     }
 
     state.editorLayer.append(fragment);
@@ -1406,7 +1390,7 @@ if (window.__FILE_MODE__) {
       return;
     }
 
-    const rect = getPendingEditorRect();
+    const rect = createPointRect(state.pendingEditorPoint);
 
     if (!rect) {
       setEditorFeedback('先に地図上をクリックして位置を指定してください');
@@ -1724,14 +1708,6 @@ if (window.__FILE_MODE__) {
       }
     });
   }
-
-  [editorWidthInput, editorHeightInput].filter(Boolean).forEach((input) => {
-    input.addEventListener('input', () => {
-      renderEditorOverlay();
-      updateEditorCoords();
-      updateEditorJsonOutput();
-    });
-  });
 
   document.addEventListener('pointerdown', (event) => {
     if (searchPanel.contains(event.target)) {

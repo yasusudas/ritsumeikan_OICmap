@@ -309,7 +309,7 @@ button {
 
 .editor-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.9fr) repeat(2, minmax(110px, 0.6fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 10px;
 }
 
@@ -542,19 +542,6 @@ button {
   animation: pulse-highlight 1.8s ease-in-out infinite;
 }
 
-.editor-pending-rect {
-  position: absolute;
-  border-radius: 16px;
-  pointer-events: none;
-}
-
-.editor-pending-rect {
-  background: rgba(255, 112, 67, 0.08);
-  box-shadow:
-    inset 0 0 0 2px rgba(255, 112, 67, 0.92),
-    0 0 0 5px rgba(255, 112, 67, 0.14);
-}
-
 .editor-pending-dot {
   position: absolute;
   width: 16px;
@@ -759,7 +746,7 @@ body[data-app-mode="editor"] .map-card {
   }
 
   .editor-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .editor-caption {
@@ -914,7 +901,7 @@ body[data-app-mode="editor"] .map-card {
   }
 
   .editor-grid {
-    grid-template-columns: minmax(0, 1.8fr) repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .floor-tabs {
