@@ -633,17 +633,40 @@ if (window.__FILE_MODE__) {
     };
   }
 
+  function getActiveEditorPoint() {
+    if (!state.activeEditorPinKey) {
+      return null;
+    }
+
+    const [entryId, rectIndexText] = state.activeEditorPinKey.split(':');
+    const entry = getManualEntryById(entryId);
+    const rect = entry?.rects[Number(rectIndexText ?? 0)];
+
+    if (!rect) {
+      return null;
+    }
+
+    return getRectCenter(rect);
+  }
+
   function updateEditorCoords() {
     if (!isEditorSite || !editorCoords) {
       return;
     }
 
-    if (!state.pendingEditorPoint) {
-      editorCoords.textContent = '位置未指定';
+    if (state.pendingEditorPoint) {
+      editorCoords.textContent = `x ${state.pendingEditorPoint.xRatio.toFixed(4)} / y ${state.pendingEditorPoint.yRatio.toFixed(4)}`;
       return;
     }
 
-    editorCoords.textContent = `x ${state.pendingEditorPoint.xRatio.toFixed(4)} / y ${state.pendingEditorPoint.yRatio.toFixed(4)}`;
+    const activePoint = getActiveEditorPoint();
+
+    if (activePoint) {
+      editorCoords.textContent = `x ${activePoint.xRatio.toFixed(4)} / y ${activePoint.yRatio.toFixed(4)}`;
+      return;
+    }
+
+    editorCoords.textContent = '位置未指定';
   }
 
   function updateEditorJsonOutput() {
@@ -736,16 +759,6 @@ if (window.__FILE_MODE__) {
         const pinKey = createEditorPinKey(entry.id, rectIndex);
         const isActive = state.activeEditorPinKey === pinKey;
         const center = getRectCenter(rect);
-
-        if (isActive) {
-          const focusRing = document.createElement('div');
-          focusRing.className = 'editor-pin-focus-ring';
-          focusRing.style.left = `${rect.xRatio * 100}%`;
-          focusRing.style.top = `${rect.yRatio * 100}%`;
-          focusRing.style.width = `${rect.widthRatio * 100}%`;
-          focusRing.style.height = `${rect.heightRatio * 100}%`;
-          fragment.append(focusRing);
-        }
 
         const pin = document.createElement('button');
         pin.type = 'button';
@@ -1758,6 +1771,7 @@ if (window.__FILE_MODE__) {
     }
 
     renderEditorOverlay();
+    updateEditorCoords();
   });
 
   viewer.addEventListener(

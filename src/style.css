@@ -542,18 +542,10 @@ button {
   animation: pulse-highlight 1.8s ease-in-out infinite;
 }
 
-.editor-pending-rect,
-.editor-pin-focus-ring {
+.editor-pending-rect {
   position: absolute;
   border-radius: 16px;
   pointer-events: none;
-}
-
-.editor-pin-focus-ring {
-  background: rgba(15, 91, 145, 0.08);
-  box-shadow:
-    inset 0 0 0 2px rgba(15, 91, 145, 0.64),
-    0 0 0 4px rgba(15, 91, 145, 0.1);
 }
 
 .editor-pending-rect {
