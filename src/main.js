@@ -56,6 +56,7 @@ if (window.__FILE_MODE__) {
   const MAP_PADDING = 32;
   const SEARCH_RESULT_LIMIT = 18;
   const SEARCH_FOCUS_ZOOM = 3.6;
+  const DOUBLE_TAP_SUPPRESSION_WINDOW_MS = 320;
   const MANUAL_POINT_RECT_RATIO = 0.001;
   const LEGACY_MANUAL_STORAGE_KEY = 'campus-map-manual-entries-v2';
   const MANUAL_DRAFT_STORAGE_KEY = 'campus-map-manual-draft-v3';
@@ -134,7 +135,8 @@ if (window.__FILE_MODE__) {
     activeEditorPinKey: null,
     editMode: false,
     pendingEditorPoint: null,
-    dragMoved: false
+    dragMoved: false,
+    lastTouchEndAt: -Infinity
   };
 
   function setStatus(message) {
@@ -154,6 +156,13 @@ if (window.__FILE_MODE__) {
 
   function clamp(number, min, max) {
     return Math.min(Math.max(number, min), max);
+  }
+
+  function shouldAllowNativeDoubleTap(target) {
+    return (
+      target instanceof HTMLElement &&
+      Boolean(target.closest('input, textarea, select, option, [contenteditable="true"], [contenteditable="plaintext-only"]'))
+    );
   }
 
   function normalizeSearchValue(value) {
@@ -1723,6 +1732,25 @@ if (window.__FILE_MODE__) {
     }
   });
 
+  document.addEventListener(
+    'touchend',
+    (event) => {
+      if (event.touches.length !== 0 || event.changedTouches.length !== 1 || shouldAllowNativeDoubleTap(event.target)) {
+        return;
+      }
+
+      const now = performance.now();
+
+      // iOS Safari can still smart-zoom on a rapid double tap even when the viewport is fixed.
+      if (now - state.lastTouchEndAt < DOUBLE_TAP_SUPPRESSION_WINDOW_MS) {
+        event.preventDefault();
+      }
+
+      state.lastTouchEndAt = now;
+    },
+    { passive: false }
+  );
+
   viewer.addEventListener('click', (event) => {
     const pinButton = event.target.closest('.editor-pin-button');
 
@@ -1810,6 +1838,8 @@ if (window.__FILE_MODE__) {
         return;
       }
 
+      event.preventDefault();
+
       if (event.touches.length === 1 && !state.isPinching) {
         const touch = event.touches[0];
         startDrag(touch.clientX, touch.clientY);
@@ -1865,31 +1895,37 @@ if (window.__FILE_MODE__) {
     { passive: false }
   );
 
-  viewer.addEventListener('touchend', (event) => {
-    if (event.target.closest('.editor-pin-button')) {
-      return;
-    }
+  viewer.addEventListener(
+    'touchend',
+    (event) => {
+      if (event.target.closest('.editor-pin-button')) {
+        return;
+      }
 
-    if (!state.isPinching && !state.dragMoved && event.changedTouches.length === 1 && event.touches.length === 0) {
-      const touch = event.changedTouches[0];
-      captureEditorPointAtClient(touch.clientX, touch.clientY);
-    }
+      event.preventDefault();
 
-    if (event.touches.length < 2) {
-      state.isPinching = false;
-    }
+      if (!state.isPinching && !state.dragMoved && event.changedTouches.length === 1 && event.touches.length === 0) {
+        const touch = event.changedTouches[0];
+        captureEditorPointAtClient(touch.clientX, touch.clientY);
+      }
 
-    if (event.touches.length === 1) {
-      const touch = event.touches[0];
-      startDrag(touch.clientX, touch.clientY);
-      return;
-    }
+      if (event.touches.length < 2) {
+        state.isPinching = false;
+      }
 
-    if (event.touches.length === 0) {
-      endDrag();
-      updateView();
-    }
-  });
+      if (event.touches.length === 1) {
+        const touch = event.touches[0];
+        startDrag(touch.clientX, touch.clientY);
+        return;
+      }
+
+      if (event.touches.length === 0) {
+        endDrag();
+        updateView();
+      }
+    },
+    { passive: false }
+  );
 
   viewer.addEventListener('touchcancel', () => {
     state.isPinching = false;
