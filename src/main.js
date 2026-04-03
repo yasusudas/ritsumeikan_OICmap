@@ -856,7 +856,7 @@ if (window.__FILE_MODE__) {
       } else if (state.searchEntries.length === 0) {
         setSearchFeedback('手入力データはまだありません');
       } else {
-        setSearchFeedback('登録済みの全フロアを横断検索できます');
+        setSearchFeedback('全部屋の位置をを検索できます');
       }
       return;
     }
