@@ -33,6 +33,12 @@ body {
   overflow: hidden;
 }
 
+body[data-app-mode="viewer"] {
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: auto;
+}
+
 button {
   font: inherit;
 }
@@ -43,6 +49,10 @@ button {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+
+body[data-app-mode="viewer"] .app-shell {
+  overflow: visible;
 }
 
 .topbar {

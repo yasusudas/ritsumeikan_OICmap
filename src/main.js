@@ -71,6 +71,7 @@ if (window.__FILE_MODE__) {
   const viewer = document.querySelector('#viewer');
   const canvasLayer = document.querySelector('#canvas-layer');
   const statusElement = document.querySelector('#status');
+  const mapStage = document.querySelector('.map-stage');
   const tabButtons = Array.from(document.querySelectorAll('.floor-tab'));
   const zoomInButton = document.querySelector('#zoom-in');
   const zoomOutButton = document.querySelector('#zoom-out');
@@ -151,6 +152,22 @@ if (window.__FILE_MODE__) {
       width: viewer.clientWidth,
       height: viewer.clientHeight
     };
+  }
+
+  function updateMapStageMinHeight(intrinsicWidth, intrinsicHeight) {
+    if (!mapStage || !viewer || !intrinsicWidth || !intrinsicHeight) {
+      return;
+    }
+
+    const stageStyles = window.getComputedStyle(mapStage);
+    const paddingTop = Number.parseFloat(stageStyles.paddingTop) || 0;
+    const paddingBottom = Number.parseFloat(stageStyles.paddingBottom) || 0;
+    const availableWidth = Math.max(viewer.clientWidth - MAP_PADDING, 80);
+    const fittedHeight = intrinsicHeight * (availableWidth / intrinsicWidth);
+    const minimumViewerHeight = fittedHeight + MAP_PADDING;
+    const minimumStageHeight = Math.ceil(minimumViewerHeight + paddingTop + paddingBottom);
+
+    mapStage.style.minHeight = `${minimumStageHeight}px`;
   }
 
   function clamp(number, min, max) {
@@ -1247,6 +1264,7 @@ if (window.__FILE_MODE__) {
       state.editorLayer = editorLayer;
       state.intrinsicWidth = asset.width;
       state.intrinsicHeight = asset.height;
+      updateMapStageMinHeight(asset.width, asset.height);
 
       const baseSize = getFittedBaseSize(asset.width, asset.height);
       const hadDimensions = state.baseWidth > 0 && state.baseHeight > 0;
