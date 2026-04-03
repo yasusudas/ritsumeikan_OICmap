@@ -565,16 +565,13 @@ if (window.__FILE_MODE__) {
 
     const fragment = document.createDocumentFragment();
     activeEntry.rects.forEach((rect, index) => {
-      const highlight = document.createElement('div');
-      highlight.className = 'search-highlight';
-      highlight.style.left = `${rect.xRatio * 100}%`;
-      highlight.style.top = `${rect.yRatio * 100}%`;
-      highlight.style.width = `${Math.max(rect.widthRatio * 100, 1.1)}%`;
-      highlight.style.height = `${Math.max(rect.heightRatio * 100, 0.9)}%`;
-      highlight.style.minWidth = '16px';
-      highlight.style.minHeight = '12px';
-      highlight.style.animationDelay = `${index * 120}ms`;
-      fragment.append(highlight);
+      const center = getRectCenter(rect);
+      const pin = document.createElement('div');
+      pin.className = 'search-highlight-pin';
+      pin.style.left = `${center.xRatio * 100}%`;
+      pin.style.top = `${center.yRatio * 100}%`;
+      pin.style.animationDelay = `${index * 120}ms`;
+      fragment.append(pin);
     });
 
     state.highlightLayer.append(fragment);
