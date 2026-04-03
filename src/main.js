@@ -56,6 +56,7 @@ if (window.__FILE_MODE__) {
   const MAP_PADDING = 32;
   const SEARCH_RESULT_LIMIT = 18;
   const SEARCH_FOCUS_ZOOM = 3.6;
+  const SEARCH_PIN_VERTICAL_OFFSET_RATIO = 0.005;
   const DOUBLE_TAP_SUPPRESSION_WINDOW_MS = 320;
   const MANUAL_POINT_RECT_RATIO = 0.001;
   const LEGACY_MANUAL_STORAGE_KEY = 'campus-map-manual-entries-v2';
@@ -566,10 +567,6 @@ if (window.__FILE_MODE__) {
 
     state.highlightLayer.replaceChildren();
 
-    if (!isEditorSite) {
-      return;
-    }
-
     const activeEntry = getActiveSearchEntry();
 
     if (!activeEntry || activeEntry.floorId !== getFloorDefinition().id) {
@@ -582,7 +579,7 @@ if (window.__FILE_MODE__) {
       const pin = document.createElement('div');
       pin.className = 'search-highlight-pin';
       pin.style.left = `${center.xRatio * 100}%`;
-      pin.style.top = `${center.yRatio * 100}%`;
+      pin.style.top = `${clamp(center.yRatio - SEARCH_PIN_VERTICAL_OFFSET_RATIO, 0, 1) * 100}%`;
       pin.style.animationDelay = `${index * 120}ms`;
       fragment.append(pin);
     });
