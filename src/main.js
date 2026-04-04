@@ -50,6 +50,8 @@ if (window.__FILE_MODE__) {
     }
   ];
   const PDF_SUPPORT_ASSET_BASE = import.meta.env.BASE_URL;
+  const MANUAL_SEARCH_INDEX_FILENAME = 'manual-search-index.json';
+  const SEARCH_INDEX_URL = `${PDF_SUPPORT_ASSET_BASE}${MANUAL_SEARCH_INDEX_FILENAME}`;
   const CMAP_URL = `${PDF_SUPPORT_ASSET_BASE}cmaps/`;
   const STANDARD_FONT_DATA_URL = `${PDF_SUPPORT_ASSET_BASE}standard_fonts/`;
 
@@ -63,7 +65,7 @@ if (window.__FILE_MODE__) {
   const LEGACY_MANUAL_STORAGE_KEY = 'campus-map-manual-entries-v2';
   const MANUAL_DRAFT_STORAGE_KEY = 'campus-map-manual-draft-v3';
   const MANUAL_PUBLISHED_STORAGE_KEY = 'campus-map-manual-published-v3';
-  const MANUAL_EXPORT_FILENAME = 'manual-search-index.json';
+  const MANUAL_EXPORT_FILENAME = MANUAL_SEARCH_INDEX_FILENAME;
   const ROOM_CODE_PATTERN = /[A-Z]{1,3}\s*-?\s*\d{2,4}[A-Z]?/g;
   const SEARCHABLE_CHAR_PATTERN = /[\p{L}\p{N}]/u;
   const LETTER_PATTERN = /\p{L}/u;
@@ -309,13 +311,32 @@ if (window.__FILE_MODE__) {
     return readStoredManualEntries(storageKey).entries;
   }
 
-  function resolveInitialManualEntries() {
+  function getCurrentPublishedEntries(deployedEntries = []) {
     const legacySnapshot = readStoredManualEntries(LEGACY_MANUAL_STORAGE_KEY);
     const publishedSnapshot = readStoredManualEntries(MANUAL_PUBLISHED_STORAGE_KEY);
-    const initialPublishedEntries =
+    return cloneManualEntries(
       publishedSnapshot.exists || publishedSnapshot.entries.length > 0
         ? publishedSnapshot.entries
-        : legacySnapshot.entries;
+        : legacySnapshot.exists || legacySnapshot.entries.length > 0
+          ? legacySnapshot.entries
+          : deployedEntries
+    );
+  }
+
+  function resolveCurrentManualEntries(deployedEntries = []) {
+    const currentPublishedEntries = getCurrentPublishedEntries(deployedEntries);
+
+    if (!isEditorSite) {
+      return currentPublishedEntries;
+    }
+
+    const draftSnapshot = readStoredManualEntries(MANUAL_DRAFT_STORAGE_KEY);
+    return draftSnapshot.exists ? draftSnapshot.entries : currentPublishedEntries;
+  }
+
+  function resolveInitialManualEntries(deployedEntries = []) {
+    const publishedSnapshot = readStoredManualEntries(MANUAL_PUBLISHED_STORAGE_KEY);
+    const initialPublishedEntries = getCurrentPublishedEntries(deployedEntries);
 
     if (!publishedSnapshot.exists && initialPublishedEntries.length > 0) {
       persistManualEntries(MANUAL_PUBLISHED_STORAGE_KEY, initialPublishedEntries);
@@ -333,6 +354,17 @@ if (window.__FILE_MODE__) {
 
     persistManualEntries(MANUAL_DRAFT_STORAGE_KEY, initialPublishedEntries);
     return initialPublishedEntries;
+  }
+
+  async function fetchBundledSearchEntries() {
+    const response = await fetch(SEARCH_INDEX_URL, { cache: 'no-store' });
+
+    if (!response.ok) {
+      throw new Error(`Failed to load search index: ${response.status}`);
+    }
+
+    const payload = await response.json();
+    return hydrateManualEntriesCollection(payload);
   }
 
   function serializeEntries(entries) {
@@ -884,8 +916,10 @@ if (window.__FILE_MODE__) {
 
       if (getActiveSearchEntry()) {
         setSearchFeedback(`${getActiveSearchEntry().label} を ${getActiveSearchEntry().floorLabel} で表示中`);
+      } else if (state.searchLoading) {
+        setSearchFeedback('検索データを読み込み中...');
       } else if (state.searchEntries.length === 0) {
-        setSearchFeedback('手入力データはまだありません');
+        setSearchFeedback('検索データがまだありません');
       } else {
         setSearchFeedback('全部屋の位置をを検索できます');
       }
@@ -939,10 +973,10 @@ if (window.__FILE_MODE__) {
       const empty = document.createElement('div');
       empty.className = 'search-result-empty';
       empty.textContent =
-        state.searchEntries.length === 0 ? '手入力データがまだ登録されていません' : '一致する教室候補がありません';
+        state.searchEntries.length === 0 ? '検索データがまだ登録されていません' : '一致する教室候補がありません';
       searchResults.replaceChildren(empty);
       searchResults.hidden = false;
-      setSearchFeedback(state.searchEntries.length === 0 ? '手入力データなし' : '一致候補なし');
+      setSearchFeedback(state.searchEntries.length === 0 ? '検索データなし' : '一致候補なし');
       return;
     }
 
@@ -1222,12 +1256,33 @@ if (window.__FILE_MODE__) {
   }
 
   async function buildSearchIndex() {
-    state.baseSearchEntries = [];
-    state.searchReady = true;
-    state.searchLoading = false;
-    state.searchPromise = Promise.resolve(state.searchEntries);
-    refreshSearchEntries();
-    renderSearchSuggestions();
+    if (state.searchLoading && state.searchPromise) {
+      return state.searchPromise;
+    }
+
+    state.searchLoading = true;
+    setSearchFeedback('検索データを読み込み中...');
+
+    state.searchPromise = (async () => {
+      try {
+        state.baseSearchEntries = await fetchBundledSearchEntries();
+      } catch (error) {
+        console.warn('Failed to load bundled search index.', error);
+        state.baseSearchEntries = [];
+      }
+
+      state.manualEntries = resolveInitialManualEntries(state.baseSearchEntries);
+      refreshSearchEntries();
+      state.searchReady = true;
+      state.searchLoading = false;
+      renderSearchSuggestions();
+      renderSearchHighlights();
+      if (isEditorSite) {
+        refreshEditorUi();
+      }
+      return state.searchEntries;
+    })();
+
     return state.searchPromise;
   }
 
@@ -1581,10 +1636,6 @@ if (window.__FILE_MODE__) {
     state.pinchStartCenterY = center.y;
   }
 
-  state.manualEntries = resolveInitialManualEntries();
-  refreshSearchEntries();
-  state.searchReady = true;
-  state.searchPromise = Promise.resolve(state.searchEntries);
   if (isEditorSite) {
     setEditMode(true);
     refreshEditorUi();
@@ -1974,7 +2025,7 @@ if (window.__FILE_MODE__) {
       return;
     }
 
-    state.manualEntries = loadManualEntries();
+    state.manualEntries = resolveCurrentManualEntries(state.baseSearchEntries);
 
     if (state.activeSearchEntryId && !getManualEntryById(state.activeSearchEntryId)) {
       state.activeSearchEntryId = null;
@@ -1996,5 +2047,6 @@ if (window.__FILE_MODE__) {
   });
 
   updateTabSelection();
+  void buildSearchIndex();
   void renderFloor({ resetZoom: true });
 }

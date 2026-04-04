@@ -1,0 +1,7677 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "manual-1F-1775276203670-wdg1ii",
+      "floorId": "1F",
+      "label": "AC130",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.667299,
+          "yRatio": 0.570625,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276384725-y0na0t",
+      "floorId": "1F",
+      "label": "AC事務室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.668191,
+          "yRatio": 0.450497,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276211133-ksv4nk",
+      "floorId": "1F",
+      "label": "AN110",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.766545,
+          "yRatio": 0.570403,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276331434-6lrv19",
+      "floorId": "1F",
+      "label": "AN事務室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.763678,
+          "yRatio": 0.462136,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276397883-3ppsv2",
+      "floorId": "1F",
+      "label": "AS事務室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.574309,
+          "yRatio": 0.450615,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775178207718-ye8lju",
+      "floorId": "1F",
+      "label": "D171",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.476237,
+          "yRatio": 0.156769,
+          "widthRatio": 0.013,
+          "heightRatio": 0.01
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775230504884-lk2mwr",
+      "floorId": "1F",
+      "label": "D事務室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.48971,
+          "yRatio": 0.227683,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276107988-dvmwti",
+      "floorId": "1F",
+      "label": "GARDEN TERRACE LION",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.483253,
+          "yRatio": 0.854347,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775192393774-82uabw",
+      "floorId": "1F",
+      "label": "H101 Studio A",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.106224,
+          "yRatio": 0.538102,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775192323276-ergzx5",
+      "floorId": "1F",
+      "label": "H121 Theater Classroom",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.180109,
+          "yRatio": 0.465855,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775192344325-7wnf95",
+      "floorId": "1F",
+      "label": "H122 Studio B",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.116169,
+          "yRatio": 0.465412,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775192384666-fbdnpg",
+      "floorId": "1F",
+      "label": "JIZAI HALL",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.164281,
+          "yRatio": 0.533227,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775192413224-8dncr6",
+      "floorId": "1F",
+      "label": "KOBO",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.220035,
+          "yRatio": 0.534519,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775192377958-74aw46",
+      "floorId": "1F",
+      "label": "Microsoft Base Ritsumeikan",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.242639,
+          "yRatio": 0.536773,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775168018837-a2c0hm",
+      "floorId": "1F",
+      "label": "MINK",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.169007,
+          "yRatio": 0.362009,
+          "widthRatio": 0.014,
+          "heightRatio": 0.01
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775167899159-nrqbk2",
+      "floorId": "1F",
+      "label": "Noh[能] - Theater",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.123167,
+          "yRatio": 0.322435,
+          "widthRatio": 0.02,
+          "heightRatio": 0.02
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775168044528-45uvni",
+      "floorId": "1F",
+      "label": "OIC Asian Garden",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.290434,
+          "yRatio": 0.308354,
+          "widthRatio": 0.035,
+          "heightRatio": 0.015
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775169473186-pk43y5",
+      "floorId": "1F",
+      "label": "OIC Cafeteria",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.43891,
+          "yRatio": 0.449462,
+          "widthRatio": 0.032,
+          "heightRatio": 0.01
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775192332480-hoosj7",
+      "floorId": "1F",
+      "label": "OIC FOOD PARK",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.221012,
+          "yRatio": 0.458541,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775192494050-2avkfe",
+      "floorId": "1F",
+      "label": "OIC Meal Shop",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.451207,
+          "yRatio": 0.51903,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775168091518-86hkqm",
+      "floorId": "1F",
+      "label": "OIC Mini Meal Shop",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.333297,
+          "yRatio": 0.311261,
+          "widthRatio": 0.02,
+          "heightRatio": 0.037
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775169496821-hmzffd",
+      "floorId": "1F",
+      "label": "OIC Shop",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.448708,
+          "yRatio": 0.38336,
+          "widthRatio": 0.023,
+          "heightRatio": 0.01
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775167995541-5ldizv",
+      "floorId": "1F",
+      "label": "R+ing",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.228135,
+          "yRatio": 0.344591,
+          "widthRatio": 0.012,
+          "heightRatio": 0.01
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276279994-58bxw7",
+      "floorId": "1F",
+      "label": "Room1",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.831362,
+          "yRatio": 0.529655,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276271603-w7lysn",
+      "floorId": "1F",
+      "label": "Room2",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.812817,
+          "yRatio": 0.534962,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276264503-ruk9c9",
+      "floorId": "1F",
+      "label": "Room3",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.801777,
+          "yRatio": 0.534757,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276258052-n4ax90",
+      "floorId": "1F",
+      "label": "Room4",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.794706,
+          "yRatio": 0.534655,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276246036-klsy0d",
+      "floorId": "1F",
+      "label": "Room5",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.734824,
+          "yRatio": 0.530208,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276238349-o5fgbz",
+      "floorId": "1F",
+      "label": "Room6",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.698078,
+          "yRatio": 0.528876,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276230687-kcpytt",
+      "floorId": "1F",
+      "label": "Room7",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.636834,
+          "yRatio": 0.529542,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276219145-7rgrtb",
+      "floorId": "1F",
+      "label": "Room8",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.596319,
+          "yRatio": 0.52932,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775192473501-09m90b",
+      "floorId": "1F",
+      "label": "SEEDS",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.279199,
+          "yRatio": 0.40768,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775192445219-uqhr0b",
+      "floorId": "1F",
+      "label": "SP LAB",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.335139,
+          "yRatio": 0.491882,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775192436956-4wsq2x",
+      "floorId": "1F",
+      "label": "SP LAB X",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.320537,
+          "yRatio": 0.465066,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775192453352-rdc0wd",
+      "floorId": "1F",
+      "label": "TERRACE GATE",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.33457,
+          "yRatio": 0.517625,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775192364125-fxmo9r",
+      "floorId": "1F",
+      "label": "TRY SQUARE",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.271161,
+          "yRatio": 0.477379,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276132325-7xapn5",
+      "floorId": "1F",
+      "label": "イベントホール1",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.447563,
+          "yRatio": 0.807873,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276138988-r98fqm",
+      "floorId": "1F",
+      "label": "イベントホール2",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.447849,
+          "yRatio": 0.842596,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276147617-kuif1d",
+      "floorId": "1F",
+      "label": "イベントホール3",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.447706,
+          "yRatio": 0.867428,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775230586009-my4zd3",
+      "floorId": "1F",
+      "label": "インフォメーション(B棟ホール受付)",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.449605,
+          "yRatio": 0.658621,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775230596676-b72rre",
+      "floorId": "1F",
+      "label": "カンファレンスホール",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.447705,
+          "yRatio": 0.758848,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276376304-tyc217",
+      "floorId": "1F",
+      "label": "キャンパスインフォメーション",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.79177,
+          "yRatio": 0.404097,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276357297-mkconb",
+      "floorId": "1F",
+      "label": "キャンパス管理室1",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.791801,
+          "yRatio": 0.403276,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276347197-sitkay",
+      "floorId": "1F",
+      "label": "キャンパス管理室2",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.766069,
+          "yRatio": 0.386573,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775178126269-gkeqr2",
+      "floorId": "1F",
+      "label": "クラブボックス",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.423224,
+          "yRatio": 0.129189,
+          "widthRatio": 0.03,
+          "heightRatio": 0.01
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775277787756-6ulo7v",
+      "floorId": "1F",
+      "label": "グランドホール(1F)",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.363532,
+          "yRatio": 0.677966,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775178163639-5a4zwo",
+      "floorId": "1F",
+      "label": "コンディショニングルーム",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.462241,
+          "yRatio": 0.123215,
+          "widthRatio": 0.013,
+          "heightRatio": 0.02
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276070168-w74szt",
+      "floorId": "1F",
+      "label": "スターバックスコーヒー",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.483396,
+          "yRatio": 0.75058,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276488715-0vkkmq",
+      "floorId": "1F",
+      "label": "スタッフルーム",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.149929,
+          "yRatio": 0.44738,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276194346-agkncx",
+      "floorId": "1F",
+      "label": "セブン-イレブン",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.590037,
+          "yRatio": 0.575955,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775178231502-tnlcqo",
+      "floorId": "1F",
+      "label": "トレーナールーム",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.462446,
+          "yRatio": 0.162732,
+          "widthRatio": 0.008,
+          "heightRatio": 0.013
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775178181780-67ua3b",
+      "floorId": "1F",
+      "label": "トレーニングルーム",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.426666,
+          "yRatio": 0.160205,
+          "widthRatio": 0.03,
+          "heightRatio": 0.02
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276089056-py4hnw",
+      "floorId": "1F",
+      "label": "まちライブラリー@OIC",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.48568,
+          "yRatio": 0.789139,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775230520967-89bqi5",
+      "floorId": "1F",
+      "label": "ミーティングルーム1･2",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.45758,
+          "yRatio": 0.252111,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276166712-57ri6c",
+      "floorId": "1F",
+      "label": "みなめんcafe",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.562085,
+          "yRatio": 0.57329,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775230529758-ksko0x",
+      "floorId": "1F",
+      "label": "ミニ練習スタジオ",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.449289,
+          "yRatio": 0.249912,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775230538897-62pvp7",
+      "floorId": "1F",
+      "label": "ロッカーラウンジ",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.463626,
+          "yRatio": 0.274584,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775191321942-zip9wt",
+      "floorId": "1F",
+      "label": "ロッカールーム",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.443063,
+          "yRatio": 0.208287,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276118609-t56rfz",
+      "floorId": "1F",
+      "label": "音楽練習室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.387176,
+          "yRatio": 0.758251,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276319231-7gfakw",
+      "floorId": "1F",
+      "label": "学修支援コモンズ･Beyond Borders Plaza (BBP)",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.792926,
+          "yRatio": 0.465914,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276409499-7o2hye",
+      "floorId": "1F",
+      "label": "学生サポートルーム",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.557758,
+          "yRatio": 0.402712,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775192247078-61reuo",
+      "floorId": "1F",
+      "label": "学生ホール1",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.472228,
+          "yRatio": 0.325792,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775192236916-i7oh6u",
+      "floorId": "1F",
+      "label": "学生ホール2",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.454049,
+          "yRatio": 0.324906,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775168103780-lpuoyl",
+      "floorId": "1F",
+      "label": "管理人室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.319827,
+          "yRatio": 0.375312,
+          "widthRatio": 0.02,
+          "heightRatio": 0.01
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775192351892-mt9461",
+      "floorId": "1F",
+      "label": "機材管理室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.109901,
+          "yRatio": 0.493335,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775192406358-c8v4x2",
+      "floorId": "1F",
+      "label": "機材庫",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.133806,
+          "yRatio": 0.53367,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775230485496-t6dvjs",
+      "floorId": "1F",
+      "label": "共同研究室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.477964,
+          "yRatio": 0.200324,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276338601-2qz3bs",
+      "floorId": "1F",
+      "label": "教員ラウンジ",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.74118,
+          "yRatio": 0.411429,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775230570647-6me2ud",
+      "floorId": "1F",
+      "label": "校友ラウンジ",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.430604,
+          "yRatio": 0.6296,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775230497271-u8fiif",
+      "floorId": "1F",
+      "label": "講師控室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.484873,
+          "yRatio": 0.200812,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775192178585-mf9vx7",
+      "floorId": "1F",
+      "label": "作業室1",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.427094,
+          "yRatio": 0.325349,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775192168747-xr3ezg",
+      "floorId": "1F",
+      "label": "作業室2",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.427015,
+          "yRatio": 0.287157,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775192151264-nnn25i",
+      "floorId": "1F",
+      "label": "作業室3",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.42736,
+          "yRatio": 0.255466,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775192465934-ir15sn",
+      "floorId": "1F",
+      "label": "社会共創デスク",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.28375,
+          "yRatio": 0.439859,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276453028-x6ko3m",
+      "floorId": "1F",
+      "label": "証明書自動発行機",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.582919,
+          "yRatio": 0.496308,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775276426828-bumr9i",
+      "floorId": "1F",
+      "label": "心理･教育相談センター",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.55451,
+          "yRatio": 0.330749,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-1F-1775192307264-bw6xtm",
+      "floorId": "1F",
+      "label": "立命館いばらき診療所保健センター",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.132311,
+          "yRatio": 0.417764,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775278203379-xcbyzp",
+      "floorId": "2F",
+      "label": "AC230",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.669343,
+          "yRatio": 0.565327,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775278170746-anua27",
+      "floorId": "2F",
+      "label": "AC231",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.693798,
+          "yRatio": 0.448279,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775278164033-1xgncc",
+      "floorId": "2F",
+      "label": "AC232",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.693589,
+          "yRatio": 0.392119,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775278154467-swbox6",
+      "floorId": "2F",
+      "label": "AC237",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.693589,
+          "yRatio": 0.312905,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775278191117-70ba0i",
+      "floorId": "2F",
+      "label": "AC241",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.654503,
+          "yRatio": 0.468673,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775278184329-o5n4a2",
+      "floorId": "2F",
+      "label": "AC242",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.654503,
+          "yRatio": 0.45153,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775278177500-gxry6a",
+      "floorId": "2F",
+      "label": "AC244",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.654085,
+          "yRatio": 0.400395,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775278125704-98w6p2",
+      "floorId": "2F",
+      "label": "AC247",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.654058,
+          "yRatio": 0.316333,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775278145917-thmtas",
+      "floorId": "2F",
+      "label": "AC248",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.654085,
+          "yRatio": 0.291328,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775278210562-23pjy7",
+      "floorId": "2F",
+      "label": "AN210",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.76758,
+          "yRatio": 0.565031,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775278360451-04cxej",
+      "floorId": "2F",
+      "label": "AN211",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.793579,
+          "yRatio": 0.448345,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775278371635-r9yjli",
+      "floorId": "2F",
+      "label": "AN212",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.793997,
+          "yRatio": 0.392777,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775278217871-8gjqy1",
+      "floorId": "2F",
+      "label": "AN221",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.753994,
+          "yRatio": 0.469265,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775278224429-p71r5k",
+      "floorId": "2F",
+      "label": "AN222",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.754203,
+          "yRatio": 0.449461,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775278230292-e19tls",
+      "floorId": "2F",
+      "label": "AN224",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.753994,
+          "yRatio": 0.402464,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775278344876-1l3n0z",
+      "floorId": "2F",
+      "label": "AN227",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.754285,
+          "yRatio": 0.323612,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775278337972-rl4piz",
+      "floorId": "2F",
+      "label": "AN228",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.753867,
+          "yRatio": 0.299966,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775278078872-jlhx57",
+      "floorId": "2F",
+      "label": "AS251",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.59405,
+          "yRatio": 0.447687,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775278084713-2kby1r",
+      "floorId": "2F",
+      "label": "AS252",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.59405,
+          "yRatio": 0.390788,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775278097576-a0cqdz",
+      "floorId": "2F",
+      "label": "AS257",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.59405,
+          "yRatio": 0.315357,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775278071888-dwmaqa",
+      "floorId": "2F",
+      "label": "AS261",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.555654,
+          "yRatio": 0.468495,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775278065338-4pkrjt",
+      "floorId": "2F",
+      "label": "AS262",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.555654,
+          "yRatio": 0.450288,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775278057776-z4sjvk",
+      "floorId": "2F",
+      "label": "AS264",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.555194,
+          "yRatio": 0.399892,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775278051284-gv6x8d",
+      "floorId": "2F",
+      "label": "AS267",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.554504,
+          "yRatio": 0.303978,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277874798-2ewaj8",
+      "floorId": "2F",
+      "label": "B275",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.440695,
+          "yRatio": 0.745289,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277865886-shf5b3",
+      "floorId": "2F",
+      "label": "B276",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.440566,
+          "yRatio": 0.772451,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277960293-r73s1c",
+      "floorId": "2F",
+      "label": "C271",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.445593,
+          "yRatio": 0.484797,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277953330-1va9hp",
+      "floorId": "2F",
+      "label": "C272",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.420675,
+          "yRatio": 0.485347,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775278019464-9ozqck",
+      "floorId": "2F",
+      "label": "C273",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.433133,
+          "yRatio": 0.429108,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775278025438-155iff",
+      "floorId": "2F",
+      "label": "C274",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.433652,
+          "yRatio": 0.383183,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775279111613-ye6d1i",
+      "floorId": "2F",
+      "label": "Connected Learning Commons(2F)",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.264808,
+          "yRatio": 0.477908,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277218132-uect2d",
+      "floorId": "2F",
+      "label": "H201 Learning Infinity Hall",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.235034,
+          "yRatio": 0.53623,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277198875-o8qnxe",
+      "floorId": "2F",
+      "label": "H202",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.160228,
+          "yRatio": 0.535019,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277173417-0eft0q",
+      "floorId": "2F",
+      "label": "H221",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.354053,
+          "yRatio": 0.461907,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277361748-k9spf2",
+      "floorId": "2F",
+      "label": "H225",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.136222,
+          "yRatio": 0.49471,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277356249-mcjd0u",
+      "floorId": "2F",
+      "label": "H226",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.141532,
+          "yRatio": 0.479026,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277347132-al2hzg",
+      "floorId": "2F",
+      "label": "H227",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.141414,
+          "yRatio": 0.46718,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277326290-9zmnmt",
+      "floorId": "2F",
+      "label": "H228",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.141414,
+          "yRatio": 0.451831,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277318253-uwf13n",
+      "floorId": "2F",
+      "label": "H238",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.114513,
+          "yRatio": 0.438316,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277094918-nbw6n8",
+      "floorId": "2F",
+      "label": "H241",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.344838,
+          "yRatio": 0.404095,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277086815-zzcka4",
+      "floorId": "2F",
+      "label": "H242",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.326669,
+          "yRatio": 0.404278,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277079667-ly5fwq",
+      "floorId": "2F",
+      "label": "H243",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.289032,
+          "yRatio": 0.404278,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277070850-5yxe7a",
+      "floorId": "2F",
+      "label": "H244",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.270733,
+          "yRatio": 0.404095,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775276625277-tdqpnh",
+      "floorId": "2F",
+      "label": "H245",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.206125,
+          "yRatio": 0.404736,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775276618789-j1by6l",
+      "floorId": "2F",
+      "label": "H246 音響編集実習室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.180999,
+          "yRatio": 0.403909,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775276607310-be7uoq",
+      "floorId": "2F",
+      "label": "H247 MA Room1",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.147308,
+          "yRatio": 0.404423,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775276597065-ud461t",
+      "floorId": "2F",
+      "label": "H248 MA Room2",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.121611,
+          "yRatio": 0.403897,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277982951-z4es2q",
+      "floorId": "2F",
+      "label": "ICT-Lab.",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.478909,
+          "yRatio": 0.454024,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277109084-ewqrq5",
+      "floorId": "2F",
+      "label": "LIVE STREAMING STUDIO",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.217003,
+          "yRatio": 0.442636,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277624272-jjrecv",
+      "floorId": "2F",
+      "label": "OIC Japanese Garden -NAGOMI-",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.308026,
+          "yRatio": 0.340959,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277670860-aj2qvr",
+      "floorId": "2F",
+      "label": "OIC SAKURA Lounge",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.310876,
+          "yRatio": 0.365142,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775278037009-yqv8rx",
+      "floorId": "2F",
+      "label": "OICアリーナ",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.449932,
+          "yRatio": 0.247853,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277833098-m4efsz",
+      "floorId": "2F",
+      "label": "OICライブラリー",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.471164,
+          "yRatio": 0.879618,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277852531-6642ck",
+      "floorId": "2F",
+      "label": "OICライブラリー事務室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.415128,
+          "yRatio": 0.813011,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277997672-8tc17i",
+      "floorId": "2F",
+      "label": "RAINBOWサービスデスク",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.479082,
+          "yRatio": 0.437902,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775278011072-d4uh96",
+      "floorId": "2F",
+      "label": "Studio",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.474418,
+          "yRatio": 0.413962,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277050730-fxycll",
+      "floorId": "2F",
+      "label": "アナウンスブース",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.132527,
+          "yRatio": 0.407448,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277927314-1i63fy",
+      "floorId": "2F",
+      "label": "ギャラリー R-AGORA",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.479241,
+          "yRatio": 0.684541,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277753785-8znj1j",
+      "floorId": "2F",
+      "label": "グランドホール(2F)",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.373629,
+          "yRatio": 0.67663,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277399519-uu4w8e",
+      "floorId": "2F",
+      "label": "サウンドデザインルーム 1･2",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.136576,
+          "yRatio": 0.47669,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277012526-zqtpcr",
+      "floorId": "2F",
+      "label": "スクリーニングスタジオ",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.195648,
+          "yRatio": 0.412788,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277821181-3d8oft",
+      "floorId": "2F",
+      "label": "ぴあら",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.443521,
+          "yRatio": 0.886592,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277720290-sbwf1p",
+      "floorId": "2F",
+      "label": "メディアアーカイブ･メディアトランスファールーム",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.099209,
+          "yRatio": 0.504124,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277889365-34khyi",
+      "floorId": "2F",
+      "label": "ラーニングスタジオ",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.439787,
+          "yRatio": 0.763091,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277969064-z3l6vd",
+      "floorId": "2F",
+      "label": "ラーニングスタジオ",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.433263,
+          "yRatio": 0.482594,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277309157-phjk32",
+      "floorId": "2F",
+      "label": "映写室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.154628,
+          "yRatio": 0.461674,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277300074-3icz3r",
+      "floorId": "2F",
+      "label": "映像学部自治会室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.156987,
+          "yRatio": 0.436481,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277338269-gk4jz9",
+      "floorId": "2F",
+      "label": "音響調整室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.133273,
+          "yRatio": 0.439985,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277655351-pyu9ze",
+      "floorId": "2F",
+      "label": "楽心軒(茶室)",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.344508,
+          "yRatio": 0.33236,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277601910-bnblqj",
+      "floorId": "2F",
+      "label": "館長室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.278193,
+          "yRatio": 0.335047,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277374652-022qui",
+      "floorId": "2F",
+      "label": "社会連携スペース",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.128789,
+          "yRatio": 0.494042,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277165937-auobrc",
+      "floorId": "2F",
+      "label": "授業準備室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.34406,
+          "yRatio": 0.436213,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277911597-b61exg",
+      "floorId": "2F",
+      "label": "地域連携室･社会共創推進本部",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.479241,
+          "yRatio": 0.743637,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-2F-1775277590193-13ngry",
+      "floorId": "2F",
+      "label": "分林保弘記念室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.267363,
+          "yRatio": 0.335585,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278696010-4lf6pa",
+      "floorId": "3F",
+      "label": "AC330",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.669668,
+          "yRatio": 0.563627,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278924367-0294ls",
+      "floorId": "3F",
+      "label": "AC336",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.685921,
+          "yRatio": 0.368784,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278916884-fycai0",
+      "floorId": "3F",
+      "label": "AC337",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.685085,
+          "yRatio": 0.335975,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278904746-073id4",
+      "floorId": "3F",
+      "label": "AC338",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.685503,
+          "yRatio": 0.305826,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278967124-7db2rf",
+      "floorId": "3F",
+      "label": "AC341",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.655196,
+          "yRatio": 0.468688,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278960862-468rkh",
+      "floorId": "3F",
+      "label": "AC342",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.655405,
+          "yRatio": 0.449772,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278954729-5f3ll6",
+      "floorId": "3F",
+      "label": "AC343",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.654987,
+          "yRatio": 0.431742,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278946221-9min4w",
+      "floorId": "3F",
+      "label": "AC344",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.654778,
+          "yRatio": 0.413416,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278935454-4i6gch",
+      "floorId": "3F",
+      "label": "AC345",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.65436,
+          "yRatio": 0.394203,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278897747-q9zv5p",
+      "floorId": "3F",
+      "label": "AC348",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.653733,
+          "yRatio": 0.307895,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278702393-n1lisf",
+      "floorId": "3F",
+      "label": "AN310",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.768532,
+          "yRatio": 0.562977,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775279001074-dvptfl",
+      "floorId": "3F",
+      "label": "AN316",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.783949,
+          "yRatio": 0.371444,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775279043544-ckkkrx",
+      "floorId": "3F",
+      "label": "AN321",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.754687,
+          "yRatio": 0.468393,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775279036069-rchyey",
+      "floorId": "3F",
+      "label": "AN322",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.754896,
+          "yRatio": 0.449772,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775279030602-pcbhc8",
+      "floorId": "3F",
+      "label": "AN323",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.754687,
+          "yRatio": 0.432924,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775279024403-6ql5hj",
+      "floorId": "3F",
+      "label": "AN324",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.754687,
+          "yRatio": 0.41312,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775279016932-ugwvzw",
+      "floorId": "3F",
+      "label": "AN325",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.754478,
+          "yRatio": 0.394203,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278994682-c3x5ej",
+      "floorId": "3F",
+      "label": "AN327",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.754478,
+          "yRatio": 0.339522,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278986178-0vqkfe",
+      "floorId": "3F",
+      "label": "AN328",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.754269,
+          "yRatio": 0.308486,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278862547-58ispq",
+      "floorId": "3F",
+      "label": "AS356",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.586012,
+          "yRatio": 0.368193,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278872455-fc7b7d",
+      "floorId": "3F",
+      "label": "AS357",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.58643,
+          "yRatio": 0.335384,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278879480-cc6xp9",
+      "floorId": "3F",
+      "label": "AS358",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.586221,
+          "yRatio": 0.304939,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278841968-cv0cr9",
+      "floorId": "3F",
+      "label": "AS361",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.555914,
+          "yRatio": 0.470758,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278831390-awj3fs",
+      "floorId": "3F",
+      "label": "AS362",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.555705,
+          "yRatio": 0.450363,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278825044-093hcn",
+      "floorId": "3F",
+      "label": "AS363",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.555496,
+          "yRatio": 0.433219,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278817132-dg5e22",
+      "floorId": "3F",
+      "label": "AS364",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.555287,
+          "yRatio": 0.414303,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278805094-lj8ge5",
+      "floorId": "3F",
+      "label": "AS365",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.555747,
+          "yRatio": 0.396006,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278887114-p9x50f",
+      "floorId": "3F",
+      "label": "AS368",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.555078,
+          "yRatio": 0.307304,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278682899-ikr9n6",
+      "floorId": "3F",
+      "label": "B374コロキウム",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.443636,
+          "yRatio": 0.687025,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278973945-gyoqaf",
+      "floorId": "3F",
+      "label": "BA-House",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.685503,
+          "yRatio": 0.426717,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278775799-vryphs",
+      "floorId": "3F",
+      "label": "C371",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.479875,
+          "yRatio": 0.40511,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278732367-7v5tiv",
+      "floorId": "3F",
+      "label": "C372",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.433565,
+          "yRatio": 0.452165,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278722492-rgkxor",
+      "floorId": "3F",
+      "label": "C373ラーニングシアター",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.433544,
+          "yRatio": 0.383828,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278669280-unjjby",
+      "floorId": "3F",
+      "label": "Connected Learning Commons(3F)",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.267683,
+          "yRatio": 0.470179,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278597284-hlj7gp",
+      "floorId": "3F",
+      "label": "H301",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.234056,
+          "yRatio": 0.539686,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278589388-ufp8dg",
+      "floorId": "3F",
+      "label": "H321",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.354524,
+          "yRatio": 0.464717,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278584509-fv87d7",
+      "floorId": "3F",
+      "label": "H322",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.307971,
+          "yRatio": 0.464717,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278577347-owx7rs",
+      "floorId": "3F",
+      "label": "H323",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.235386,
+          "yRatio": 0.465792,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278569539-t5w2kk",
+      "floorId": "3F",
+      "label": "H324",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.188262,
+          "yRatio": 0.465792,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278448664-jbqrkt",
+      "floorId": "3F",
+      "label": "H325映像編集実習室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.13053,
+          "yRatio": 0.462691,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278541980-o26e6o",
+      "floorId": "3F",
+      "label": "H341",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.345023,
+          "yRatio": 0.406677,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775178361058-at9ied",
+      "floorId": "3F",
+      "label": "H342",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.319099,
+          "yRatio": 0.399531,
+          "widthRatio": 0.015,
+          "heightRatio": 0.013
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775178352742-2v07td",
+      "floorId": "3F",
+      "label": "H343",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.281958,
+          "yRatio": 0.399531,
+          "widthRatio": 0.015,
+          "heightRatio": 0.013
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775178343900-s6gs8c",
+      "floorId": "3F",
+      "label": "H344",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.263152,
+          "yRatio": 0.399531,
+          "widthRatio": 0.015,
+          "heightRatio": 0.013
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775178331615-g8altd",
+      "floorId": "3F",
+      "label": "H345",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.208771,
+          "yRatio": 0.399752,
+          "widthRatio": 0.015,
+          "heightRatio": 0.013
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775178324411-pujnc4",
+      "floorId": "3F",
+      "label": "H346",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.190749,
+          "yRatio": 0.39951,
+          "widthRatio": 0.015,
+          "heightRatio": 0.013
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775178312944-yl0r7t",
+      "floorId": "3F",
+      "label": "H347",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.17304,
+          "yRatio": 0.399188,
+          "widthRatio": 0.015,
+          "heightRatio": 0.013
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775178303968-n5kmey",
+      "floorId": "3F",
+      "label": "H348",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.136525,
+          "yRatio": 0.398831,
+          "widthRatio": 0.015,
+          "heightRatio": 0.013
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278740796-r1kiu2",
+      "floorId": "3F",
+      "label": "Idea-Lab.",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.47913,
+          "yRatio": 0.450687,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278853581-rllhgy",
+      "floorId": "3F",
+      "label": "PS-Lounge",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.584967,
+          "yRatio": 0.424943,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278611705-bih9ow",
+      "floorId": "3F",
+      "label": "Student Activity Lounge",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.118638,
+          "yRatio": 0.50153,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775279009532-9liiej",
+      "floorId": "3F",
+      "label": "Student Lounge",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.783531,
+          "yRatio": 0.411051,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278558605-22b30o",
+      "floorId": "3F",
+      "label": "サーバールーム･レンダーファーム",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.124418,
+          "yRatio": 0.408021,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278434256-8wok8y",
+      "floorId": "3F",
+      "label": "パーソナルクリエーション･ラボ",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.100641,
+          "yRatio": 0.471854,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278792507-gwezbg",
+      "floorId": "3F",
+      "label": "ラーニングスタジオ",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.481714,
+          "yRatio": 0.419416,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278509551-941x0d",
+      "floorId": "3F",
+      "label": "映像編集室1",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.166394,
+          "yRatio": 0.442298,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278502564-7o9zcu",
+      "floorId": "3F",
+      "label": "映像編集室2",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.160278,
+          "yRatio": 0.441922,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278497856-j1b0ql",
+      "floorId": "3F",
+      "label": "映像編集室3",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.153807,
+          "yRatio": 0.442047,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278493777-v5m5ye",
+      "floorId": "3F",
+      "label": "映像編集室4",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.143436,
+          "yRatio": 0.442298,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278488907-b7jtml",
+      "floorId": "3F",
+      "label": "映像編集室5",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.137142,
+          "yRatio": 0.442548,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278484939-nea6n2",
+      "floorId": "3F",
+      "label": "映像編集室6",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.130948,
+          "yRatio": 0.442297,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278474201-1gbvyb",
+      "floorId": "3F",
+      "label": "映像編集室7",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.124678,
+          "yRatio": 0.442297,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-3F-1775278464393-5ef60f",
+      "floorId": "3F",
+      "label": "映像編集室8",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.118407,
+          "yRatio": 0.441706,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279782649-n4rbfe",
+      "floorId": "4F",
+      "label": "AC431",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.684517,
+          "yRatio": 0.471698,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279771212-jp9vfv",
+      "floorId": "4F",
+      "label": "AC432",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.684517,
+          "yRatio": 0.451814,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279765254-2f29na",
+      "floorId": "4F",
+      "label": "AC433",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.684327,
+          "yRatio": 0.433005,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279759208-56yfvo",
+      "floorId": "4F",
+      "label": "AC434",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.684327,
+          "yRatio": 0.414733,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279746904-04lgzs",
+      "floorId": "4F",
+      "label": "AC435",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.683947,
+          "yRatio": 0.395386,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279735763-uwngpf",
+      "floorId": "4F",
+      "label": "AC436",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.683801,
+          "yRatio": 0.373922,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279710313-ca7m00",
+      "floorId": "4F",
+      "label": "AC448",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.655449,
+          "yRatio": 0.31876,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279704893-10m7k0",
+      "floorId": "4F",
+      "label": "AC449",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.654822,
+          "yRatio": 0.300434,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279938675-z4j2tc",
+      "floorId": "4F",
+      "label": "AN411",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.784613,
+          "yRatio": 0.470195,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279935084-vvo0v1",
+      "floorId": "4F",
+      "label": "AN412",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.784613,
+          "yRatio": 0.451386,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279929634-2z00sl",
+      "floorId": "4F",
+      "label": "AN413",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.784993,
+          "yRatio": 0.432845,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279924200-4a6i2q",
+      "floorId": "4F",
+      "label": "AN414",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.784613,
+          "yRatio": 0.415111,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279920775-cruzwc",
+      "floorId": "4F",
+      "label": "AN415",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.784803,
+          "yRatio": 0.394689,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279917305-pf1532",
+      "floorId": "4F",
+      "label": "AN416",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.784803,
+          "yRatio": 0.373461,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279908397-vrg3hp",
+      "floorId": "4F",
+      "label": "AN421",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.755161,
+          "yRatio": 0.469658,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279903768-dzf291",
+      "floorId": "4F",
+      "label": "AN422",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.755161,
+          "yRatio": 0.452192,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279898239-t7h5cd",
+      "floorId": "4F",
+      "label": "AN423",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.754781,
+          "yRatio": 0.433383,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279890385-caovcf",
+      "floorId": "4F",
+      "label": "AN424",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.754971,
+          "yRatio": 0.414573,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279887018-qk26ih",
+      "floorId": "4F",
+      "label": "AN425",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.754591,
+          "yRatio": 0.395226,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279881643-ncbini",
+      "floorId": "4F",
+      "label": "AN427",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.755161,
+          "yRatio": 0.339336,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279874760-l0nuyu",
+      "floorId": "4F",
+      "label": "AN428",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.754781,
+          "yRatio": 0.31972,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279866922-bc11y2",
+      "floorId": "4F",
+      "label": "AN429",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.754391,
+          "yRatio": 0.300542,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279663693-nm2lvp",
+      "floorId": "4F",
+      "label": "AS451",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.585001,
+          "yRatio": 0.47002,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279659527-zy9btx",
+      "floorId": "4F",
+      "label": "AS452",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.584431,
+          "yRatio": 0.451479,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279653940-tdulc5",
+      "floorId": "4F",
+      "label": "AS453",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.584431,
+          "yRatio": 0.43267,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279648427-g1b1a8",
+      "floorId": "4F",
+      "label": "AS454",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.584431,
+          "yRatio": 0.414398,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279639090-ddbrox",
+      "floorId": "4F",
+      "label": "AS455",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.584811,
+          "yRatio": 0.394782,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279633849-kydt6k",
+      "floorId": "4F",
+      "label": "AS456",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.584431,
+          "yRatio": 0.374361,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279624824-xr68n6",
+      "floorId": "4F",
+      "label": "AS457",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.584621,
+          "yRatio": 0.33916,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279617828-pnm11o",
+      "floorId": "4F",
+      "label": "AS458",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.584621,
+          "yRatio": 0.319545,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279611716-p4ynd7",
+      "floorId": "4F",
+      "label": "AS459",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.584621,
+          "yRatio": 0.300198,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279594578-vbexuf",
+      "floorId": "4F",
+      "label": "AS461",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.555549,
+          "yRatio": 0.469482,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279587866-4g8k67",
+      "floorId": "4F",
+      "label": "AS462",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.555739,
+          "yRatio": 0.451748,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279583104-n430jv",
+      "floorId": "4F",
+      "label": "AS463",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.555549,
+          "yRatio": 0.432401,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279577974-ddexmg",
+      "floorId": "4F",
+      "label": "AS464",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.554979,
+          "yRatio": 0.414398,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279571342-jf6q7r",
+      "floorId": "4F",
+      "label": "AS465",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.555051,
+          "yRatio": 0.39511,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279562304-gbzq3y",
+      "floorId": "4F",
+      "label": "AS468",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.555741,
+          "yRatio": 0.319354,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279556025-wi0yip",
+      "floorId": "4F",
+      "label": "AS469",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.555281,
+          "yRatio": 0.300171,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279482239-v3im2n",
+      "floorId": "4F",
+      "label": "B401〜B408プロジェクト室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.485239,
+          "yRatio": 0.687326,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279466681-hweydl",
+      "floorId": "4F",
+      "label": "B411〜B413研究会室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.419713,
+          "yRatio": 0.684725,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279523005-ojoq1l",
+      "floorId": "4F",
+      "label": "C471",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.481363,
+          "yRatio": 0.459714,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279517093-30j6qd",
+      "floorId": "4F",
+      "label": "C472",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.481593,
+          "yRatio": 0.424925,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279509065-4slgu2",
+      "floorId": "4F",
+      "label": "C473",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.481363,
+          "yRatio": 0.399239,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279323138-yn2czk",
+      "floorId": "4F",
+      "label": "Co-Creation Hub(with Ritsumeikan)(4F)",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.336503,
+          "yRatio": 0.458312,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279276048-d91ano",
+      "floorId": "4F",
+      "label": "H421チーム･クリエーション･ラボ",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.225934,
+          "yRatio": 0.448854,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279254152-cv87qo",
+      "floorId": "4F",
+      "label": "H422メディア･デベロップメント･ラボ",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.189357,
+          "yRatio": 0.449121,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279182637-0gs308",
+      "floorId": "4F",
+      "label": "H423クリエイティブPC教室1",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.133549,
+          "yRatio": 0.469631,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279170084-jhx1zv",
+      "floorId": "4F",
+      "label": "H424クリエイティブPC教室2",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.132789,
+          "yRatio": 0.434267,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279444098-exnozq",
+      "floorId": "4F",
+      "label": "H441",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.366663,
+          "yRatio": 0.494259,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279436069-02vlbu",
+      "floorId": "4F",
+      "label": "H442",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.366283,
+          "yRatio": 0.476256,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279427599-66ggoi",
+      "floorId": "4F",
+      "label": "H443",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.366473,
+          "yRatio": 0.458521,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279421932-b0fc8a",
+      "floorId": "4F",
+      "label": "H444",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.366283,
+          "yRatio": 0.43595,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279297634-xgphxb",
+      "floorId": "4F",
+      "label": "Innovation Lounge(4F)",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.246,
+          "yRatio": 0.485505,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279692122-q2sa5j",
+      "floorId": "4F",
+      "label": "SALL",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.655116,
+          "yRatio": 0.461421,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279377853-d7vck7",
+      "floorId": "4F",
+      "label": "Staff Office",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.335318,
+          "yRatio": 0.40607,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279724109-rb6jux",
+      "floorId": "4F",
+      "label": "エクステンションセンター自習室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.683875,
+          "yRatio": 0.325854,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279387825-751ctk",
+      "floorId": "4F",
+      "label": "映像研究室1",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.289335,
+          "yRatio": 0.404995,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279396303-og4rhv",
+      "floorId": "4F",
+      "label": "映像研究室2",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.274324,
+          "yRatio": 0.406339,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279684647-z88qhj",
+      "floorId": "4F",
+      "label": "嘱託講師室(言語教育)",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.648656,
+          "yRatio": 0.420309,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-4F-1775279532909-dndlca",
+      "floorId": "4F",
+      "label": "大学院ラウンジ",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.480673,
+          "yRatio": 0.485725,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280814382-ba0vhf",
+      "floorId": "5F",
+      "label": "AN510",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.74902,
+          "yRatio": 0.499308,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280821248-jgvdsq",
+      "floorId": "5F",
+      "label": "AN511",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.769437,
+          "yRatio": 0.47236,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280826515-7rtem5",
+      "floorId": "5F",
+      "label": "AN512",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.769777,
+          "yRatio": 0.45263,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280832927-9ti3zt",
+      "floorId": "5F",
+      "label": "AN513",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.769607,
+          "yRatio": 0.434825,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280839957-jf33rk",
+      "floorId": "5F",
+      "label": "AN514",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.769607,
+          "yRatio": 0.416298,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280844932-d8zhfz",
+      "floorId": "5F",
+      "label": "AN515",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.769437,
+          "yRatio": 0.398012,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280856015-tfebjy",
+      "floorId": "5F",
+      "label": "AN517",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.769437,
+          "yRatio": 0.329439,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280781049-n5zxs9",
+      "floorId": "5F",
+      "label": "AN520",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.729175,
+          "yRatio": 0.49898,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280788890-69fe5z",
+      "floorId": "5F",
+      "label": "AN521",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.750829,
+          "yRatio": 0.461576,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280796336-66pdg7",
+      "floorId": "5F",
+      "label": "AN524",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.751448,
+          "yRatio": 0.40733,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280802183-bzsdbb",
+      "floorId": "5F",
+      "label": "AN527",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.751603,
+          "yRatio": 0.328586,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280677112-du7b1i",
+      "floorId": "5F",
+      "label": "AS550",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.59403,
+          "yRatio": 0.499437,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280668374-hgpa5g",
+      "floorId": "5F",
+      "label": "AS551",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.570317,
+          "yRatio": 0.471456,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280661353-2tnxwd",
+      "floorId": "5F",
+      "label": "AS552",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.569846,
+          "yRatio": 0.45258,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280655295-o3wfxd",
+      "floorId": "5F",
+      "label": "AS553",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.57016,
+          "yRatio": 0.435259,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280650283-6gmxhn",
+      "floorId": "5F",
+      "label": "AS554",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.569846,
+          "yRatio": 0.416383,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280645344-3k5fvm",
+      "floorId": "5F",
+      "label": "AS555",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.570474,
+          "yRatio": 0.397951,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280639610-mdexfj",
+      "floorId": "5F",
+      "label": "AS557",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.570349,
+          "yRatio": 0.328532,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280605682-rk8vi7",
+      "floorId": "5F",
+      "label": "AS560",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.57294,
+          "yRatio": 0.499282,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280613388-03rove",
+      "floorId": "5F",
+      "label": "AS561",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.552038,
+          "yRatio": 0.461907,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280620737-5yv0i5",
+      "floorId": "5F",
+      "label": "AS564",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.552384,
+          "yRatio": 0.406701,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280627042-hok8yj",
+      "floorId": "5F",
+      "label": "AS567",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.552211,
+          "yRatio": 0.328043,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280510389-twl8ha",
+      "floorId": "5F",
+      "label": "B501〜B510研究センター･研究所",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.478542,
+          "yRatio": 0.662312,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280535421-s4y5p2",
+      "floorId": "5F",
+      "label": "B511〜B516研究会室･プロジェクト室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.419448,
+          "yRatio": 0.663656,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280450707-ffgw1o",
+      "floorId": "5F",
+      "label": "B517研究所",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.423818,
+          "yRatio": 0.760121,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775279337954-oauqtu",
+      "floorId": "5F",
+      "label": "Co-Creation Hub(with Ritsumeikan)(5F)",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.337651,
+          "yRatio": 0.456982,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280724961-f0wych",
+      "floorId": "5F",
+      "label": "GLA Meeting Room 1",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.673647,
+          "yRatio": 0.472567,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280708024-eyfujt",
+      "floorId": "5F",
+      "label": "GLA Meeting Room 2",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.673647,
+          "yRatio": 0.463018,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280752307-fxrdjm",
+      "floorId": "5F",
+      "label": "GLA Student Council Office",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.713944,
+          "yRatio": 0.511407,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280765703-d5po3m",
+      "floorId": "5F",
+      "label": "Global Lounge",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.632038,
+          "yRatio": 0.501605,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280240394-k7n556",
+      "floorId": "5F",
+      "label": "H501",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.289063,
+          "yRatio": 0.466358,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280235665-fht7x5",
+      "floorId": "5F",
+      "label": "H502",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.271616,
+          "yRatio": 0.474663,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280230369-8mfce1",
+      "floorId": "5F",
+      "label": "H503",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.271789,
+          "yRatio": 0.457075,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280222719-kbrk4b",
+      "floorId": "5F",
+      "label": "H504",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.217722,
+          "yRatio": 0.475396,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280211317-1klwfm",
+      "floorId": "5F",
+      "label": "H505",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.217894,
+          "yRatio": 0.456831,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280193578-0yldll",
+      "floorId": "5F",
+      "label": "H506",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.198202,
+          "yRatio": 0.465869,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280185591-k1r1xy",
+      "floorId": "5F",
+      "label": "H507",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.180583,
+          "yRatio": 0.465137,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280174250-ggsn8n",
+      "floorId": "5F",
+      "label": "H508",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.164,
+          "yRatio": 0.504465,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280164263-m1qhsd",
+      "floorId": "5F",
+      "label": "H509実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.133943,
+          "yRatio": 0.495916,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280155859-kr5wa8",
+      "floorId": "5F",
+      "label": "H510実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.13377,
+          "yRatio": 0.461228,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280145239-9wfvlh",
+      "floorId": "5F",
+      "label": "H521",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.290099,
+          "yRatio": 0.416525,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280140504-5x8432",
+      "floorId": "5F",
+      "label": "H522",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.271616,
+          "yRatio": 0.416525,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280134533-swacec",
+      "floorId": "5F",
+      "label": "H523",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.253133,
+          "yRatio": 0.415793,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280130422-oujvvn",
+      "floorId": "5F",
+      "label": "H524",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.234305,
+          "yRatio": 0.415304,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280123988-qfaujv",
+      "floorId": "5F",
+      "label": "H525",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.21634,
+          "yRatio": 0.415304,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280114130-m03uh9",
+      "floorId": "5F",
+      "label": "H526",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.197857,
+          "yRatio": 0.415793,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280107626-1yku26",
+      "floorId": "5F",
+      "label": "H527",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.179719,
+          "yRatio": 0.415793,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280085399-4krppi",
+      "floorId": "5F",
+      "label": "H528",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.143523,
+          "yRatio": 0.415223,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280079531-ydxn8i",
+      "floorId": "5F",
+      "label": "H529",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.12536,
+          "yRatio": 0.416051,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280319022-h16x26",
+      "floorId": "5F",
+      "label": "H541",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.366623,
+          "yRatio": 0.49445,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280311747-prj6jz",
+      "floorId": "5F",
+      "label": "H542",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.366623,
+          "yRatio": 0.476373,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280304930-z1h8ml",
+      "floorId": "5F",
+      "label": "H543",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.366277,
+          "yRatio": 0.45903,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280298581-egmiyo",
+      "floorId": "5F",
+      "label": "H544",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.366277,
+          "yRatio": 0.435579,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280326621-sarx5j",
+      "floorId": "5F",
+      "label": "H545",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.330866,
+          "yRatio": 0.404556,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280333326-ntc29d",
+      "floorId": "5F",
+      "label": "H546",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.321365,
+          "yRatio": 0.405777,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280288531-urz3aw",
+      "floorId": "5F",
+      "label": "Innovation Lounge(5F)",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.243978,
+          "yRatio": 0.479305,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280427724-1bvp6q",
+      "floorId": "5F",
+      "label": "OICセミナーハウス",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.447777,
+          "yRatio": 0.431977,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280866294-vrjju3",
+      "floorId": "5F",
+      "label": "Room9",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.782397,
+          "yRatio": 0.496813,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280586973-knlexg",
+      "floorId": "5F",
+      "label": "Room10",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.539918,
+          "yRatio": 0.506707,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280898477-gvxk0y",
+      "floorId": "5F",
+      "label": "アネックス",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.769687,
+          "yRatio": 0.448626,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280919685-gme087",
+      "floorId": "5F",
+      "label": "アネックス",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.570382,
+          "yRatio": 0.440307,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280558479-d38d56",
+      "floorId": "5F",
+      "label": "ガーデンライブラリー",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.470132,
+          "yRatio": 0.89085,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280356229-2i3iqi",
+      "floorId": "5F",
+      "label": "プロジェクトルーム",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.366277,
+          "yRatio": 0.471244,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775281002747-z51e74",
+      "floorId": "5F",
+      "label": "フロント",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.434596,
+          "yRatio": 0.516179,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280933923-3haxbw",
+      "floorId": "5F",
+      "label": "ラーニングスタジオ",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.55293,
+          "yRatio": 0.393666,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280942735-5zsrgz",
+      "floorId": "5F",
+      "label": "ラーニングスタジオ",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.75098,
+          "yRatio": 0.392501,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280393683-2kax4y",
+      "floorId": "5F",
+      "label": "ラウンジ1",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.46481,
+          "yRatio": 0.490564,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280400995-46ntg6",
+      "floorId": "5F",
+      "label": "ラウンジ2",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.447018,
+          "yRatio": 0.503999,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280378970-2lm3s7",
+      "floorId": "5F",
+      "label": "ラウンジ3",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.427671,
+          "yRatio": 0.488121,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280966868-9iz14e",
+      "floorId": "5F",
+      "label": "共同実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.209359,
+          "yRatio": 0.471367,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280978239-zihb4b",
+      "floorId": "5F",
+      "label": "共同実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.262605,
+          "yRatio": 0.47077,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280468231-8zm1es",
+      "floorId": "5F",
+      "label": "産学交流ラウンジ",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.44966,
+          "yRatio": 0.755016,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-5F-1775280258752-pajtdz",
+      "floorId": "5F",
+      "label": "情報理工学部自治会室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.253133,
+          "yRatio": 0.495427,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283196728-i2ogl3",
+      "floorId": "A-6-9F",
+      "label": "A610実習室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.396419,
+          "yRatio": 0.466541,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283186953-fvl5xq",
+      "floorId": "A-6-9F",
+      "label": "A620実習室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.37071,
+          "yRatio": 0.46595,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282673739-152quq",
+      "floorId": "A-6-9F",
+      "label": "A650データ解析室2",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.221056,
+          "yRatio": 0.467133,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282641387-ok0oyt",
+      "floorId": "A-6-9F",
+      "label": "A660データ解析室2",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.186969,
+          "yRatio": 0.467133,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283085503-ohqvvz",
+      "floorId": "A-6-9F",
+      "label": "AC631",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.300063,
+          "yRatio": 0.422205,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283075782-10ky8w",
+      "floorId": "A-6-9F",
+      "label": "AC632",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.30069,
+          "yRatio": 0.399741,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283063365-aifjkj",
+      "floorId": "A-6-9F",
+      "label": "AC633",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.30069,
+          "yRatio": 0.382598,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283050495-z74c7s",
+      "floorId": "A-6-9F",
+      "label": "AC634",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.300899,
+          "yRatio": 0.370479,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283042995-pwad3l",
+      "floorId": "A-6-9F",
+      "label": "AC635",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.300899,
+          "yRatio": 0.353336,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283036570-wkjjev",
+      "floorId": "A-6-9F",
+      "label": "AC636実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.300899,
+          "yRatio": 0.335897,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283027161-idshho",
+      "floorId": "A-6-9F",
+      "label": "AC637実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.300899,
+          "yRatio": 0.323483,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283014970-c1lmz8",
+      "floorId": "A-6-9F",
+      "label": "AC638実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.301108,
+          "yRatio": 0.266437,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283006957-86b5pp",
+      "floorId": "A-6-9F",
+      "label": "AC639実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.301108,
+          "yRatio": 0.231854,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282885590-8tutlc",
+      "floorId": "A-6-9F",
+      "label": "AC641",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.279789,
+          "yRatio": 0.416293,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282895573-o532e2",
+      "floorId": "A-6-9F",
+      "label": "AC642",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.27958,
+          "yRatio": 0.382007,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282903007-gzx4gh",
+      "floorId": "A-6-9F",
+      "label": "AC643",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.279162,
+          "yRatio": 0.358361,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282907969-8m71ic",
+      "floorId": "A-6-9F",
+      "label": "AC644",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.278953,
+          "yRatio": 0.34033,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282916340-bl5t39",
+      "floorId": "A-6-9F",
+      "label": "AC645",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.279162,
+          "yRatio": 0.278851,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282940244-085cwi",
+      "floorId": "A-6-9F",
+      "label": "AC646",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.278953,
+          "yRatio": 0.261412,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282948290-b2h3j8",
+      "floorId": "A-6-9F",
+      "label": "AC647",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.278744,
+          "yRatio": 0.248111,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282997003-qlqdh0",
+      "floorId": "A-6-9F",
+      "label": "AC648実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.279162,
+          "yRatio": 0.229194,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775284003881-eeplez",
+      "floorId": "A-6-9F",
+      "label": "AC730",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.317517,
+          "yRatio": 0.833832,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775284012256-ahojay",
+      "floorId": "A-6-9F",
+      "label": "AC740",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.261984,
+          "yRatio": 0.83363,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283472442-nx8q4f",
+      "floorId": "A-6-9F",
+      "label": "AC830",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.722375,
+          "yRatio": 0.464232,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283458882-hdeejo",
+      "floorId": "A-6-9F",
+      "label": "AC840",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.666892,
+          "yRatio": 0.465575,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283953127-0letvs",
+      "floorId": "A-6-9F",
+      "label": "AC931",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.705483,
+          "yRatio": 0.789134,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283946360-yfz3kc",
+      "floorId": "A-6-9F",
+      "label": "AC941",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.684441,
+          "yRatio": 0.788912,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283391717-vwggde",
+      "floorId": "A-6-9F",
+      "label": "AN611",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.421919,
+          "yRatio": 0.434028,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283384008-yknizw",
+      "floorId": "A-6-9F",
+      "label": "AN612実習室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.422337,
+          "yRatio": 0.415998,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283372425-b6no7c",
+      "floorId": "A-6-9F",
+      "label": "AN613実習室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.422128,
+          "yRatio": 0.391465,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283359170-lb7xwc",
+      "floorId": "A-6-9F",
+      "label": "AN614実習室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.421919,
+          "yRatio": 0.367228,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283350304-e20pys",
+      "floorId": "A-6-9F",
+      "label": "AN615",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.421501,
+          "yRatio": 0.340922,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283341537-piwxf1",
+      "floorId": "A-6-9F",
+      "label": "AN616",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.421501,
+          "yRatio": 0.271166,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283269795-6n6r1a",
+      "floorId": "A-6-9F",
+      "label": "AN621",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.400181,
+          "yRatio": 0.427821,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283281625-twogba",
+      "floorId": "A-6-9F",
+      "label": "AN622実習室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.399554,
+          "yRatio": 0.402401,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283295400-s1y68t",
+      "floorId": "A-6-9F",
+      "label": "AN623実習室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.399554,
+          "yRatio": 0.380529,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283305320-vzw9vf",
+      "floorId": "A-6-9F",
+      "label": "AN624実習室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.399136,
+          "yRatio": 0.360725,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283315812-c8p4ft",
+      "floorId": "A-6-9F",
+      "label": "AN625",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.399972,
+          "yRatio": 0.338261,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283978460-ky8zad",
+      "floorId": "A-6-9F",
+      "label": "AN711",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.418448,
+          "yRatio": 0.802742,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283995748-sg82xw",
+      "floorId": "A-6-9F",
+      "label": "AN720",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.39575,
+          "yRatio": 0.832822,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283986764-eedo6q",
+      "floorId": "A-6-9F",
+      "label": "AN721",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.396606,
+          "yRatio": 0.802136,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283498088-5nj1us",
+      "floorId": "A-6-9F",
+      "label": "AN811",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.82378,
+          "yRatio": 0.433308,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283491542-2wp2gt",
+      "floorId": "A-6-9F",
+      "label": "AN821",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.801625,
+          "yRatio": 0.433899,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283969056-ymhmi1",
+      "floorId": "A-6-9F",
+      "label": "AN911",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.823417,
+          "yRatio": 0.800681,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283962256-9uydtg",
+      "floorId": "A-6-9F",
+      "label": "AN921",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.801589,
+          "yRatio": 0.802458,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282703165-31if2j",
+      "floorId": "A-6-9F",
+      "label": "AS651",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.179671,
+          "yRatio": 0.436393,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282722414-wjfp9g",
+      "floorId": "A-6-9F",
+      "label": "AS652",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.178835,
+          "yRatio": 0.370184,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282742952-g8itun",
+      "floorId": "A-6-9F",
+      "label": "AS653",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.179462,
+          "yRatio": 0.340626,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282777253-l8tvn8",
+      "floorId": "A-6-9F",
+      "label": "AS654",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.179462,
+          "yRatio": 0.233628,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282506688-3oq7e1",
+      "floorId": "A-6-9F",
+      "label": "AS661",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.158125,
+          "yRatio": 0.4221,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282534113-j3k61s",
+      "floorId": "A-6-9F",
+      "label": "AS662",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.158334,
+          "yRatio": 0.366313,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282538909-85w4vk",
+      "floorId": "A-6-9F",
+      "label": "AS663",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.158543,
+          "yRatio": 0.341217,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282545575-k7ui1e",
+      "floorId": "A-6-9F",
+      "label": "AS664",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.158125,
+          "yRatio": 0.265845,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282555398-mnr0rt",
+      "floorId": "A-6-9F",
+      "label": "AS665集団実習室3",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.158125,
+          "yRatio": 0.222987,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775284021544-acj986",
+      "floorId": "A-6-9F",
+      "label": "AS751",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.182038,
+          "yRatio": 0.801934,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775284029623-539n48",
+      "floorId": "A-6-9F",
+      "label": "AS761",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.160624,
+          "yRatio": 0.802136,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283442125-nn39ck",
+      "floorId": "A-6-9F",
+      "label": "AS850",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.586896,
+          "yRatio": 0.465307,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283431454-2ugts8",
+      "floorId": "A-6-9F",
+      "label": "AS851",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.587086,
+          "yRatio": 0.433331,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283425350-zneted",
+      "floorId": "A-6-9F",
+      "label": "AS861",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.565994,
+          "yRatio": 0.433599,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283936556-v3yr66",
+      "floorId": "A-6-9F",
+      "label": "AS951",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.587392,
+          "yRatio": 0.801125,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283930556-c39fco",
+      "floorId": "A-6-9F",
+      "label": "AS961",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.565564,
+          "yRatio": 0.802014,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283909423-10gc3h",
+      "floorId": "A-6-9F",
+      "label": "Meeting Room1",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.186741,
+          "yRatio": 0.853433,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283897193-1rjpsv",
+      "floorId": "A-6-9F",
+      "label": "Meeting Room2",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.176712,
+          "yRatio": 0.853433,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283648376-y2zcas",
+      "floorId": "A-6-9F",
+      "label": "Meeting Room3",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.80589,
+          "yRatio": 0.484299,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283633488-1ilnyq",
+      "floorId": "A-6-9F",
+      "label": "Meeting Room4",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.795897,
+          "yRatio": 0.483896,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283105128-epxrz6",
+      "floorId": "A-6-9F",
+      "label": "PBL準備室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.304243,
+          "yRatio": 0.420432,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282570574-1timkj",
+      "floorId": "A-6-9F",
+      "label": "カウンセリング実習室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.157707,
+          "yRatio": 0.272348,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282811877-sx1ie0",
+      "floorId": "A-6-9F",
+      "label": "カンファレンスルーム",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.182806,
+          "yRatio": 0.339739,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283163741-7hvheq",
+      "floorId": "A-6-9F",
+      "label": "ここらぼスクエア",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.329116,
+          "yRatio": 0.466246,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283729930-1tmm25",
+      "floorId": "A-6-9F",
+      "label": "ひらめきラウンジ(6F)",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.429108,
+          "yRatio": 0.477672,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283741209-cfmdy7",
+      "floorId": "A-6-9F",
+      "label": "ひらめきラウンジ(6F)",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.149299,
+          "yRatio": 0.47848,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283758947-gw7d9i",
+      "floorId": "A-6-9F",
+      "label": "ひらめきラウンジ(7F)",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.149172,
+          "yRatio": 0.84724,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283767755-0o3e93",
+      "floorId": "A-6-9F",
+      "label": "ひらめきラウンジ(7F)",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.428981,
+          "yRatio": 0.84724,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283674751-s21ose",
+      "floorId": "A-6-9F",
+      "label": "ひらめきラウンジ(8F)",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.8343,
+          "yRatio": 0.478647,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283688005-g12al6",
+      "floorId": "A-6-9F",
+      "label": "ひらめきラウンジ(8F)",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.554165,
+          "yRatio": 0.478278,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283806314-hsfz6v",
+      "floorId": "A-6-9F",
+      "label": "ひらめきラウンジ(9F)",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.554354,
+          "yRatio": 0.847906,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283814455-ea6acc",
+      "floorId": "A-6-9F",
+      "label": "ひらめきラウンジ(9F)",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.834164,
+          "yRatio": 0.847172,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282857094-ymx713",
+      "floorId": "A-6-9F",
+      "label": "プレイルーム",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.182597,
+          "yRatio": 0.432846,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283877872-31hvvq",
+      "floorId": "A-6-9F",
+      "label": "リサーチ･コモンズ(7F)",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.289361,
+          "yRatio": 0.83363,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283843789-ljfr71",
+      "floorId": "A-6-9F",
+      "label": "リサーチ･コモンズ(8F)",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.694787,
+          "yRatio": 0.463741,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283510742-uvlwg8",
+      "floorId": "A-6-9F",
+      "label": "リサーチオフィスCo-Lab.",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.6944,
+          "yRatio": 0.379809,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283535629-aqmvld",
+      "floorId": "A-6-9F",
+      "label": "教員共同利用研究室1",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.704224,
+          "yRatio": 0.232612,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282792056-qisc3g",
+      "floorId": "A-6-9F",
+      "label": "公認心理士実習指導室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.182388,
+          "yRatio": 0.253136,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283136849-tao6qu",
+      "floorId": "A-6-9F",
+      "label": "視覚実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.301944,
+          "yRatio": 0.37107,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282771540-7xa4zv",
+      "floorId": "A-6-9F",
+      "label": "執務室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.179462,
+          "yRatio": 0.263481,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282735565-f0izvk",
+      "floorId": "A-6-9F",
+      "label": "集団実習室1",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.17988,
+          "yRatio": 0.371366,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282616550-4wid4v",
+      "floorId": "A-6-9F",
+      "label": "集団実習室2",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.158961,
+          "yRatio": 0.367228,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282579450-b5y9rt",
+      "floorId": "A-6-9F",
+      "label": "生活行動実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.158543,
+          "yRatio": 0.345355,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283147291-69hf7t",
+      "floorId": "A-6-9F",
+      "label": "生理実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.304452,
+          "yRatio": 0.351267,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282688656-4u2zrp",
+      "floorId": "A-6-9F",
+      "label": "総合心理学実習ステーション",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.284805,
+          "yRatio": 0.478069,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283522480-cabzzz",
+      "floorId": "A-6-9F",
+      "label": "大会議室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.68395,
+          "yRatio": 0.237933,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283606967-jvpljw",
+      "floorId": "A-6-9F",
+      "label": "大学院共同研究室1",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.353318,
+          "yRatio": 0.836073,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283611888-omn6pb",
+      "floorId": "A-6-9F",
+      "label": "大学院共同研究室2",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.220309,
+          "yRatio": 0.835266,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283574384-0f9ntz",
+      "floorId": "A-6-9F",
+      "label": "大学院共同研究室3",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.758715,
+          "yRatio": 0.466708,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283566017-4ap1cq",
+      "floorId": "A-6-9F",
+      "label": "大学院共同研究室4",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.625155,
+          "yRatio": 0.468777,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283588042-bpkeqj",
+      "floorId": "A-6-9F",
+      "label": "大学院共同研究室5",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.289318,
+          "yRatio": 0.735885,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283595351-8jldm6",
+      "floorId": "A-6-9F",
+      "label": "大学院共同研究室6",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.299855,
+          "yRatio": 0.606906,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283122466-qsj8wa",
+      "floorId": "A-6-9F",
+      "label": "知覚実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.30278,
+          "yRatio": 0.392056,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282929115-aytip7",
+      "floorId": "A-6-9F",
+      "label": "聴覚実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.276235,
+          "yRatio": 0.275008,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775283331304-pgp7f0",
+      "floorId": "A-6-9F",
+      "label": "動物行動実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.41105,
+          "yRatio": 0.244268,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282962390-liniap",
+      "floorId": "A-6-9F",
+      "label": "認知実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.275608,
+          "yRatio": 0.261412,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-A-6-9F-1775282524234-qyyyzh",
+      "floorId": "A-6-9F",
+      "label": "面接実習室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.158334,
+          "yRatio": 0.426418,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281343778-e3fg6q",
+      "floorId": "H-6-9F",
+      "label": "H601共同実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.39182,
+          "yRatio": 0.381002,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281321357-p2s2v9",
+      "floorId": "H-6-9F",
+      "label": "H602実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.381788,
+          "yRatio": 0.344646,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281331849-wqnzwj",
+      "floorId": "H-6-9F",
+      "label": "H603共同実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.371337,
+          "yRatio": 0.380706,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281315028-ujyzfc",
+      "floorId": "H-6-9F",
+      "label": "H604",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.342284,
+          "yRatio": 0.362971,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281307382-xitekz",
+      "floorId": "H-6-9F",
+      "label": "H605",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.319083,
+          "yRatio": 0.353513,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281301303-wpffr5",
+      "floorId": "H-6-9F",
+      "label": "H606共同実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.295883,
+          "yRatio": 0.362676,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281292494-8zyn28",
+      "floorId": "H-6-9F",
+      "label": "H607共同実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.296092,
+          "yRatio": 0.340803,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281278636-h2p2py",
+      "floorId": "H-6-9F",
+      "label": "H608",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.202871,
+          "yRatio": 0.353809,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281271203-k6hxhk",
+      "floorId": "H-6-9F",
+      "label": "H609",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.180925,
+          "yRatio": 0.354104,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281354190-9u2f3r",
+      "floorId": "H-6-9F",
+      "label": "H610",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.161277,
+          "yRatio": 0.404648,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281360336-65qjco",
+      "floorId": "H-6-9F",
+      "label": "H611",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.134105,
+          "yRatio": 0.399327,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281367290-mvev5i",
+      "floorId": "H-6-9F",
+      "label": "H612",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.110278,
+          "yRatio": 0.399327,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281261757-7clx95",
+      "floorId": "H-6-9F",
+      "label": "H613実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.121983,
+          "yRatio": 0.340803,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281147376-t0p4zm",
+      "floorId": "H-6-9F",
+      "label": "H621",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.389837,
+          "yRatio": 0.289669,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281154072-wgjpw5",
+      "floorId": "H-6-9F",
+      "label": "H622",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.366009,
+          "yRatio": 0.289077,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281158998-lcvozq",
+      "floorId": "H-6-9F",
+      "label": "H623",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.31919,
+          "yRatio": 0.289964,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281166792-7dybnd",
+      "floorId": "H-6-9F",
+      "label": "H624",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.296407,
+          "yRatio": 0.29026,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281178509-dvtq5s",
+      "floorId": "H-6-9F",
+      "label": "H625",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.27258,
+          "yRatio": 0.291147,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281185605-ccwoar",
+      "floorId": "H-6-9F",
+      "label": "H626",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.249588,
+          "yRatio": 0.290851,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281194438-hx9viq",
+      "floorId": "H-6-9F",
+      "label": "H627",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.227015,
+          "yRatio": 0.29026,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281201317-05stwp",
+      "floorId": "H-6-9F",
+      "label": "H628",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.203605,
+          "yRatio": 0.291147,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281209234-fd9cqa",
+      "floorId": "H-6-9F",
+      "label": "H629",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.17915,
+          "yRatio": 0.289964,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281240465-c4ju5x",
+      "floorId": "H-6-9F",
+      "label": "H630",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.134105,
+          "yRatio": 0.289964,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281252361-dwi3x4",
+      "floorId": "H-6-9F",
+      "label": "H631",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.110069,
+          "yRatio": 0.289669,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281403686-ruun5p",
+      "floorId": "H-6-9F",
+      "label": "H701共同実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.391861,
+          "yRatio": 0.710785,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281584203-w0hvzj",
+      "floorId": "H-6-9F",
+      "label": "H702実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.381579,
+          "yRatio": 0.674725,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281595049-jycm3g",
+      "floorId": "H-6-9F",
+      "label": "H703共同実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.371128,
+          "yRatio": 0.711671,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281604840-dqcj1o",
+      "floorId": "H-6-9F",
+      "label": "H704",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.342284,
+          "yRatio": 0.693346,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281611215-hf5cn1",
+      "floorId": "H-6-9F",
+      "label": "H705",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.318038,
+          "yRatio": 0.681523,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281615669-60o5at",
+      "floorId": "H-6-9F",
+      "label": "H706",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.296092,
+          "yRatio": 0.681227,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281622303-qioge3",
+      "floorId": "H-6-9F",
+      "label": "H707",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.272891,
+          "yRatio": 0.681523,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281627290-91hcmn",
+      "floorId": "H-6-9F",
+      "label": "H708",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.202871,
+          "yRatio": 0.680636,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281633729-fi5sso",
+      "floorId": "H-6-9F",
+      "label": "H709",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.180716,
+          "yRatio": 0.68034,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281645461-4ht7b9",
+      "floorId": "H-6-9F",
+      "label": "H710",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.16065,
+          "yRatio": 0.735613,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281666773-8m1psx",
+      "floorId": "H-6-9F",
+      "label": "H711",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.134079,
+          "yRatio": 0.726998,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281670619-8f9cjw",
+      "floorId": "H-6-9F",
+      "label": "H712",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.110327,
+          "yRatio": 0.725923,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281680719-eqhyk9",
+      "floorId": "H-6-9F",
+      "label": "H713共同実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.134839,
+          "yRatio": 0.68105,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281694986-qxtrp9",
+      "floorId": "H-6-9F",
+      "label": "H714共同実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.134839,
+          "yRatio": 0.660628,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281686081-ttef3m",
+      "floorId": "H-6-9F",
+      "label": "H715共同実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.110137,
+          "yRatio": 0.681856,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281703365-wsoln2",
+      "floorId": "H-6-9F",
+      "label": "H716共同実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.110327,
+          "yRatio": 0.659553,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281714644-lk12tz",
+      "floorId": "H-6-9F",
+      "label": "H721",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.389837,
+          "yRatio": 0.61871,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281719144-mdapho",
+      "floorId": "H-6-9F",
+      "label": "H722",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.365705,
+          "yRatio": 0.618979,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281725006-emizx0",
+      "floorId": "H-6-9F",
+      "label": "H723",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.319342,
+          "yRatio": 0.620322,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281731419-vz3cwh",
+      "floorId": "H-6-9F",
+      "label": "H724",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.29673,
+          "yRatio": 0.62086,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281738898-l94vxx",
+      "floorId": "H-6-9F",
+      "label": "H725",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.272789,
+          "yRatio": 0.621128,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281743352-3rnc5v",
+      "floorId": "H-6-9F",
+      "label": "H726",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.249797,
+          "yRatio": 0.621397,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281749177-907h9i",
+      "floorId": "H-6-9F",
+      "label": "H727",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.226615,
+          "yRatio": 0.621934,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281753848-7buvkr",
+      "floorId": "H-6-9F",
+      "label": "H728",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.204004,
+          "yRatio": 0.621934,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281760306-q8j7zo",
+      "floorId": "H-6-9F",
+      "label": "H729",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.179682,
+          "yRatio": 0.621128,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281770765-udkjpl",
+      "floorId": "H-6-9F",
+      "label": "H730",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.133889,
+          "yRatio": 0.618979,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281777002-lbshle",
+      "floorId": "H-6-9F",
+      "label": "H731",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.109377,
+          "yRatio": 0.618979,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281802714-hltjsl",
+      "floorId": "H-6-9F",
+      "label": "H801共同実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.892129,
+          "yRatio": 0.379847,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281825481-dq1vj8",
+      "floorId": "H-6-9F",
+      "label": "H802実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.881867,
+          "yRatio": 0.34621,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281814952-tep84r",
+      "floorId": "H-6-9F",
+      "label": "H803共同実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.870998,
+          "yRatio": 0.379906,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281844131-69vtwq",
+      "floorId": "H-6-9F",
+      "label": "H804",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.842154,
+          "yRatio": 0.363945,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281851718-9dufoi",
+      "floorId": "H-6-9F",
+      "label": "H805実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.806621,
+          "yRatio": 0.351235,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281859443-omnxji",
+      "floorId": "H-6-9F",
+      "label": "H806実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.765445,
+          "yRatio": 0.351235,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281868605-cerx20",
+      "floorId": "H-6-9F",
+      "label": "H807",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.680585,
+          "yRatio": 0.351826,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281874285-qqg619",
+      "floorId": "H-6-9F",
+      "label": "H808",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.66052,
+          "yRatio": 0.404439,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281883614-mdy850",
+      "floorId": "H-6-9F",
+      "label": "H809実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.622061,
+          "yRatio": 0.39498,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281892339-044ngk",
+      "floorId": "H-6-9F",
+      "label": "H810実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.621852,
+          "yRatio": 0.347688,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281906601-jyrdsq",
+      "floorId": "H-6-9F",
+      "label": "H821",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.890394,
+          "yRatio": 0.288573,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281911930-yehef4",
+      "floorId": "H-6-9F",
+      "label": "H822",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.865731,
+          "yRatio": 0.288278,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281916917-fxohjr",
+      "floorId": "H-6-9F",
+      "label": "H823",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.819538,
+          "yRatio": 0.288869,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281922018-2jngu3",
+      "floorId": "H-6-9F",
+      "label": "H824",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.796756,
+          "yRatio": 0.290051,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281930801-4w995z",
+      "floorId": "H-6-9F",
+      "label": "H825",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.77251,
+          "yRatio": 0.290642,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281935701-vbarkd",
+      "floorId": "H-6-9F",
+      "label": "H826",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.749937,
+          "yRatio": 0.290938,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281940288-tr6k0a",
+      "floorId": "H-6-9F",
+      "label": "H827",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.726527,
+          "yRatio": 0.289755,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281949355-co7wd4",
+      "floorId": "H-6-9F",
+      "label": "H828",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.704162,
+          "yRatio": 0.289164,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281954255-hapli0",
+      "floorId": "H-6-9F",
+      "label": "H829",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.679708,
+          "yRatio": 0.290347,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281962543-sttta3",
+      "floorId": "H-6-9F",
+      "label": "H830",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.634142,
+          "yRatio": 0.289755,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281969109-fdl1nu",
+      "floorId": "H-6-9F",
+      "label": "H831",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.609688,
+          "yRatio": 0.288573,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281996213-coytt2",
+      "floorId": "H-6-9F",
+      "label": "H901共同実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.892246,
+          "yRatio": 0.71112,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775282007117-rh9ale",
+      "floorId": "H-6-9F",
+      "label": "H902共同実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.88213,
+          "yRatio": 0.676006,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775282020384-x3895g",
+      "floorId": "H-6-9F",
+      "label": "H903共同実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.871094,
+          "yRatio": 0.711445,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775282028946-tj3m7g",
+      "floorId": "H-6-9F",
+      "label": "H904",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.842355,
+          "yRatio": 0.692913,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775282035359-baceus",
+      "floorId": "H-6-9F",
+      "label": "H905実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.806948,
+          "yRatio": 0.681858,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775282234673-5z0d0z",
+      "floorId": "H-6-9F",
+      "label": "H906実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.765563,
+          "yRatio": 0.680883,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775282245198-5r27hp",
+      "floorId": "H-6-9F",
+      "label": "H907共同実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.735214,
+          "yRatio": 0.692913,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775282255131-h1flz8",
+      "floorId": "H-6-9F",
+      "label": "H908共同実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.735214,
+          "yRatio": 0.669503,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775282262777-zrvusv",
+      "floorId": "H-6-9F",
+      "label": "H909",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.661181,
+          "yRatio": 0.735505,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775282273185-ojti2m",
+      "floorId": "H-6-9F",
+      "label": "H910",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.63497,
+          "yRatio": 0.728677,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775282280360-uudejv",
+      "floorId": "H-6-9F",
+      "label": "H911",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.609909,
+          "yRatio": 0.728027,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775282350977-26nen4",
+      "floorId": "H-6-9F",
+      "label": "H912実験室",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.622325,
+          "yRatio": 0.672754,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775282364368-cxofu8",
+      "floorId": "H-6-9F",
+      "label": "H921",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.889959,
+          "yRatio": 0.618898,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775282369852-gxzqni",
+      "floorId": "H-6-9F",
+      "label": "H922",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.867158,
+          "yRatio": 0.618629,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775282379230-u6qaqr",
+      "floorId": "H-6-9F",
+      "label": "H923",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.819654,
+          "yRatio": 0.619435,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775282385860-4s7kdd",
+      "floorId": "H-6-9F",
+      "label": "H924",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.796093,
+          "yRatio": 0.620241,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775282394451-313e7l",
+      "floorId": "H-6-9F",
+      "label": "H925",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.772531,
+          "yRatio": 0.620779,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775282401531-glpkzq",
+      "floorId": "H-6-9F",
+      "label": "H926",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.748969,
+          "yRatio": 0.620779,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775282406305-x9zj10",
+      "floorId": "H-6-9F",
+      "label": "H927",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.726738,
+          "yRatio": 0.620779,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775282412793-1wo92p",
+      "floorId": "H-6-9F",
+      "label": "H928",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.704506,
+          "yRatio": 0.620779,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775282419351-7p0sq1",
+      "floorId": "H-6-9F",
+      "label": "H929",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.680375,
+          "yRatio": 0.620241,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775282427097-c40jyi",
+      "floorId": "H-6-9F",
+      "label": "H930",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.634391,
+          "yRatio": 0.618898,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775282432943-sr58h0",
+      "floorId": "H-6-9F",
+      "label": "H931",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.60988,
+          "yRatio": 0.618898,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281055880-okfa4m",
+      "floorId": "H-6-9F",
+      "label": "Innovation Lounge(6F)",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.244141,
+          "yRatio": 0.377722,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281100701-p9jktd",
+      "floorId": "H-6-9F",
+      "label": "Innovation Lounge(7F)",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.218397,
+          "yRatio": 0.698176,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281088035-vhdcxy",
+      "floorId": "H-6-9F",
+      "label": "Innovation Lounge(8F)",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.728692,
+          "yRatio": 0.377764,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    },
+    {
+      "id": "manual-H-6-9F-1775281118172-vcuxan",
+      "floorId": "H-6-9F",
+      "label": "Innovation Lounge(9F)",
+      "aliases": [],
+      "rects": [
+        {
+          "xRatio": 0.689152,
+          "yRatio": 0.687406,
+          "widthRatio": 0.001,
+          "heightRatio": 0.001
+        }
+      ]
+    }
+  ]
+}
