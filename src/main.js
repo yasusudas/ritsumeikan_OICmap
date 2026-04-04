@@ -11,42 +11,42 @@ if (window.__FILE_MODE__) {
     {
       id: '1F',
       label: '1F',
-      svgUrl: new URL('../フロア/1F.svg', import.meta.url).href,
+      svgUrl: new URL('../floor_img/1F.svg', import.meta.url).href,
       searchUrl: new URL('../pdf/1F.pdf', import.meta.url).href
     },
     {
       id: '2F',
       label: '2F',
-      svgUrl: new URL('../フロア/2F.svg', import.meta.url).href,
+      svgUrl: new URL('../floor_img/2F.svg', import.meta.url).href,
       searchUrl: new URL('../pdf/2F.pdf', import.meta.url).href
     },
     {
       id: '3F',
       label: '3F',
-      svgUrl: new URL('../フロア/3F.svg', import.meta.url).href,
+      svgUrl: new URL('../floor_img/3F.svg', import.meta.url).href,
       searchUrl: new URL('../pdf/3F.pdf', import.meta.url).href
     },
     {
       id: '4F',
       label: '4F',
-      svgUrl: new URL('../フロア/4F.svg', import.meta.url).href,
+      svgUrl: new URL('../floor_img/4F.svg', import.meta.url).href,
       searchUrl: new URL('../pdf/4F.pdf', import.meta.url).href
     },
     {
       id: '5F',
       label: '5F',
-      svgUrl: new URL('../フロア/5F.svg', import.meta.url).href,
+      svgUrl: new URL('../floor_img/5F.svg', import.meta.url).href,
       searchUrl: new URL('../pdf/5F.pdf', import.meta.url).href
     },
     {
       id: 'A-6-9F',
       label: 'A棟6,7,8,9F',
-      svgUrl: new URL('../フロア/6F7F8F9F_BldgA.svg', import.meta.url).href
+      svgUrl: new URL('../floor_img/6F7F8F9F_BldgA.svg', import.meta.url).href
     },
     {
       id: 'H-6-9F',
       label: 'H棟6,7,8,9F',
-      svgUrl: new URL('../フロア/6F7F8F9F_BldgH.svg', import.meta.url).href
+      svgUrl: new URL('../floor_img/6F7F8F9F_BldgH.svg', import.meta.url).href
     }
   ];
   const PDF_SUPPORT_ASSET_BASE = import.meta.env.BASE_URL;
