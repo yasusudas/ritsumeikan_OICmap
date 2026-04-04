@@ -57,6 +57,7 @@ if (window.__FILE_MODE__) {
   const SEARCH_RESULT_LIMIT = 18;
   const SEARCH_FOCUS_ZOOM = 6;
   const SEARCH_PIN_VERTICAL_OFFSET_RATIO = 0.01;
+  const EDITOR_GUIDE_PIN_VERTICAL_OFFSET_RATIO = 0.01;
   const DOUBLE_TAP_SUPPRESSION_WINDOW_MS = 320;
   const MANUAL_POINT_RECT_RATIO = 0.001;
   const LEGACY_MANUAL_STORAGE_KEY = 'campus-map-manual-entries-v2';
@@ -598,6 +599,32 @@ if (window.__FILE_MODE__) {
     };
   }
 
+  function getEditorGuidePinCenter(point) {
+    return {
+      xRatio: point.xRatio,
+      yRatio: clamp(point.yRatio - EDITOR_GUIDE_PIN_VERTICAL_OFFSET_RATIO, 0, 1)
+    };
+  }
+
+  function createEditorGuidePin(point, { isActive = false, isPending = false } = {}) {
+    const guideCenter = getEditorGuidePinCenter(point);
+    const guidePin = document.createElement('div');
+    guidePin.className = 'editor-guide-pin';
+    guidePin.style.left = `${guideCenter.xRatio * 100}%`;
+    guidePin.style.top = `${guideCenter.yRatio * 100}%`;
+    guidePin.setAttribute('aria-hidden', 'true');
+
+    if (isActive) {
+      guidePin.classList.add('is-active');
+    }
+
+    if (isPending) {
+      guidePin.classList.add('is-pending');
+    }
+
+    return guidePin;
+  }
+
   function getManualEntryById(entryId) {
     return state.manualEntries.find((entry) => entry.id === entryId) ?? null;
   }
@@ -759,6 +786,9 @@ if (window.__FILE_MODE__) {
         const pinKey = createEditorPinKey(entry.id, rectIndex);
         const isActive = state.activeEditorPinKey === pinKey;
         const center = getRectCenter(rect);
+        const guidePin = createEditorGuidePin(center, { isActive });
+
+        fragment.append(guidePin);
 
         const pin = document.createElement('button');
         pin.type = 'button';
@@ -798,12 +828,13 @@ if (window.__FILE_MODE__) {
     });
 
     if (state.pendingEditorPoint) {
+      const guidePin = createEditorGuidePin(state.pendingEditorPoint, { isPending: true });
       const dot = document.createElement('div');
       dot.className = 'editor-pending-dot';
       dot.style.left = `${state.pendingEditorPoint.xRatio * 100}%`;
       dot.style.top = `${state.pendingEditorPoint.yRatio * 100}%`;
 
-      fragment.append(dot);
+      fragment.append(guidePin, dot);
     }
 
     state.editorLayer.append(fragment);

@@ -613,6 +613,48 @@ button {
   border-radius: 2px;
 }
 
+.editor-guide-pin {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  margin-left: -8px;
+  margin-top: -16px;
+  border: 2px dashed rgba(153, 0, 0, 0.44);
+  border-radius: 50%;
+  background: rgba(153, 0, 0, 0.06);
+  box-shadow: 0 0 0 2px rgba(153, 0, 0, 0.04);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.editor-guide-pin::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  width: 9px;
+  height: 9px;
+  background: inherit;
+  border-right: 2px dashed rgba(153, 0, 0, 0.44);
+  border-bottom: 2px dashed rgba(153, 0, 0, 0.44);
+  transform: translateX(-50%) rotate(45deg);
+  border-radius: 1px;
+  box-sizing: border-box;
+}
+
+.editor-guide-pin.is-active,
+.editor-guide-pin.is-pending {
+  border-color: rgba(255, 112, 67, 0.56);
+  background: rgba(255, 112, 67, 0.08);
+  box-shadow: 0 0 0 2px rgba(255, 112, 67, 0.06);
+}
+
+.editor-guide-pin.is-active::after,
+.editor-guide-pin.is-pending::after {
+  border-right-color: rgba(255, 112, 67, 0.56);
+  border-bottom-color: rgba(255, 112, 67, 0.56);
+}
+
 .editor-pin-button {
   position: absolute;
   width: 18px;
