@@ -77,6 +77,8 @@ if (window.__FILE_MODE__) {
   const viewer = document.querySelector('#viewer');
   const canvasLayer = document.querySelector('#canvas-layer');
   const statusElement = document.querySelector('#status');
+  const appShell = document.querySelector('.app-shell');
+  const topbar = document.querySelector('.topbar');
   const tabButtons = Array.from(document.querySelectorAll('.floor-tab'));
   const zoomInButton = document.querySelector('#zoom-in');
   const zoomOutButton = document.querySelector('#zoom-out');
@@ -156,6 +158,20 @@ if (window.__FILE_MODE__) {
       width: viewer.clientWidth,
       height: viewer.clientHeight
     };
+  }
+
+  function getViewportHeight() {
+    return Math.round(window.visualViewport?.height ?? window.innerHeight);
+  }
+
+  function updateViewerStageHeight() {
+    if (isEditorSite || !appShell || !topbar) {
+      return;
+    }
+
+    const topbarHeight = Math.ceil(topbar.getBoundingClientRect().height);
+    const stageHeight = Math.max(getViewportHeight() - topbarHeight, 240);
+    appShell.style.setProperty('--viewer-stage-height', `${stageHeight}px`);
   }
 
   function clamp(number, min, max) {
@@ -2013,6 +2029,28 @@ if (window.__FILE_MODE__) {
   });
 
   window.addEventListener('resize', () => {
+    updateViewerStageHeight();
+
+    if (!state.intrinsicWidth || !state.intrinsicHeight) {
+      return;
+    }
+
+    void renderFloor({ resetZoom: false, preserveView: true });
+  });
+
+  if (!isEditorSite && 'ResizeObserver' in window && topbar) {
+    const topbarResizeObserver = new ResizeObserver(() => {
+      updateViewerStageHeight();
+      if (state.intrinsicWidth && state.intrinsicHeight) {
+        void renderFloor({ resetZoom: false, preserveView: true });
+      }
+    });
+    topbarResizeObserver.observe(topbar);
+  }
+
+  window.visualViewport?.addEventListener('resize', () => {
+    updateViewerStageHeight();
+
     if (!state.intrinsicWidth || !state.intrinsicHeight) {
       return;
     }
@@ -2047,6 +2085,7 @@ if (window.__FILE_MODE__) {
   });
 
   updateTabSelection();
+  updateViewerStageHeight();
   void buildSearchIndex();
   void renderFloor({ resetZoom: true });
 }

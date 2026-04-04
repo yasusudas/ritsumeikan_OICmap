@@ -51,6 +51,12 @@ body {
   touch-action: manipulation;
 }
 
+body[data-app-mode="viewer"] {
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: auto;
+}
+
 button {
   font: inherit;
 }
@@ -61,6 +67,10 @@ button {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+
+body[data-app-mode="viewer"] .app-shell {
+  overflow: visible;
 }
 
 .topbar {
@@ -461,6 +471,12 @@ button {
   display: flex;
   padding: var(--shell-padding) var(--shell-padding) var(--map-stage-padding-bottom);
   overflow: hidden;
+}
+
+body[data-app-mode="viewer"] .map-stage {
+  flex: 0 0 auto;
+  height: var(--viewer-stage-height, calc(100dvh - 220px));
+  min-height: var(--viewer-stage-height, calc(100dvh - 220px));
 }
 
 .site-footer {
