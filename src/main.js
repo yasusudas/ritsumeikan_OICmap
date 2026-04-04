@@ -921,7 +921,7 @@ if (window.__FILE_MODE__) {
       } else if (state.searchEntries.length === 0) {
         setSearchFeedback('検索データがまだありません');
       } else {
-        setSearchFeedback('全部屋の位置をを検索できます');
+        setSearchFeedback('500以上の教室の位置を検索できます');
       }
       return;
     }
