@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "pdfjs-dist": "^5.4.149"
   },
   "devDependencies": {

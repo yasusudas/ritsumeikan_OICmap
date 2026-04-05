@@ -1,10 +1,15 @@
 import './style.css';
+import { inject } from '@vercel/analytics';
 import * as pdfjsLib from 'pdfjs-dist';
 import workerUrl from 'pdfjs-dist/build/pdf.worker.mjs?url';
 
 if (window.__FILE_MODE__) {
   console.warn('This app must be opened through a local server, not file://');
 } else {
+  inject({
+    mode: import.meta.env.DEV ? 'development' : 'production'
+  });
+
   pdfjsLib.GlobalWorkerOptions.workerSrc = workerUrl;
 
   const FLOOR_FILES = [
