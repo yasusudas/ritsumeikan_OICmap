@@ -142,7 +142,8 @@ if (window.__FILE_MODE__) {
     editMode: false,
     pendingEditorPoint: null,
     dragMoved: false,
-    lastTouchEndAt: -Infinity
+    lastTouchEndAt: -Infinity,
+    viewRenderFrame: 0
   };
 
   function setStatus(message) {
@@ -458,11 +459,11 @@ if (window.__FILE_MODE__) {
     return Number.isFinite(parsed) ? parsed : 0;
   }
 
-  function extractSvgMetrics(svgElement) {
-    const viewBox = svgElement.getAttribute('viewBox');
+  function extractSvgMetricsFromText(svgText) {
+    const viewBoxMatch = svgText.match(/\bviewBox=(['"])([^'"]+)\1/i);
 
-    if (viewBox) {
-      const values = viewBox
+    if (viewBoxMatch?.[2]) {
+      const values = viewBoxMatch[2]
         .trim()
         .split(/[\s,]+/)
         .map((value) => Number.parseFloat(value));
@@ -472,8 +473,10 @@ if (window.__FILE_MODE__) {
       }
     }
 
-    const width = parseSvgLength(svgElement.getAttribute('width'));
-    const height = parseSvgLength(svgElement.getAttribute('height'));
+    const widthMatch = svgText.match(/\bwidth=(['"])([^'"]+)\1/i);
+    const heightMatch = svgText.match(/\bheight=(['"])([^'"]+)\1/i);
+    const width = parseSvgLength(widthMatch?.[2]);
+    const height = parseSvgLength(heightMatch?.[2]);
 
     if (width > 0 && height > 0) {
       return { width, height };
@@ -494,29 +497,25 @@ if (window.__FILE_MODE__) {
     }
 
     const text = await response.text();
-    const svgDocument = new DOMParser().parseFromString(text, 'image/svg+xml');
-    const svgElement = svgDocument.documentElement;
-
-    if (!svgElement || svgElement.nodeName.toLowerCase() !== 'svg') {
+    if (!/<svg\b/i.test(text)) {
       throw new Error(`Invalid SVG for ${floor.id}`);
     }
 
-    const metrics = extractSvgMetrics(svgElement);
-    const asset = { text, width: metrics.width, height: metrics.height };
+    const metrics = extractSvgMetricsFromText(text);
+    const asset = { url: floor.svgUrl, width: metrics.width, height: metrics.height };
     svgCache.set(floor.id, asset);
     return asset;
   }
 
-  function createSvgNode(svgText) {
-    const svgDocument = new DOMParser().parseFromString(svgText, 'image/svg+xml');
-    const importedSvg = document.importNode(svgDocument.documentElement, true);
-    importedSvg.classList.add('floor-svg');
-    importedSvg.removeAttribute('width');
-    importedSvg.removeAttribute('height');
-    importedSvg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-    importedSvg.setAttribute('aria-hidden', 'true');
-    importedSvg.setAttribute('focusable', 'false');
-    return importedSvg;
+  function createFloorImageNode(floor) {
+    const image = document.createElement('img');
+    image.className = 'floor-svg';
+    image.src = floor.svgUrl;
+    image.alt = '';
+    image.decoding = 'async';
+    image.draggable = false;
+    image.setAttribute('aria-hidden', 'true');
+    return image;
   }
 
   function getFittedBaseSize(intrinsicWidth, intrinsicHeight) {
@@ -529,6 +528,29 @@ if (window.__FILE_MODE__) {
       width: intrinsicWidth * fitScale,
       height: intrinsicHeight * fitScale
     };
+  }
+
+  function updateCanvasLayerBaseSize() {
+    canvasLayer.style.width = `${state.baseWidth}px`;
+    canvasLayer.style.height = `${state.baseHeight}px`;
+  }
+
+  function flushViewRender() {
+    state.viewRenderFrame = 0;
+    canvasLayer.style.transform = `translate3d(${state.x}px, ${state.y}px, 0) scale(${state.zoom})`;
+
+    const percent = Math.round(state.zoom * 100);
+    setStatus(`${getFloorDefinition().label} | ${percent}%`);
+  }
+
+  function scheduleViewRender() {
+    if (state.viewRenderFrame) {
+      return;
+    }
+
+    state.viewRenderFrame = window.requestAnimationFrame(() => {
+      flushViewRender();
+    });
   }
 
   function clampPosition() {
@@ -549,18 +571,9 @@ if (window.__FILE_MODE__) {
     }
   }
 
-  function applyTransform() {
-    canvasLayer.style.width = `${state.baseWidth * state.zoom}px`;
-    canvasLayer.style.height = `${state.baseHeight * state.zoom}px`;
-    canvasLayer.style.transform = `translate(${state.x}px, ${state.y}px)`;
-  }
-
   function updateView() {
     clampPosition();
-    applyTransform();
-
-    const percent = Math.round(state.zoom * 100);
-    setStatus(`${getFloorDefinition().label} | ${percent}%`);
+    scheduleViewRender();
   }
 
   function updateTabSelection() {
@@ -1334,7 +1347,7 @@ if (window.__FILE_MODE__) {
       const mapAsset = document.createElement('article');
       mapAsset.className = 'map-asset';
 
-      const svgNode = createSvgNode(asset.text);
+      const svgNode = createFloorImageNode(floor);
       const highlightLayer = document.createElement('div');
       highlightLayer.className = 'highlight-layer';
       let editorLayer = null;
@@ -1358,6 +1371,7 @@ if (window.__FILE_MODE__) {
       const hadDimensions = state.baseWidth > 0 && state.baseHeight > 0;
       state.baseWidth = baseSize.width;
       state.baseHeight = baseSize.height;
+      updateCanvasLayerBaseSize();
 
       if (resetZoom || !hadDimensions) {
         resetView();
