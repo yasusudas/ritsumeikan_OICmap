@@ -251,8 +251,7 @@ body[data-app-mode="viewer"] .app-shell {
   transition:
     transform 140ms ease,
     background-color 140ms ease,
-    color 140ms ease,
-    box-shadow 140ms ease;
+    color 140ms ease;
 }
 
 .floor-tab-wide {
@@ -262,7 +261,6 @@ body[data-app-mode="viewer"] .app-shell {
 .floor-tab.is-active {
   background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 100%);
   color: #fff;
-  box-shadow: 0 8px 20px var(--accent-shadow-strong);
 }
 
 .floor-tab:active {
