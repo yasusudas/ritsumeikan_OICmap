@@ -85,8 +85,6 @@ if (window.__FILE_MODE__) {
   const appShell = document.querySelector('.app-shell');
   const topbar = document.querySelector('.topbar');
   const tabButtons = Array.from(document.querySelectorAll('.floor-tab'));
-  const zoomInButton = document.querySelector('#zoom-in');
-  const zoomOutButton = document.querySelector('#zoom-out');
   const searchPanel = document.querySelector('#search-panel');
   const searchInput = document.querySelector('#search-input');
   const searchClearButton = document.querySelector('#search-clear');
@@ -1682,16 +1680,6 @@ if (window.__FILE_MODE__) {
     button.addEventListener('click', () => {
       void setActiveFloor(button.dataset.floor, { resetZoom: true });
     });
-  });
-
-  zoomInButton.addEventListener('click', () => {
-    const { width, height } = getViewportSize();
-    zoomAt(state.zoom * 1.2, width / 2, height / 2);
-  });
-
-  zoomOutButton.addEventListener('click', () => {
-    const { width, height } = getViewportSize();
-    zoomAt(state.zoom / 1.2, width / 2, height / 2);
   });
 
   searchClearButton.addEventListener('click', () => {
