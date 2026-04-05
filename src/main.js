@@ -955,7 +955,7 @@ if (window.__FILE_MODE__) {
       } else if (state.searchEntries.length === 0) {
         setSearchFeedback('検索データがまだありません');
       } else {
-        setSearchFeedback('500以上の教室の位置を検索できます');
+        setSearchFeedback('500以上の教室の位置を検索できます / 地図は拡大･縮小･移動できます');
       }
       return;
     }
