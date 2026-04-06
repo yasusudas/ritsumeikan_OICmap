@@ -38,6 +38,17 @@
             </main>
           `;
         });
+      } else {
+        document.addEventListener('DOMContentLoaded', () => {
+          const logoutButton = document.querySelector('#editor-logout-button');
+
+          logoutButton?.addEventListener('click', () => {
+            sessionStorage.removeItem(EDITOR_AUTH_STORAGE_KEY);
+            const loginUrl = new URL('/editor/login/', window.location.origin);
+            loginUrl.searchParams.set('next', '/editor/');
+            window.location.replace(loginUrl.toString());
+          });
+        });
       }
     </script>
     <script type="module">
@@ -49,7 +60,10 @@
   <body data-app-mode="editor">
     <div class="app-shell">
       <header class="topbar">
-        <h1 class="app-title">立命館OICキャンパスマップ編集</h1>
+        <div class="editor-header-row">
+          <h1 class="app-title">立命館OICキャンパスマップ編集</h1>
+          <button id="editor-logout-button" class="editor-logout-button" type="button">ログアウト</button>
+        </div>
         <div class="search-panel">
           <div class="editor-caption">編集用URLです。地図をクリックして検索用テキストと位置を記録できます。</div>
         </div>
