@@ -10,10 +10,183 @@
     <link rel="icon" type="image/png" href="/icon/favicon.png" />
     <link rel="apple-touch-icon" href="/icon/favicon.png" />
     <meta name="robots" content="noindex,nofollow" />
+    <style>
+      body[data-editor-auth='pending'] .app-shell,
+      body[data-editor-auth='locked'] .app-shell {
+        display: none;
+      }
+
+      body[data-editor-auth='ready'] [data-editor-auth-shell] {
+        display: none;
+      }
+
+      [data-editor-auth-shell] {
+        min-height: 100vh;
+        min-height: 100dvh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background:
+          radial-gradient(circle at top, rgba(255, 196, 196, 0.45), transparent 42%),
+          linear-gradient(180deg, #fff1f1 0%, #eedddd 100%);
+        font-family: 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', sans-serif;
+      }
+
+      .editor-auth-card {
+        width: min(100%, 440px);
+        padding: 28px;
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.94);
+        box-shadow:
+          0 24px 50px rgba(16, 36, 49, 0.12),
+          inset 0 0 0 1px rgba(153, 0, 0, 0.08);
+        color: #102431;
+      }
+
+      .editor-auth-eyebrow {
+        margin: 0 0 10px;
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        color: rgba(16, 36, 49, 0.58);
+      }
+
+      .editor-auth-title {
+        margin: 0 0 10px;
+        font-size: clamp(1.5rem, 3vw, 1.9rem);
+        font-weight: 800;
+        letter-spacing: 0.04em;
+      }
+
+      .editor-auth-copy {
+        margin: 0 0 18px;
+        line-height: 1.8;
+        color: rgba(16, 36, 49, 0.74);
+      }
+
+      .editor-auth-form {
+        display: grid;
+        gap: 12px;
+      }
+
+      .editor-auth-label {
+        font-size: 0.82rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        color: rgba(16, 36, 49, 0.7);
+      }
+
+      .editor-auth-input {
+        width: 100%;
+        border: 0;
+        outline: none;
+        padding: 14px 16px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.94);
+        box-shadow:
+          inset 0 0 0 1px rgba(153, 0, 0, 0.12),
+          0 12px 24px rgba(16, 36, 49, 0.08);
+        font: inherit;
+        color: #102431;
+      }
+
+      .editor-auth-actions {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .editor-auth-submit {
+        border: 0;
+        border-radius: 999px;
+        padding: 12px 18px;
+        background: linear-gradient(135deg, #990000 0%, #7a0000 100%);
+        color: #fff;
+        font: inherit;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        cursor: pointer;
+      }
+
+      .editor-auth-submit:disabled {
+        opacity: 0.6;
+        cursor: wait;
+      }
+
+      .editor-auth-error {
+        min-height: 1.2rem;
+        margin: 0;
+        color: #b42318;
+        font-size: 0.9rem;
+        font-weight: 700;
+      }
+
+      .editor-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .editor-logout {
+        border: 0;
+        border-radius: 999px;
+        padding: 10px 14px;
+        background: rgba(16, 36, 49, 0.08);
+        color: #102431;
+        font: inherit;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        cursor: pointer;
+      }
+    </style>
     <title>立命館OICキャンパスマップ編集</title>
     <script>
       const isFileMode = window.location.protocol === 'file:';
       window.__FILE_MODE__ = isFileMode;
+      const EDITOR_AUTH_STORAGE_KEY = 'rits-oic-map-editor-auth-v1';
+      const EDITOR_PASSWORD_HASH = '6861710bb9d989d91bd43f55a8836620a9958ff1346d3c8739851d467d92a845';
+
+      async function sha256Hex(value) {
+        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value));
+        return Array.from(new Uint8Array(digest))
+          .map((byte) => byte.toString(16).padStart(2, '0'))
+          .join('');
+      }
+
+      function loadEditorApp() {
+        if (window.__EDITOR_APP_LOADED__) {
+          return;
+        }
+
+        window.__EDITOR_APP_LOADED__ = true;
+        const script = document.createElement('script');
+        script.type = 'module';
+        script.src = '/src/main.js';
+        script.dataset.editorApp = 'true';
+        document.head.append(script);
+      }
+
+      function setEditorAuthState(isAuthorized) {
+        document.body.dataset.editorAuth = isAuthorized ? 'ready' : 'locked';
+        const authShell = document.querySelector('[data-editor-auth-shell]');
+        const logoutButton = document.querySelector('#editor-logout');
+
+        if (authShell) {
+          authShell.hidden = isAuthorized;
+        }
+
+        if (logoutButton) {
+          logoutButton.hidden = !isAuthorized;
+        }
+
+        if (isAuthorized) {
+          sessionStorage.setItem(EDITOR_AUTH_STORAGE_KEY, 'granted');
+          loadEditorApp();
+        } else {
+          sessionStorage.removeItem(EDITOR_AUTH_STORAGE_KEY);
+        }
+      }
 
       if (isFileMode) {
         document.addEventListener('DOMContentLoaded', () => {
@@ -28,14 +201,83 @@
             </main>
           `;
         });
+      } else {
+        document.addEventListener('DOMContentLoaded', () => {
+          const authForm = document.querySelector('#editor-auth-form');
+          const passwordInput = document.querySelector('#editor-auth-password');
+          const errorMessage = document.querySelector('#editor-auth-error');
+          const logoutButton = document.querySelector('#editor-logout');
+          const isAuthorized = sessionStorage.getItem(EDITOR_AUTH_STORAGE_KEY) === 'granted';
+
+          if (logoutButton) {
+            logoutButton.addEventListener('click', () => {
+              setEditorAuthState(false);
+              window.location.reload();
+            });
+          }
+
+          if (authForm && passwordInput && errorMessage) {
+            authForm.addEventListener('submit', async (event) => {
+              event.preventDefault();
+              errorMessage.textContent = '';
+              authForm.querySelector('button[type="submit"]').disabled = true;
+
+              try {
+                const passwordHash = await sha256Hex(passwordInput.value);
+
+                if (passwordHash !== EDITOR_PASSWORD_HASH) {
+                  errorMessage.textContent = 'パスワードが違います。';
+                  passwordInput.select();
+                  setEditorAuthState(false);
+                  return;
+                }
+
+                passwordInput.value = '';
+                setEditorAuthState(true);
+              } finally {
+                authForm.querySelector('button[type="submit"]').disabled = false;
+              }
+            });
+          }
+
+          setEditorAuthState(isAuthorized);
+
+          if (!isAuthorized && passwordInput) {
+            passwordInput.focus();
+          }
+        });
       }
     </script>
-    <script type="module" src="/src/main.js"></script>
   </head>
-  <body data-app-mode="editor">
+  <body data-app-mode="editor" data-editor-auth="pending">
+    <main data-editor-auth-shell>
+      <section class="editor-auth-card" aria-label="編集画面ログイン">
+        <p class="editor-auth-eyebrow">EDITOR ACCESS</p>
+        <h1 class="editor-auth-title">編集ページにログイン</h1>
+        <p class="editor-auth-copy">このページは編集者専用です。パスワードを入力すると、このタブのあいだだけ編集画面を開けます。</p>
+        <form id="editor-auth-form" class="editor-auth-form">
+          <label class="editor-auth-label" for="editor-auth-password">パスワード</label>
+          <input
+            id="editor-auth-password"
+            class="editor-auth-input"
+            type="password"
+            name="password"
+            autocomplete="current-password"
+            required
+          />
+          <div class="editor-auth-actions">
+            <button class="editor-auth-submit" type="submit">ログイン</button>
+          </div>
+          <p id="editor-auth-error" class="editor-auth-error" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
     <div class="app-shell">
       <header class="topbar">
-        <h1 class="app-title">立命館OICキャンパスマップ編集</h1>
+        <div class="editor-heading">
+          <h1 class="app-title">立命館OICキャンパスマップ編集</h1>
+          <button id="editor-logout" class="editor-logout" type="button" hidden>ログアウト</button>
+        </div>
         <div class="search-panel">
           <div class="editor-caption">編集用URLです。地図をクリックして検索用テキストと位置を記録できます。</div>
         </div>
