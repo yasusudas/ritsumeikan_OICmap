@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/:path((?!google4ddf7f320452e31a\\.html$).*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "iris-oic-map.vercel.app"
+        }
+      ],
+      "destination": "https://rits-oic-map.vercel.app/:path",
+      "permanent": true
+    }
+  ]
+}
