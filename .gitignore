@@ -3,3 +3,4 @@ node_modules
 dist
 .map-server.pid
 .map-server.log
+.vercel
