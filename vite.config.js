@@ -7,7 +7,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         viewer: resolve(__dirname, 'index.html'),
-        editor: resolve(__dirname, 'editor/index.html')
+        editor: resolve(__dirname, 'editor/index.html'),
+        editorLogin: resolve(__dirname, 'editor/login/index.html')
       }
     }
   }

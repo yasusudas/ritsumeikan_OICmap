@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <link rel="icon" href="/icon/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="/icon/favicon.png" />
+    <link rel="apple-touch-icon" href="/icon/favicon.png" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>編集ページログイン</title>
+    <style>
+      :root {
+        color: #102431;
+        background:
+          radial-gradient(circle at top, rgba(255, 196, 196, 0.45), transparent 42%),
+          linear-gradient(180deg, #fff1f1 0%, #eedddd 100%);
+        font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+      }
+
+      body {
+        min-height: 100vh;
+        min-height: 100dvh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+      }
+
+      .login-card {
+        width: min(100%, 460px);
+        padding: 30px;
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.94);
+        box-shadow:
+          0 24px 50px rgba(16, 36, 49, 0.12),
+          inset 0 0 0 1px rgba(153, 0, 0, 0.08);
+      }
+
+      .login-eyebrow {
+        margin: 0 0 10px;
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        color: rgba(16, 36, 49, 0.58);
+      }
+
+      .login-title {
+        margin: 0 0 10px;
+        font-size: clamp(1.5rem, 3vw, 1.95rem);
+        font-weight: 800;
+        letter-spacing: 0.04em;
+      }
+
+      .login-copy {
+        margin: 0 0 18px;
+        line-height: 1.8;
+        color: rgba(16, 36, 49, 0.74);
+      }
+
+      .login-form {
+        display: grid;
+        gap: 12px;
+      }
+
+      .login-label {
+        font-size: 0.82rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        color: rgba(16, 36, 49, 0.7);
+      }
+
+      .login-input {
+        width: 100%;
+        border: 0;
+        outline: none;
+        padding: 14px 16px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.94);
+        box-shadow:
+          inset 0 0 0 1px rgba(153, 0, 0, 0.12),
+          0 12px 24px rgba(16, 36, 49, 0.08);
+        font: inherit;
+        color: #102431;
+      }
+
+      .login-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .login-submit,
+      .login-link {
+        border: 0;
+        border-radius: 999px;
+        padding: 12px 18px;
+        font: inherit;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+      }
+
+      .login-submit {
+        background: linear-gradient(135deg, #990000 0%, #7a0000 100%);
+        color: #fff;
+        cursor: pointer;
+      }
+
+      .login-submit:disabled {
+        opacity: 0.6;
+        cursor: wait;
+      }
+
+      .login-link {
+        display: inline-flex;
+        align-items: center;
+        background: rgba(16, 36, 49, 0.08);
+        color: #102431;
+        text-decoration: none;
+      }
+
+      .login-error {
+        min-height: 1.2rem;
+        margin: 0;
+        color: #b42318;
+        font-size: 0.9rem;
+        font-weight: 700;
+      }
+    </style>
+    <script>
+      const isFileMode = window.location.protocol === 'file:';
+      const EDITOR_AUTH_STORAGE_KEY = 'rits-oic-map-editor-auth-v1';
+      const EDITOR_PASSWORD_HASH = '6861710bb9d989d91bd43f55a8836620a9958ff1346d3c8739851d467d92a845';
+
+      function resolveNextPath() {
+        const next = new URLSearchParams(window.location.search).get('next');
+        return next && next.startsWith('/') ? next : '/editor/';
+      }
+
+      async function sha256Hex(value) {
+        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value));
+        return Array.from(new Uint8Array(digest))
+          .map((byte) => byte.toString(16).padStart(2, '0'))
+          .join('');
+      }
+
+      if (isFileMode) {
+        document.addEventListener('DOMContentLoaded', () => {
+          document.body.innerHTML = `
+            <main style="min-height:100vh;display:grid;place-items:center;margin:0;padding:24px;background:linear-gradient(180deg,#fff1f1 0%,#eedddd 100%);font-family:'Hiragino Sans','Yu Gothic','Noto Sans JP',sans-serif;color:#102431;">
+              <section style="max-width:720px;padding:28px;border-radius:24px;background:rgba(255,255,255,0.9);box-shadow:0 24px 50px rgba(16,36,49,0.12);">
+                <h1 style="margin:0 0 16px;font-size:2rem;">編集ページログイン</h1>
+                <p style="margin:0;line-height:1.8;">このログイン画面はローカルサーバー経由で開く必要があります。<code>npm run dev</code> のあと <code>http://127.0.0.1:5173/editor/login/</code> を開いてください。</p>
+              </section>
+            </main>
+          `;
+        });
+      } else {
+        document.addEventListener('DOMContentLoaded', () => {
+          const nextPath = resolveNextPath();
+          const form = document.querySelector('#editor-login-form');
+          const passwordInput = document.querySelector('#editor-login-password');
+          const errorMessage = document.querySelector('#editor-login-error');
+          const submitButton = document.querySelector('#editor-login-submit');
+
+          if (sessionStorage.getItem(EDITOR_AUTH_STORAGE_KEY) === 'granted') {
+            window.location.replace(nextPath);
+            return;
+          }
+
+          form?.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            if (!passwordInput || !errorMessage || !submitButton) {
+              return;
+            }
+
+            errorMessage.textContent = '';
+            submitButton.disabled = true;
+
+            try {
+              const passwordHash = await sha256Hex(passwordInput.value);
+
+              if (passwordHash !== EDITOR_PASSWORD_HASH) {
+                errorMessage.textContent = 'パスワードが違います。';
+                passwordInput.select();
+                return;
+              }
+
+              sessionStorage.setItem(EDITOR_AUTH_STORAGE_KEY, 'granted');
+              passwordInput.value = '';
+              window.location.replace(nextPath);
+            } finally {
+              submitButton.disabled = false;
+            }
+          });
+
+          passwordInput?.focus();
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <main class="login-card" aria-label="編集ページログイン">
+      <p class="login-eyebrow">EDITOR ACCESS</p>
+      <h1 class="login-title">編集ページにログイン</h1>
+      <p class="login-copy">パスワードを入力すると、このタブから編集用サイトへ進めます。</p>
+      <form id="editor-login-form" class="login-form">
+        <label class="login-label" for="editor-login-password">パスワード</label>
+        <input
+          id="editor-login-password"
+          class="login-input"
+          type="password"
+          name="password"
+          autocomplete="current-password"
+          required
+        />
+        <div class="login-actions">
+          <button id="editor-login-submit" class="login-submit" type="submit">ログイン</button>
+          <a class="login-link" href="/">閲覧用サイトへ戻る</a>
+        </div>
+        <p id="editor-login-error" class="login-error" aria-live="polite"></p>
+      </form>
+    </main>
+  </body>
+</html>
