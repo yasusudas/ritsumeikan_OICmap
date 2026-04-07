@@ -153,6 +153,19 @@ if (window.__FILE_MODE__) {
     viewRenderFrame: 0
   };
 
+  function registerViewerServiceWorker() {
+    if (appMode !== 'viewer' || !('serviceWorker' in navigator) || !window.isSecureContext) {
+      return;
+    }
+
+    const swUrl = new URL('/sw.js', window.location.origin);
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register(swUrl, { updateViaCache: 'none' }).catch((error) => {
+        console.warn('Failed to register service worker.', error);
+      });
+    });
+  }
+
   function setStatus(message) {
     statusElement.textContent = message;
   }
@@ -1690,6 +1703,8 @@ if (window.__FILE_MODE__) {
     setEditMode(true);
     refreshEditorUi();
   }
+
+  registerViewerServiceWorker();
 
   tabButtons.forEach((button) => {
     button.addEventListener('click', () => {
