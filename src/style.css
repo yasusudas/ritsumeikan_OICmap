@@ -576,6 +576,16 @@ body[data-app-mode="viewer"] .map-stage {
   pointer-events: none;
 }
 
+.canvas-layer.is-pinch-composite {
+  contain: layout paint style;
+  will-change: transform;
+}
+
+.canvas-layer.is-pinch-composite .map-asset,
+.canvas-layer.is-pinch-composite .floor-svg {
+  transform: translateZ(0);
+}
+
 .map-asset {
   position: relative;
   width: 100%;
