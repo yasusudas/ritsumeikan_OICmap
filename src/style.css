@@ -90,9 +90,24 @@ body[data-app-mode="viewer"] .app-shell {
 
 .app-title {
   margin: 0;
+  display: inline-flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  column-gap: 0.35ch;
   font-size: clamp(1.1rem, 2vw, 1.45rem);
   font-weight: 800;
   letter-spacing: 0.04em;
+}
+
+.app-title-main,
+.app-title-version {
+  line-height: 1;
+}
+
+.app-title-version {
+  font-size: 0.7em;
+  font-weight: 700;
+  letter-spacing: 0.03em;
 }
 
 .editor-header-row {
