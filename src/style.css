@@ -142,6 +142,7 @@ body[data-app-mode="viewer"] .app-shell {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex: 1 1 auto;
   min-width: 0;
   padding: 4px 6px 4px 18px;
   border-radius: 999px;
@@ -149,6 +150,66 @@ body[data-app-mode="viewer"] .app-shell {
   box-shadow:
     inset 0 0 0 1px var(--accent-border),
     0 14px 28px rgba(16, 36, 49, 0.08);
+}
+
+.search-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.search-icon-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+.search-icon-button {
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  border: 0;
+  border-radius: 16px;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow:
+    inset 0 0 0 1px var(--accent-border),
+    0 14px 28px rgba(16, 36, 49, 0.08);
+  cursor: pointer;
+  transition:
+    transform 140ms ease,
+    box-shadow 140ms ease,
+    background-color 140ms ease;
+}
+
+.search-icon-button:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(243, 208, 208, 0.92));
+  box-shadow:
+    inset 0 0 0 1px rgba(153, 0, 0, 0.18),
+    0 16px 30px rgba(16, 36, 49, 0.12);
+}
+
+.search-icon-button:focus-visible {
+  outline: 2px solid rgba(153, 0, 0, 0.42);
+  outline-offset: 2px;
+}
+
+.search-icon-button:active {
+  transform: scale(0.97);
+}
+
+.search-icon-image {
+  width: 24px;
+  height: 24px;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
 }
 
 .search-input {
@@ -851,6 +912,17 @@ body[data-app-mode="editor"] .map-card {
     padding-left: 14px;
   }
 
+  .search-icon-button {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+  }
+
+  .search-icon-image {
+    width: 22px;
+    height: 22px;
+  }
+
   .search-input {
     font-size: 0.96rem;
     padding-block: 11px;
@@ -958,6 +1030,25 @@ body[data-app-mode="editor"] .map-card {
     width: 34px;
     height: 34px;
     font-size: 1.2rem;
+  }
+
+  .search-controls {
+    gap: 8px;
+  }
+
+  .search-icon-actions {
+    gap: 6px;
+  }
+
+  .search-icon-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+  }
+
+  .search-icon-image {
+    width: 20px;
+    height: 20px;
   }
 
   .search-feedback {
