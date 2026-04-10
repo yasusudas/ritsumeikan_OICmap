@@ -94,6 +94,7 @@ if (window.__FILE_MODE__) {
   const searchClearButton = document.querySelector('#search-clear');
   const searchFeedback = document.querySelector('#search-feedback');
   const searchResults = document.querySelector('#search-results');
+  const searchIconButtons = Array.from(document.querySelectorAll('.search-icon-button'));
   const editorToggleButton = document.querySelector('#editor-toggle');
   const editorPanel = document.querySelector('#editor-panel');
   const editorFloor = document.querySelector('#editor-floor');
@@ -150,7 +151,13 @@ if (window.__FILE_MODE__) {
     pendingEditorPoint: null,
     dragMoved: false,
     lastTouchEndAt: -Infinity,
-    viewRenderFrame: 0
+    viewRenderFrame: 0,
+    facilityToggleState: Object.fromEntries(
+      searchIconButtons
+        .map((button) => button.dataset.facilityKey?.trim())
+        .filter(Boolean)
+        .map((facilityKey) => [facilityKey, 0])
+    )
   };
 
   function registerViewerServiceWorker() {
@@ -173,6 +180,41 @@ if (window.__FILE_MODE__) {
   function setSearchFeedback(message) {
     searchFeedback.textContent = message;
   }
+
+  function renderFacilityToggleButtons() {
+    searchIconButtons.forEach((button) => {
+      const facilityKey = button.dataset.facilityKey?.trim();
+      if (!facilityKey) {
+        return;
+      }
+
+      const isActive = state.facilityToggleState[facilityKey] === 1;
+      button.classList.toggle('is-active', isActive);
+      button.setAttribute('aria-pressed', String(isActive));
+    });
+  }
+
+  function setFacilityToggleState(facilityKey, nextValue) {
+    if (!facilityKey || !(facilityKey in state.facilityToggleState)) {
+      return;
+    }
+
+    state.facilityToggleState[facilityKey] = nextValue === 1 ? 1 : 0;
+    renderFacilityToggleButtons();
+  }
+
+  function toggleFacilityToggleState(facilityKey) {
+    if (!facilityKey || !(facilityKey in state.facilityToggleState)) {
+      return;
+    }
+
+    const nextValue = state.facilityToggleState[facilityKey] === 1 ? 0 : 1;
+    setFacilityToggleState(facilityKey, nextValue);
+  }
+
+  window.__facilityToggleState = state.facilityToggleState;
+  window.__setFacilityToggleState = setFacilityToggleState;
+  window.__toggleFacilityToggleState = toggleFacilityToggleState;
 
   function getViewportSize() {
     return {
@@ -1705,10 +1747,17 @@ if (window.__FILE_MODE__) {
   }
 
   registerViewerServiceWorker();
+  renderFacilityToggleButtons();
 
   tabButtons.forEach((button) => {
     button.addEventListener('click', () => {
       void setActiveFloor(button.dataset.floor, { resetZoom: true });
+    });
+  });
+
+  searchIconButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      toggleFacilityToggleState(button.dataset.facilityKey?.trim());
     });
   });
 

@@ -194,6 +194,14 @@ body[data-app-mode="viewer"] .app-shell {
     0 16px 30px rgba(16, 36, 49, 0.1);
 }
 
+.search-icon-button.is-active,
+.search-icon-button.is-active:hover {
+  background: rgba(153, 0, 0, 0.1);
+  box-shadow:
+    inset 0 0 0 1px rgba(153, 0, 0, 0.18),
+    0 16px 30px rgba(16, 36, 49, 0.12);
+}
+
 .search-icon-button:focus-visible {
   outline: 2px solid rgba(153, 0, 0, 0.42);
   outline-offset: 2px;
