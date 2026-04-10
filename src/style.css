@@ -204,9 +204,10 @@ body[data-app-mode="viewer"] .app-shell {
 }
 
 .search-icon-image {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   display: block;
+  object-fit: contain;
   user-select: none;
   -webkit-user-drag: none;
   pointer-events: none;
@@ -919,8 +920,8 @@ body[data-app-mode="editor"] .map-card {
   }
 
   .search-icon-image {
-    width: 22px;
-    height: 22px;
+    width: 30px;
+    height: 30px;
   }
 
   .search-input {
@@ -1047,8 +1048,8 @@ body[data-app-mode="editor"] .map-card {
   }
 
   .search-icon-image {
-    width: 20px;
-    height: 20px;
+    width: 28px;
+    height: 28px;
   }
 
   .search-feedback {
