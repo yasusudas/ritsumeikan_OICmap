@@ -173,9 +173,48 @@
               <button id="editor-import" class="editor-action" type="button">JSONを読み込み</button>
               <button id="editor-publish" class="editor-action" type="button">編集を確定</button>
             </div>
+            <section class="editor-ring-tools" aria-label="蛍光リング編集">
+              <div class="editor-section-label">蛍光リング設定</div>
+              <div id="editor-ring-mode-buttons" class="editor-ring-mode-buttons" role="group" aria-label="リング対象">
+                <button class="editor-ring-mode-button" type="button" data-facility-key="toilet" aria-pressed="false">
+                  トイレ
+                </button>
+                <button
+                  class="editor-ring-mode-button"
+                  type="button"
+                  data-facility-key="waterServer"
+                  aria-pressed="false"
+                >
+                  ウォーターサーバー
+                </button>
+                <button class="editor-ring-mode-button" type="button" data-facility-key="stairs" aria-pressed="false">
+                  階段
+                </button>
+                <button
+                  class="editor-ring-mode-button"
+                  type="button"
+                  data-facility-key="escalator"
+                  aria-pressed="false"
+                >
+                  エスカレーター
+                </button>
+                <button
+                  class="editor-ring-mode-button"
+                  type="button"
+                  data-facility-key="elevator"
+                  aria-pressed="false"
+                >
+                  エレベーター
+                </button>
+              </div>
+              <div class="editor-ring-actions">
+                <button id="editor-ring-clear" class="editor-action" type="button">選択中施設の現在階リングをクリア</button>
+              </div>
+              <div id="editor-ring-list" class="editor-ring-list"></div>
+            </section>
             <input id="editor-import-input" type="file" accept="application/json,.json" hidden />
             <div id="editor-feedback" class="editor-feedback" aria-live="polite">
-              地図上の文字位置をクリックしてから、表示名を入力し、最後に「編集を確定」を押してください
+              地図上の文字位置をクリックして表示名を記録できます。蛍光リング設定ボタンをオンにすると、地図タップで対応リングを設置または削除できます
             </div>
             <div id="editor-list" class="editor-list"></div>
             <textarea

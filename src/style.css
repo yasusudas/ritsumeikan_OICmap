@@ -488,11 +488,83 @@ body[data-app-mode="viewer"] .app-shell {
   color: #102431;
   font-size: 0.88rem;
   font-weight: 800;
+  cursor: pointer;
 }
 
 .editor-action-primary {
   background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 100%);
   color: #fff;
+}
+
+.editor-action:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+
+.editor-section-label {
+  color: rgba(16, 36, 49, 0.7);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.editor-ring-tools {
+  display: grid;
+  gap: 10px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(16, 36, 49, 0.08);
+}
+
+.editor-ring-mode-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.editor-ring-mode-button {
+  border: 0;
+  border-radius: 999px;
+  padding: 9px 12px;
+  background: rgba(16, 36, 49, 0.08);
+  color: #102431;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition:
+    background-color 140ms ease,
+    color 140ms ease,
+    box-shadow 140ms ease,
+    transform 140ms ease;
+}
+
+.editor-ring-mode-button.is-active {
+  background: rgba(153, 0, 0, 0.12);
+  color: var(--accent);
+  box-shadow: inset 0 0 0 1px rgba(153, 0, 0, 0.18);
+}
+
+.editor-ring-mode-button:active {
+  transform: scale(0.98);
+}
+
+.editor-ring-mode-button:focus-visible,
+.editor-ring-button:focus-visible {
+  outline: 2px solid rgba(153, 0, 0, 0.42);
+  outline-offset: 2px;
+}
+
+.editor-ring-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.editor-ring-list {
+  display: grid;
+  gap: 8px;
+  max-height: 160px;
+  overflow: auto;
 }
 
 .editor-feedback {
@@ -684,6 +756,12 @@ body[data-app-mode="viewer"] .map-stage {
   pointer-events: none;
 }
 
+.ring-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
 .editor-layer {
   position: absolute;
   inset: 0;
@@ -724,6 +802,19 @@ body[data-app-mode="viewer"] .map-stage {
   background: inherit;
   transform: translateX(-50%) rotate(45deg);
   border-radius: 2px;
+}
+
+.facility-ring {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 4px solid rgba(255, 88, 104, 0.96);
+  background: transparent;
+  box-shadow:
+    0 0 0 3px rgba(255, 88, 104, 0.08),
+    0 0 16px rgba(255, 88, 104, 0.52),
+    0 0 34px rgba(255, 88, 104, 0.32),
+    inset 0 0 12px rgba(255, 88, 104, 0.12);
 }
 
 .editor-pending-dot {
@@ -825,6 +916,45 @@ body[data-app-mode="viewer"] .map-stage {
   box-shadow:
     0 0 0 4px rgba(255, 112, 67, 0.18),
     0 10px 18px rgba(16, 36, 49, 0.2);
+}
+
+.editor-ring-button {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border: 2px dashed rgba(153, 0, 0, 0.42);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.72),
+    0 0 0 2px rgba(153, 0, 0, 0.08);
+  pointer-events: auto;
+  z-index: 2;
+}
+
+.editor-ring-button::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: rgba(153, 0, 0, 0.16);
+  box-shadow: 0 0 0 3px rgba(153, 0, 0, 0.08);
+}
+
+.editor-ring-button.is-active {
+  border-color: rgba(255, 112, 67, 0.68);
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.88),
+    0 0 0 3px rgba(255, 112, 67, 0.14),
+    0 0 18px rgba(255, 112, 67, 0.24);
+}
+
+.editor-ring-button.is-active::after {
+  background: rgba(255, 112, 67, 0.22);
+  box-shadow: 0 0 0 3px rgba(255, 112, 67, 0.12);
 }
 
 .editor-pin-popover {

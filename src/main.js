@@ -68,6 +68,9 @@ if (window.__FILE_MODE__) {
   const SEARCH_FOCUS_ZOOM = 6;
   const SEARCH_PIN_VERTICAL_OFFSET_RATIO = 0.01;
   const EDITOR_GUIDE_PIN_VERTICAL_OFFSET_RATIO = 0.01;
+  const FACILITY_RING_DIAMETER_RATIO = 0.042;
+  const FACILITY_RING_DIAMETER_MIN = 34;
+  const FACILITY_RING_DIAMETER_MAX = 72;
   const DOUBLE_TAP_SUPPRESSION_WINDOW_MS = 320;
   const MANUAL_POINT_RECT_RATIO = 0.001;
   const LEGACY_MANUAL_STORAGE_KEY = 'campus-map-manual-entries-v2';
@@ -109,7 +112,26 @@ if (window.__FILE_MODE__) {
   const editorPublishButton = document.querySelector('#editor-publish');
   const editorFeedback = document.querySelector('#editor-feedback');
   const editorList = document.querySelector('#editor-list');
+  const editorRingModeButtons = Array.from(document.querySelectorAll('.editor-ring-mode-button'));
+  const editorRingClearButton = document.querySelector('#editor-ring-clear');
+  const editorRingList = document.querySelector('#editor-ring-list');
   const editorJson = document.querySelector('#editor-json');
+  const facilityButtonDefinitions = searchIconButtons
+    .map((button) => {
+      const facilityKey = button.dataset.facilityKey?.trim();
+      if (!facilityKey) {
+        return null;
+      }
+
+      return {
+        facilityKey,
+        label: button.getAttribute('aria-label')?.trim() || facilityKey
+      };
+    })
+    .filter((definition) => definition !== null);
+  const facilityLabelByKey = Object.fromEntries(
+    facilityButtonDefinitions.map((definition) => [definition.facilityKey, definition.label])
+  );
 
   const state = {
     floorIndex: 0,
@@ -136,6 +158,7 @@ if (window.__FILE_MODE__) {
     pinchStartCenterY: 0,
     floorLoadToken: 0,
     highlightLayer: null,
+    ringLayer: null,
     editorLayer: null,
     searchReady: false,
     searchLoading: false,
@@ -146,7 +169,10 @@ if (window.__FILE_MODE__) {
     activeSuggestionIndex: -1,
     activeSearchEntryId: null,
     manualEntries: [],
+    facilityRings: [],
     activeEditorPinKey: null,
+    activeEditorRingId: null,
+    activeRingEditorFacilityKey: null,
     editMode: false,
     pendingEditorPoint: null,
     dragMoved: false,
@@ -201,6 +227,7 @@ if (window.__FILE_MODE__) {
 
     state.facilityToggleState[facilityKey] = nextValue === 1 ? 1 : 0;
     renderFacilityToggleButtons();
+    renderFacilityRings();
   }
 
   function toggleFacilityToggleState(facilityKey) {
@@ -215,6 +242,55 @@ if (window.__FILE_MODE__) {
   window.__facilityToggleState = state.facilityToggleState;
   window.__setFacilityToggleState = setFacilityToggleState;
   window.__toggleFacilityToggleState = toggleFacilityToggleState;
+
+  function getFacilityRingDiameter() {
+    return clamp(
+      Math.min(state.baseWidth, state.baseHeight) * FACILITY_RING_DIAMETER_RATIO,
+      FACILITY_RING_DIAMETER_MIN,
+      FACILITY_RING_DIAMETER_MAX
+    );
+  }
+
+  function getCurrentFloorFacilityRings() {
+    const currentFloorId = getFloorDefinition().id;
+    return state.facilityRings.filter((ring) => ring.floorId === currentFloorId);
+  }
+
+  function getFacilityRingById(ringId) {
+    return state.facilityRings.find((ring) => ring.id === ringId) ?? null;
+  }
+
+  function renderFacilityRings() {
+    if (!state.ringLayer) {
+      return;
+    }
+
+    state.ringLayer.replaceChildren();
+
+    const currentFloorRings = getCurrentFloorFacilityRings().filter(
+      (ring) => state.facilityToggleState[ring.facilityKey] === 1
+    );
+
+    if (currentFloorRings.length === 0) {
+      return;
+    }
+
+    const diameter = getFacilityRingDiameter();
+    const fragment = document.createDocumentFragment();
+
+    currentFloorRings.forEach((ring) => {
+      const ringNode = document.createElement('div');
+      ringNode.className = 'facility-ring';
+      ringNode.style.left = `${ring.xRatio * 100}%`;
+      ringNode.style.top = `${ring.yRatio * 100}%`;
+      ringNode.style.width = `${diameter}px`;
+      ringNode.style.height = `${diameter}px`;
+      ringNode.setAttribute('aria-hidden', 'true');
+      fragment.append(ringNode);
+    });
+
+    state.ringLayer.append(fragment);
+  }
 
   function getViewportSize() {
     return {
@@ -287,6 +363,14 @@ if (window.__FILE_MODE__) {
     return `manual-${floorId}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
   }
 
+  function createFacilityRingId(facilityKey, floorId) {
+    return `ring-${facilityKey}-${floorId}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+  }
+
+  function getFacilityLabel(facilityKey) {
+    return facilityLabelByKey[facilityKey] ?? facilityKey;
+  }
+
   function sanitizeAliases(value) {
     if (Array.isArray(value)) {
       return value.map((item) => String(item).trim()).filter(Boolean);
@@ -314,6 +398,20 @@ if (window.__FILE_MODE__) {
 
   function createEntrySearchTerms(label, aliases = []) {
     return [...new Set([label, ...aliases].map((value) => normalizeSearchValue(value)).filter(Boolean))];
+  }
+
+  function normalizeFacilityRingPoint(point) {
+    const xRatio = Number(point?.xRatio);
+    const yRatio = Number(point?.yRatio);
+
+    if (!Number.isFinite(xRatio) || !Number.isFinite(yRatio)) {
+      return null;
+    }
+
+    return {
+      xRatio: clamp(xRatio, 0, 1),
+      yRatio: clamp(yRatio, 0, 1)
+    };
   }
 
   function hydrateManualEntry(entry, fallbackFloorId = getCurrentFloorLabel()) {
@@ -357,82 +455,149 @@ if (window.__FILE_MODE__) {
       .filter((entry) => entry !== null);
   }
 
+  function hydrateFacilityRing(ring, fallbackFloorId = getCurrentFloorLabel()) {
+    const facilityKey = String(ring?.facilityKey ?? '').trim();
+    const floorId =
+      FLOOR_FILES.find((floor) => floor.id === ring?.floorId)?.id ??
+      FLOOR_FILES.find((floor) => floor.label === fallbackFloorId)?.id ??
+      getFloorDefinition().id;
+    const point = normalizeFacilityRingPoint(ring);
+
+    if (!facilityKey || !(facilityKey in state.facilityToggleState) || !point) {
+      return null;
+    }
+
+    const floorLabel = FLOOR_FILES.find((floor) => floor.id === floorId)?.label ?? floorId;
+
+    return {
+      id: String(ring?.id ?? createFacilityRingId(facilityKey, floorId)),
+      facilityKey,
+      facilityLabel: getFacilityLabel(facilityKey),
+      floorId,
+      floorLabel,
+      floorOrder: getFloorOrder(floorId),
+      xRatio: point.xRatio,
+      yRatio: point.yRatio
+    };
+  }
+
+  function hydrateFacilityRingsCollection(source) {
+    const sourceRings = Array.isArray(source) ? source : source?.facilityRings;
+
+    if (!Array.isArray(sourceRings)) {
+      return [];
+    }
+
+    return sourceRings
+      .map((ring) => hydrateFacilityRing(ring))
+      .filter((ring) => ring !== null);
+  }
+
   function getActiveManualStorageKey() {
     return isEditorSite ? MANUAL_DRAFT_STORAGE_KEY : MANUAL_PUBLISHED_STORAGE_KEY;
   }
 
-  function readStoredManualEntries(storageKey) {
+  function readStoredEditorData(storageKey) {
     try {
       const raw = window.localStorage.getItem(storageKey);
 
       if (!raw) {
         return {
           exists: false,
-          entries: []
+          entries: [],
+          facilityRings: []
         };
       }
 
       const parsed = JSON.parse(raw);
       return {
         exists: true,
-        entries: hydrateManualEntriesCollection(parsed)
+        entries: hydrateManualEntriesCollection(parsed),
+        facilityRings: hydrateFacilityRingsCollection(parsed)
       };
     } catch (error) {
-      console.warn(`Failed to load manual search entries from ${storageKey}.`, error);
+      console.warn(`Failed to load editor data from ${storageKey}.`, error);
       return {
         exists: false,
-        entries: []
+        entries: [],
+        facilityRings: []
       };
     }
+  }
+
+  function readStoredManualEntries(storageKey) {
+    const snapshot = readStoredEditorData(storageKey);
+
+    return {
+      exists: snapshot.exists,
+      entries: snapshot.entries
+    };
   }
 
   function loadManualEntries(storageKey = getActiveManualStorageKey()) {
     return readStoredManualEntries(storageKey).entries;
   }
 
-  function getCurrentPublishedEntries(deployedEntries = []) {
-    const legacySnapshot = readStoredManualEntries(LEGACY_MANUAL_STORAGE_KEY);
-    const publishedSnapshot = readStoredManualEntries(MANUAL_PUBLISHED_STORAGE_KEY);
-    return cloneManualEntries(
-      publishedSnapshot.exists || publishedSnapshot.entries.length > 0
-        ? publishedSnapshot.entries
-        : legacySnapshot.exists || legacySnapshot.entries.length > 0
-          ? legacySnapshot.entries
-          : deployedEntries
-    );
+  function cloneFacilityRings(rings) {
+    return hydrateFacilityRingsCollection({
+      facilityRings: serializeFacilityRings(rings)
+    });
   }
 
-  function resolveCurrentManualEntries(deployedEntries = []) {
-    const currentPublishedEntries = getCurrentPublishedEntries(deployedEntries);
+  function getCurrentPublishedEditorData(deployedEntries = [], deployedFacilityRings = []) {
+    const legacySnapshot = readStoredEditorData(LEGACY_MANUAL_STORAGE_KEY);
+    const publishedSnapshot = readStoredEditorData(MANUAL_PUBLISHED_STORAGE_KEY);
+    const sourceSnapshot =
+      publishedSnapshot.exists || publishedSnapshot.entries.length > 0 || publishedSnapshot.facilityRings.length > 0
+        ? publishedSnapshot
+        : legacySnapshot.exists || legacySnapshot.entries.length > 0 || legacySnapshot.facilityRings.length > 0
+          ? legacySnapshot
+          : {
+              exists: false,
+              entries: deployedEntries,
+              facilityRings: deployedFacilityRings
+            };
 
-    if (!isEditorSite) {
-      return currentPublishedEntries;
-    }
-
-    const draftSnapshot = readStoredManualEntries(MANUAL_DRAFT_STORAGE_KEY);
-    return draftSnapshot.exists ? draftSnapshot.entries : currentPublishedEntries;
+    return {
+      entries: cloneManualEntries(sourceSnapshot.entries),
+      facilityRings: cloneFacilityRings(sourceSnapshot.facilityRings)
+    };
   }
 
-  function resolveInitialManualEntries(deployedEntries = []) {
-    const publishedSnapshot = readStoredManualEntries(MANUAL_PUBLISHED_STORAGE_KEY);
-    const initialPublishedEntries = getCurrentPublishedEntries(deployedEntries);
+  function resolveCurrentEditorData(deployedEntries = [], deployedFacilityRings = []) {
+    const currentPublishedData = getCurrentPublishedEditorData(deployedEntries, deployedFacilityRings);
 
-    if (!publishedSnapshot.exists && initialPublishedEntries.length > 0) {
-      persistManualEntries(MANUAL_PUBLISHED_STORAGE_KEY, initialPublishedEntries);
+    if (!isEditorSite) {
+      return currentPublishedData;
+    }
+
+    const draftSnapshot = readStoredEditorData(MANUAL_DRAFT_STORAGE_KEY);
+    return draftSnapshot.exists ? draftSnapshot : currentPublishedData;
+  }
+
+  function resolveInitialEditorData(deployedEntries = [], deployedFacilityRings = []) {
+    const publishedSnapshot = readStoredEditorData(MANUAL_PUBLISHED_STORAGE_KEY);
+    const initialPublishedData = getCurrentPublishedEditorData(deployedEntries, deployedFacilityRings);
+
+    if (
+      !publishedSnapshot.exists &&
+      (initialPublishedData.entries.length > 0 || initialPublishedData.facilityRings.length > 0)
+    ) {
+      persistEditorData(MANUAL_PUBLISHED_STORAGE_KEY, initialPublishedData);
     }
 
     if (!isEditorSite) {
-      return initialPublishedEntries;
+      return initialPublishedData;
     }
 
-    const draftSnapshot = readStoredManualEntries(MANUAL_DRAFT_STORAGE_KEY);
+    const draftSnapshot = readStoredEditorData(MANUAL_DRAFT_STORAGE_KEY);
 
     if (draftSnapshot.exists) {
-      return draftSnapshot.entries;
+      return draftSnapshot;
     }
 
-    persistManualEntries(MANUAL_DRAFT_STORAGE_KEY, initialPublishedEntries);
-    return initialPublishedEntries;
+    persistEditorData(MANUAL_DRAFT_STORAGE_KEY, initialPublishedData);
+    return initialPublishedData;
   }
 
   async function fetchBundledSearchEntries() {
@@ -467,7 +632,37 @@ if (window.__FILE_MODE__) {
     });
   }
 
-  function serializeManualEntries(entries = state.manualEntries) {
+  function serializeFacilityRings(rings = state.facilityRings) {
+    return [...rings]
+      .sort((left, right) => {
+        const floorOrder = left.floorOrder - right.floorOrder;
+
+        if (floorOrder !== 0) {
+          return floorOrder;
+        }
+
+        const facilityOrder = roomCodeCollator.compare(left.facilityLabel, right.facilityLabel);
+
+        if (facilityOrder !== 0) {
+          return facilityOrder;
+        }
+
+        if (left.yRatio !== right.yRatio) {
+          return left.yRatio - right.yRatio;
+        }
+
+        return left.xRatio - right.xRatio;
+      })
+      .map((ring) => ({
+        id: ring.id,
+        facilityKey: ring.facilityKey,
+        floorId: ring.floorId,
+        xRatio: Number(ring.xRatio.toFixed(6)),
+        yRatio: Number(ring.yRatio.toFixed(6))
+      }));
+  }
+
+  function serializeManualEntries(entries = state.manualEntries, facilityRings = state.facilityRings) {
     const sortedEntries = [...entries].sort((left, right) => {
       const floorOrder = left.floorOrder - right.floorOrder;
 
@@ -479,17 +674,25 @@ if (window.__FILE_MODE__) {
     });
 
     return {
-      version: 1,
-      entries: serializeEntries(sortedEntries)
+      version: 2,
+      entries: serializeEntries(sortedEntries),
+      facilityRings: serializeFacilityRings(facilityRings)
     };
   }
 
-  function persistManualEntries(storageKey = getActiveManualStorageKey(), entries = state.manualEntries) {
+  function persistEditorData(
+    storageKey = getActiveManualStorageKey(),
+    { entries = state.manualEntries, facilityRings = state.facilityRings } = {}
+  ) {
     try {
-      window.localStorage.setItem(storageKey, JSON.stringify(serializeManualEntries(entries)));
+      window.localStorage.setItem(storageKey, JSON.stringify(serializeManualEntries(entries, facilityRings)));
     } catch (error) {
-      console.warn(`Failed to persist manual search entries to ${storageKey}.`, error);
+      console.warn(`Failed to persist editor data to ${storageKey}.`, error);
     }
+  }
+
+  function persistManualEntries(storageKey = getActiveManualStorageKey(), entries = state.manualEntries) {
+    persistEditorData(storageKey, { entries });
   }
 
   function getEntrySearchTerms(entry) {
@@ -761,6 +964,154 @@ if (window.__FILE_MODE__) {
     return guidePin;
   }
 
+  function renderEditorRingModeButtons() {
+    if (!isEditorSite || editorRingModeButtons.length === 0) {
+      return;
+    }
+
+    editorRingModeButtons.forEach((button) => {
+      const facilityKey = button.dataset.facilityKey?.trim();
+      const isActive = facilityKey && state.activeRingEditorFacilityKey === facilityKey;
+      button.classList.toggle('is-active', Boolean(isActive));
+      button.setAttribute('aria-pressed', String(Boolean(isActive)));
+    });
+  }
+
+  function getCurrentFloorEditorRings() {
+    const currentFloorId = getFloorDefinition().id;
+    return state.facilityRings.filter((ring) => ring.floorId === currentFloorId);
+  }
+
+  function getEditorVisibleRings() {
+    if (!state.activeRingEditorFacilityKey) {
+      return [];
+    }
+
+    return getCurrentFloorEditorRings().filter((ring) => ring.facilityKey === state.activeRingEditorFacilityKey);
+  }
+
+  function updateEditorRingClearButtonState() {
+    if (!editorRingClearButton) {
+      return;
+    }
+
+    const isDisabled = !state.activeRingEditorFacilityKey || getEditorVisibleRings().length === 0;
+    editorRingClearButton.disabled = isDisabled;
+  }
+
+  function setActiveRingEditorFacilityKey(facilityKey = null) {
+    const normalizedFacilityKey =
+      facilityKey && facilityKey in state.facilityToggleState ? facilityKey : null;
+    const nextFacilityKey =
+      state.activeRingEditorFacilityKey === normalizedFacilityKey ? null : normalizedFacilityKey;
+
+    state.activeRingEditorFacilityKey = nextFacilityKey;
+    state.activeEditorRingId = null;
+
+    if (nextFacilityKey) {
+      state.pendingEditorPoint = null;
+      state.activeEditorPinKey = null;
+      setEditorFeedback(
+        `${getFacilityLabel(nextFacilityKey)} のリング編集モードです。地図をタップすると追加、既存リングをタップすると削除します`
+      );
+    } else if (state.editMode) {
+      setEditorFeedback('地図上の文字位置をクリックして表示名を記録できます。リング編集モードはオフです');
+    }
+
+    refreshEditorUi();
+  }
+
+  function createEditorRingHandle(ring, { isActive = false } = {}) {
+    const ringButton = document.createElement('button');
+    ringButton.type = 'button';
+    ringButton.className = 'editor-ring-button';
+    ringButton.dataset.ringId = ring.id;
+    ringButton.dataset.facilityKey = ring.facilityKey;
+    ringButton.setAttribute('aria-label', `${ring.facilityLabel} のリングを操作`);
+    ringButton.style.left = `${ring.xRatio * 100}%`;
+    ringButton.style.top = `${ring.yRatio * 100}%`;
+    ringButton.style.width = `${getFacilityRingDiameter()}px`;
+    ringButton.style.height = `${getFacilityRingDiameter()}px`;
+
+    if (isActive) {
+      ringButton.classList.add('is-active');
+    }
+
+    return ringButton;
+  }
+
+  function renderEditorRingList() {
+    if (!isEditorSite || !editorRingList) {
+      return;
+    }
+
+    const facilityKey = state.activeRingEditorFacilityKey;
+
+    if (!facilityKey) {
+      const empty = document.createElement('div');
+      empty.className = 'editor-empty';
+      empty.textContent = '施設ボタンをオンにすると、その施設用のリングを追加・削除できます';
+      editorRingList.replaceChildren(empty);
+      updateEditorRingClearButtonState();
+      return;
+    }
+
+    const rings = getEditorVisibleRings();
+
+    if (rings.length === 0) {
+      const empty = document.createElement('div');
+      empty.className = 'editor-empty';
+      empty.textContent = `${getCurrentFloorLabel()} の ${getFacilityLabel(facilityKey)} リングはまだありません`;
+      editorRingList.replaceChildren(empty);
+      updateEditorRingClearButtonState();
+      return;
+    }
+
+    const fragment = document.createDocumentFragment();
+
+    rings.forEach((ring, index) => {
+      const row = document.createElement('div');
+      row.className = 'editor-entry';
+
+      const body = document.createElement('div');
+      body.className = 'editor-entry-body';
+
+      const label = document.createElement('div');
+      label.className = 'editor-entry-label';
+      label.textContent = `${ring.facilityLabel} リング ${index + 1}`;
+
+      const meta = document.createElement('div');
+      meta.className = 'editor-entry-meta';
+      meta.textContent = `x ${ring.xRatio.toFixed(4)} / y ${ring.yRatio.toFixed(4)}`;
+
+      body.append(label, meta);
+
+      const actions = document.createElement('div');
+      actions.className = 'editor-entry-actions';
+
+      const focusButton = document.createElement('button');
+      focusButton.type = 'button';
+      focusButton.className = 'editor-entry-button';
+      focusButton.dataset.action = 'focus-ring';
+      focusButton.dataset.ringId = ring.id;
+      focusButton.textContent = '移動';
+
+      const deleteButton = document.createElement('button');
+      deleteButton.type = 'button';
+      deleteButton.className = 'editor-entry-button';
+      deleteButton.dataset.action = 'delete-ring';
+      deleteButton.dataset.ringId = ring.id;
+      deleteButton.textContent = '削除';
+
+      actions.append(focusButton, deleteButton);
+      row.append(body, actions);
+      fragment.append(row);
+    });
+
+    editorRingList.replaceChildren(fragment);
+    updateEditorRingClearButtonState();
+  }
+
   function getManualEntryById(entryId) {
     return state.manualEntries.find((entry) => entry.id === entryId) ?? null;
   }
@@ -814,6 +1165,13 @@ if (window.__FILE_MODE__) {
 
   function updateEditorCoords() {
     if (!isEditorSite || !editorCoords) {
+      return;
+    }
+
+    const activeRing = state.activeEditorRingId ? getFacilityRingById(state.activeEditorRingId) : null;
+
+    if (activeRing) {
+      editorCoords.textContent = `x ${activeRing.xRatio.toFixed(4)} / y ${activeRing.yRatio.toFixed(4)}`;
       return;
     }
 
@@ -915,7 +1273,13 @@ if (window.__FILE_MODE__) {
 
     const currentFloorId = getFloorDefinition().id;
     const fragment = document.createDocumentFragment();
+    const activeRingFacilityKey = state.activeRingEditorFacilityKey;
     const floorEntries = state.manualEntries.filter((entry) => entry.floorId === currentFloorId);
+    const floorRings = activeRingFacilityKey
+      ? state.facilityRings.filter(
+          (ring) => ring.floorId === currentFloorId && ring.facilityKey === activeRingFacilityKey
+        )
+      : [];
 
     floorEntries.forEach((entry) => {
       entry.rects.forEach((rect, rectIndex) => {
@@ -963,6 +1327,12 @@ if (window.__FILE_MODE__) {
       });
     });
 
+    floorRings.forEach((ring) => {
+      const isActive = state.activeEditorRingId === ring.id;
+      const ringButton = createEditorRingHandle(ring, { isActive });
+      fragment.append(ringButton);
+    });
+
     if (state.pendingEditorPoint) {
       const guidePin = createEditorGuidePin(state.pendingEditorPoint, { isPending: true });
       const dot = document.createElement('div');
@@ -984,9 +1354,11 @@ if (window.__FILE_MODE__) {
     if (editorFloor) {
       editorFloor.textContent = getCurrentFloorLabel();
     }
+    renderEditorRingModeButtons();
     updateEditorCoords();
     updateEditorJsonOutput();
     renderEditorList();
+    renderEditorRingList();
     renderEditorOverlay();
   }
 
@@ -999,6 +1371,22 @@ if (window.__FILE_MODE__) {
     const nextZoom = clamp(targetZoom, state.minZoom, state.maxZoom);
     const targetX = state.baseWidth * (focusRect.xRatio + focusRect.widthRatio / 2);
     const targetY = state.baseHeight * (focusRect.yRatio + focusRect.heightRatio / 2);
+    const { width: viewportWidth, height: viewportHeight } = getViewportSize();
+
+    state.zoom = nextZoom;
+    state.x = viewportWidth / 2 - targetX * state.zoom;
+    state.y = viewportHeight / 2 - targetY * state.zoom;
+    updateView();
+  }
+
+  function focusMapPoint(point, targetZoom = SEARCH_FOCUS_ZOOM) {
+    if (!point) {
+      return;
+    }
+
+    const nextZoom = clamp(targetZoom, state.minZoom, state.maxZoom);
+    const targetX = state.baseWidth * point.xRatio;
+    const targetY = state.baseHeight * point.yRatio;
     const { width: viewportWidth, height: viewportHeight } = getViewportSize();
 
     state.zoom = nextZoom;
@@ -1375,12 +1763,15 @@ if (window.__FILE_MODE__) {
         state.baseSearchEntries = [];
       }
 
-      state.manualEntries = resolveInitialManualEntries(state.baseSearchEntries);
+      const initialEditorData = resolveInitialEditorData(state.baseSearchEntries);
+      state.manualEntries = initialEditorData.entries;
+      state.facilityRings = initialEditorData.facilityRings;
       refreshSearchEntries();
       state.searchReady = true;
       state.searchLoading = false;
       renderSearchSuggestions();
       renderSearchHighlights();
+      renderFacilityRings();
       if (isEditorSite) {
         refreshEditorUi();
       }
@@ -1425,19 +1816,22 @@ if (window.__FILE_MODE__) {
       const svgNode = createFloorImageNode(floor);
       const highlightLayer = document.createElement('div');
       highlightLayer.className = 'highlight-layer';
+      const ringLayer = document.createElement('div');
+      ringLayer.className = 'ring-layer';
       let editorLayer = null;
       if (isEditorSite) {
         editorLayer = document.createElement('div');
         editorLayer.className = 'editor-layer';
       }
 
-      mapAsset.append(svgNode, highlightLayer);
+      mapAsset.append(svgNode, highlightLayer, ringLayer);
       if (editorLayer) {
         mapAsset.append(editorLayer);
       }
       canvasLayer.replaceChildren(mapAsset);
 
       state.highlightLayer = highlightLayer;
+      state.ringLayer = ringLayer;
       state.editorLayer = editorLayer;
       state.intrinsicWidth = asset.width;
       state.intrinsicHeight = asset.height;
@@ -1457,14 +1851,17 @@ if (window.__FILE_MODE__) {
       }
 
       renderSearchHighlights();
+      renderFacilityRings();
       if (isEditorSite) {
         renderEditorOverlay();
         renderEditorList();
+        renderEditorRingList();
       }
     } catch (error) {
       console.error(error);
       canvasLayer.replaceChildren();
       state.highlightLayer = null;
+      state.ringLayer = null;
       state.editorLayer = null;
       setStatus('地図の読み込みに失敗しました');
     }
@@ -1532,11 +1929,13 @@ if (window.__FILE_MODE__) {
     viewer.classList.toggle('is-editing', state.editMode);
 
     if (state.editMode) {
-      setEditorFeedback('クリックした位置を中心にプレビューを作成します');
+      setEditorFeedback('地図上の文字位置をクリックして表示名を記録できます。リング編集ボタンがオンの時はリングを追加・削除できます');
     } else {
       setEditorFeedback('編集モードをオンにして、地図上の文字位置をクリックしてください');
       state.pendingEditorPoint = null;
       state.activeEditorPinKey = null;
+      state.activeEditorRingId = null;
+      state.activeRingEditorFacilityKey = null;
     }
 
     refreshEditorUi();
@@ -1555,7 +1954,7 @@ if (window.__FILE_MODE__) {
       state.activeSearchEntryId = null;
       renderSearchHighlights();
     }
-    persistManualEntries();
+    persistCurrentEditorState();
     refreshSearchEntries();
     refreshEditorUi();
     renderSearchSuggestions();
@@ -1573,6 +1972,134 @@ if (window.__FILE_MODE__) {
     }
 
     await selectSearchEntry(entry);
+  }
+
+  function createFacilityRing(point, facilityKey) {
+    const floor = getFloorDefinition();
+    return hydrateFacilityRing({
+      id: createFacilityRingId(facilityKey, floor.id),
+      facilityKey,
+      floorId: floor.id,
+      xRatio: point.xRatio,
+      yRatio: point.yRatio
+    });
+  }
+
+  function persistCurrentEditorState() {
+    persistEditorData(getActiveManualStorageKey(), {
+      entries: state.manualEntries,
+      facilityRings: state.facilityRings
+    });
+  }
+
+  function addFacilityRing(point, facilityKey) {
+    if (!isEditorSite || !facilityKey) {
+      return;
+    }
+
+    const ring = createFacilityRing(point, facilityKey);
+
+    if (!ring) {
+      setEditorFeedback('リング位置を記録できませんでした');
+      return;
+    }
+
+    state.facilityRings.push(ring);
+    state.activeEditorRingId = ring.id;
+    persistCurrentEditorState();
+    renderFacilityRings();
+    refreshEditorUi();
+    setEditorFeedback(`${ring.floorLabel} に ${ring.facilityLabel} リングを追加しました`);
+  }
+
+  function removeFacilityRing(ringId, { silent = false } = {}) {
+    if (!isEditorSite || !ringId) {
+      return;
+    }
+
+    const ring = getFacilityRingById(ringId);
+
+    if (!ring) {
+      return;
+    }
+
+    state.facilityRings = state.facilityRings.filter((candidate) => candidate.id !== ringId);
+
+    if (state.activeEditorRingId === ringId) {
+      state.activeEditorRingId = null;
+    }
+
+    persistCurrentEditorState();
+    renderFacilityRings();
+    refreshEditorUi();
+
+    if (!silent) {
+      setEditorFeedback(`${ring.floorLabel} の ${ring.facilityLabel} リングを削除しました`);
+    }
+  }
+
+  function clearFacilityRingsForActiveMode() {
+    if (!isEditorSite || !state.activeRingEditorFacilityKey) {
+      return;
+    }
+
+    const currentFloorId = getFloorDefinition().id;
+    const currentFloorLabel = getCurrentFloorLabel();
+    const facilityLabel = getFacilityLabel(state.activeRingEditorFacilityKey);
+    const beforeCount = state.facilityRings.length;
+
+    state.facilityRings = state.facilityRings.filter(
+      (ring) => !(ring.floorId === currentFloorId && ring.facilityKey === state.activeRingEditorFacilityKey)
+    );
+
+    const removedCount = beforeCount - state.facilityRings.length;
+
+    if (removedCount === 0) {
+      setEditorFeedback(`${currentFloorLabel} の ${facilityLabel} リングはまだありません`);
+      return;
+    }
+
+    if (state.activeEditorRingId && !getFacilityRingById(state.activeEditorRingId)) {
+      state.activeEditorRingId = null;
+    }
+
+    persistCurrentEditorState();
+    renderFacilityRings();
+    refreshEditorUi();
+    setEditorFeedback(`${currentFloorLabel} の ${facilityLabel} リングを ${removedCount} 件クリアしました`);
+  }
+
+  function setActiveEditorRing(ringId = null) {
+    const ring = ringId ? getFacilityRingById(ringId) : null;
+    state.activeEditorRingId = ring?.id ?? null;
+
+    if (ring) {
+      setEditorFeedback(`${ring.floorLabel} / ${ring.facilityLabel} リング`);
+    }
+
+    refreshEditorUi();
+  }
+
+  async function focusFacilityRing(ringId) {
+    if (!isEditorSite) {
+      return;
+    }
+
+    const ring = getFacilityRingById(ringId);
+
+    if (!ring) {
+      return;
+    }
+
+    if (ring.floorId !== getFloorDefinition().id) {
+      await setActiveFloor(ring.floorId, { resetZoom: false });
+    }
+
+    state.activeRingEditorFacilityKey = ring.facilityKey;
+    state.activeEditorRingId = ring.id;
+    focusMapPoint({ xRatio: ring.xRatio, yRatio: ring.yRatio });
+    refreshEditorUi();
+    setEditorFeedback(`${ring.floorLabel} / ${ring.facilityLabel} リングへ移動しました`);
   }
 
   function saveManualEntry() {
@@ -1610,7 +2137,7 @@ if (window.__FILE_MODE__) {
     }
 
     state.manualEntries.push(entry);
-    persistManualEntries();
+    persistCurrentEditorState();
     refreshSearchEntries();
     state.pendingEditorPoint = null;
     state.activeEditorPinKey = null;
@@ -1625,7 +2152,7 @@ if (window.__FILE_MODE__) {
       return;
     }
 
-    const payload = JSON.stringify(serializeManualEntries(), null, 2);
+    const payload = JSON.stringify(serializeManualEntries(state.manualEntries, state.facilityRings), null, 2);
 
     try {
       await navigator.clipboard.writeText(payload);
@@ -1642,7 +2169,7 @@ if (window.__FILE_MODE__) {
       return;
     }
 
-    const payload = JSON.stringify(serializeManualEntries(), null, 2);
+    const payload = JSON.stringify(serializeManualEntries(state.manualEntries, state.facilityRings), null, 2);
     const blob = new Blob([payload], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
@@ -1664,19 +2191,23 @@ if (window.__FILE_MODE__) {
       const payload = await file.text();
       const parsed = JSON.parse(payload);
       const importedEntries = hydrateManualEntriesCollection(parsed);
+      const importedFacilityRings = hydrateFacilityRingsCollection(parsed);
 
       state.manualEntries = importedEntries;
+      state.facilityRings = importedFacilityRings;
       state.activeSearchEntryId = null;
       state.activeEditorPinKey = null;
+      state.activeEditorRingId = null;
       state.pendingEditorPoint = null;
-      persistManualEntries();
+      persistCurrentEditorState();
       refreshSearchEntries();
       renderSearchHighlights();
+      renderFacilityRings();
       refreshEditorUi();
       renderSearchSuggestions();
       setEditorFeedback(
-        importedEntries.length > 0
-          ? `${importedEntries.length} 件の下書きデータを読み込みました。「編集を確定」で閲覧用に反映されます`
+        importedEntries.length > 0 || importedFacilityRings.length > 0
+          ? `${importedEntries.length} 件の検索データと ${importedFacilityRings.length} 件のリング下書きを読み込みました。「編集を確定」で閲覧用に反映されます`
           : '空の JSON を読み込みました。「編集を確定」で閲覧用からも削除されます'
       );
     } catch (error) {
@@ -1691,11 +2222,15 @@ if (window.__FILE_MODE__) {
     }
 
     const publishedEntries = cloneManualEntries(state.manualEntries);
-    persistManualEntries(MANUAL_PUBLISHED_STORAGE_KEY, publishedEntries);
+    const publishedFacilityRings = cloneFacilityRings(state.facilityRings);
+    persistEditorData(MANUAL_PUBLISHED_STORAGE_KEY, {
+      entries: publishedEntries,
+      facilityRings: publishedFacilityRings
+    });
     setEditorFeedback(
-      publishedEntries.length > 0
-        ? `${publishedEntries.length} 件の編集内容を閲覧用サイトに反映しました`
-        : '閲覧用サイトの手入力データを空に反映しました'
+      publishedEntries.length > 0 || publishedFacilityRings.length > 0
+        ? `${publishedEntries.length} 件の検索データと ${publishedFacilityRings.length} 件のリングを閲覧用サイトに反映しました`
+        : '閲覧用サイトの検索データとリングを空に反映しました'
     );
   }
 
@@ -1711,7 +2246,13 @@ if (window.__FILE_MODE__) {
       return;
     }
 
+    if (state.activeRingEditorFacilityKey) {
+      addFacilityRing(point, state.activeRingEditorFacilityKey);
+      return;
+    }
+
     state.activeEditorPinKey = null;
+    state.activeEditorRingId = null;
     state.pendingEditorPoint = point;
     setEditorFeedback('位置を取得しました。表示名を入れて「この位置を記録」を押してください');
     refreshEditorUi();
@@ -1881,6 +2422,18 @@ if (window.__FILE_MODE__) {
     });
   }
 
+  if (editorRingClearButton) {
+    editorRingClearButton.addEventListener('click', () => {
+      clearFacilityRingsForActiveMode();
+    });
+  }
+
+  editorRingModeButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      setActiveRingEditorFacilityKey(button.dataset.facilityKey?.trim());
+    });
+  });
+
   if (editorList) {
     editorList.addEventListener('click', (event) => {
       const button = event.target.closest('.editor-entry-button');
@@ -1902,6 +2455,27 @@ if (window.__FILE_MODE__) {
     });
   }
 
+  if (editorRingList) {
+    editorRingList.addEventListener('click', (event) => {
+      const button = event.target.closest('.editor-entry-button');
+
+      if (!button) {
+        return;
+      }
+
+      const { action, ringId } = button.dataset;
+
+      if (action === 'delete-ring' && ringId) {
+        removeFacilityRing(ringId);
+        return;
+      }
+
+      if (action === 'focus-ring' && ringId) {
+        void focusFacilityRing(ringId);
+      }
+    });
+  }
+
   document.addEventListener('pointerdown', (event) => {
     if (searchPanel.contains(event.target)) {
       return;
@@ -1909,9 +2483,10 @@ if (window.__FILE_MODE__) {
 
     searchResults.hidden = true;
 
-    if (isEditorSite && !event.target.closest('.editor-pin-button')) {
+    if (isEditorSite && !event.target.closest('.editor-pin-button, .editor-ring-button')) {
       state.activeEditorPinKey = null;
-      renderEditorOverlay();
+      state.activeEditorRingId = null;
+      refreshEditorUi();
     }
   });
 
@@ -1935,6 +2510,27 @@ if (window.__FILE_MODE__) {
   );
 
   viewer.addEventListener('click', (event) => {
+    const ringButton = event.target.closest('.editor-ring-button');
+
+    if (ringButton) {
+      event.preventDefault();
+      event.stopPropagation();
+      const ringId = ringButton.dataset.ringId;
+      const facilityKey = ringButton.dataset.facilityKey?.trim();
+
+      if (!ringId) {
+        return;
+      }
+
+      if (state.activeRingEditorFacilityKey && facilityKey === state.activeRingEditorFacilityKey) {
+        removeFacilityRing(ringId);
+        return;
+      }
+
+      setActiveEditorRing(ringId);
+      return;
+    }
+
     const pinButton = event.target.closest('.editor-pin-button');
 
     if (!pinButton) {
@@ -1976,7 +2572,7 @@ if (window.__FILE_MODE__) {
   );
 
   viewer.addEventListener('mousedown', (event) => {
-    if (event.target.closest('.editor-pin-button')) {
+    if (event.target.closest('.editor-pin-button, .editor-ring-button')) {
       return;
     }
 
@@ -1985,7 +2581,7 @@ if (window.__FILE_MODE__) {
   });
 
   viewer.addEventListener('mouseup', (event) => {
-    if (event.target.closest('.editor-pin-button')) {
+    if (event.target.closest('.editor-pin-button, .editor-ring-button')) {
       return;
     }
 
@@ -2017,7 +2613,7 @@ if (window.__FILE_MODE__) {
   viewer.addEventListener(
     'touchstart',
     (event) => {
-      if (event.target.closest('.editor-pin-button')) {
+      if (event.target.closest('.editor-pin-button, .editor-ring-button')) {
         return;
       }
 
@@ -2081,7 +2677,7 @@ if (window.__FILE_MODE__) {
   viewer.addEventListener(
     'touchend',
     (event) => {
-      if (event.target.closest('.editor-pin-button')) {
+      if (event.target.closest('.editor-pin-button, .editor-ring-button')) {
         return;
       }
 
@@ -2151,7 +2747,9 @@ if (window.__FILE_MODE__) {
       return;
     }
 
-    state.manualEntries = resolveCurrentManualEntries(state.baseSearchEntries);
+    const currentEditorData = resolveCurrentEditorData(state.baseSearchEntries);
+    state.manualEntries = currentEditorData.entries;
+    state.facilityRings = currentEditorData.facilityRings;
 
     if (state.activeSearchEntryId && !getManualEntryById(state.activeSearchEntryId)) {
       state.activeSearchEntryId = null;
@@ -2165,8 +2763,13 @@ if (window.__FILE_MODE__) {
       }
     }
 
+    if (state.activeEditorRingId && !getFacilityRingById(state.activeEditorRingId)) {
+      state.activeEditorRingId = null;
+    }
+
     refreshSearchEntries();
     renderSearchSuggestions();
+    renderFacilityRings();
     if (isEditorSite) {
       refreshEditorUi();
     }
