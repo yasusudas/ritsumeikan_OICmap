@@ -922,15 +922,23 @@ body[data-app-mode="editor"] .map-card {
     padding-left: 14px;
   }
 
+  .search-controls {
+    gap: 8px;
+  }
+
+  .search-icon-actions {
+    gap: 4px;
+  }
+
   .search-icon-button {
-    width: 44px;
-    height: 44px;
-    border-radius: 14px;
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
   }
 
   .search-icon-image {
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
   }
 
   .search-input {
@@ -1043,22 +1051,22 @@ body[data-app-mode="editor"] .map-card {
   }
 
   .search-controls {
-    gap: 8px;
-  }
-
-  .search-icon-actions {
     gap: 6px;
   }
 
+  .search-icon-actions {
+    gap: 4px;
+  }
+
   .search-icon-button {
-    width: 40px;
-    height: 40px;
-    border-radius: 12px;
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
   }
 
   .search-icon-image {
-    width: 28px;
-    height: 28px;
+    width: 22px;
+    height: 22px;
   }
 
   .search-feedback {
