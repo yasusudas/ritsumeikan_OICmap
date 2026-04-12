@@ -1,13 +1,13 @@
-const STATIC_CACHE_NAME = 'rits-oic-map-static-v2';
-const RUNTIME_CACHE_NAME = 'rits-oic-map-runtime-v2';
+const STATIC_CACHE_NAME = 'rits-oic-map-static-v3';
+const RUNTIME_CACHE_NAME = 'rits-oic-map-runtime-v3';
 const APP_SHELL_URLS = [
   '/',
   '/index.html',
   '/manifest.webmanifest',
-  '/icon/favicon-20260412.ico',
-  '/icon/favicon-20260412.png',
-  '/icon/pwa-192-20260412.png',
-  '/icon/pwa-512-20260412.png'
+  '/icon/favicon-20260412b.ico',
+  '/icon/favicon-20260412b.png',
+  '/icon/pwa-192-20260412b.png',
+  '/icon/pwa-512-20260412b.png'
 ];
 const STATIC_PATH_PREFIXES = ['/assets/', '/cmaps/', '/icon/', '/standard_fonts/'];
 const STATIC_PATHS = new Set(['/manual-search-index.json']);
