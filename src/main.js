@@ -302,7 +302,7 @@ if (window.__FILE_MODE__) {
       const ringNode = document.createElement('div');
       const diameterSize = getFacilityRingDiameterSize(ring.facilityKey);
       ringNode.className = 'facility-ring';
-      ringNode.classList.add(`color-${normalizeFacilityRingColorVariant(ring.facilityKey, ring.colorVariant)}`);
+      ringNode.classList.add(`color-${getFacilityRingVisualVariant(ring.facilityKey, ring.colorVariant)}`);
       ringNode.style.left = `${ring.xRatio * 100}%`;
       ringNode.style.top = `${ring.yRatio * 100}%`;
       ringNode.style.width = `${diameterSize.widthPercent}%`;
@@ -408,6 +408,14 @@ if (window.__FILE_MODE__) {
     }
 
     return ringColorLabelByVariant[normalizeFacilityRingColorVariant(facilityKey, colorVariant)] ?? '';
+  }
+
+  function getFacilityRingVisualVariant(facilityKey, colorVariant) {
+    if (facilityKey !== 'toilet') {
+      return 'other';
+    }
+
+    return normalizeFacilityRingColorVariant(facilityKey, colorVariant);
   }
 
   function sanitizeAliases(value) {
@@ -1103,7 +1111,7 @@ if (window.__FILE_MODE__) {
     const ringButton = document.createElement('button');
     ringButton.type = 'button';
     ringButton.className = 'editor-ring-button';
-    ringButton.classList.add(`color-${normalizeFacilityRingColorVariant(ring.facilityKey, ring.colorVariant)}`);
+    ringButton.classList.add(`color-${getFacilityRingVisualVariant(ring.facilityKey, ring.colorVariant)}`);
     ringButton.dataset.ringId = ring.id;
     ringButton.dataset.facilityKey = ring.facilityKey;
     ringButton.setAttribute(
