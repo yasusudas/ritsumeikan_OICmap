@@ -808,13 +808,14 @@ body[data-app-mode="viewer"] .map-stage {
   position: absolute;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  border: 4px solid rgba(255, 88, 104, 0.96);
+  border: 4px solid rgba(255, 88, 104, 0.98);
   background: transparent;
   box-shadow:
-    0 0 0 3px rgba(255, 88, 104, 0.08),
-    0 0 16px rgba(255, 88, 104, 0.52),
-    0 0 34px rgba(255, 88, 104, 0.32),
-    inset 0 0 12px rgba(255, 88, 104, 0.12);
+    0 0 0 6px rgba(255, 88, 104, 0.22),
+    0 0 0 10px rgba(255, 88, 104, 0.08),
+    0 0 18px rgba(255, 88, 104, 0.56),
+    0 0 36px rgba(255, 88, 104, 0.34),
+    inset 0 0 12px rgba(255, 88, 104, 0.1);
 }
 
 .editor-pending-dot {
