@@ -111,6 +111,8 @@ if (window.__FILE_MODE__) {
   const editorFeedback = document.querySelector('#editor-feedback');
   const editorList = document.querySelector('#editor-list');
   const editorRingModeButtons = Array.from(document.querySelectorAll('.editor-ring-mode-button'));
+  const editorToiletRingColorTools = document.querySelector('#editor-toilet-ring-color-tools');
+  const editorRingColorButtons = Array.from(document.querySelectorAll('.editor-ring-color-button'));
   const editorRingClearButton = document.querySelector('#editor-ring-clear');
   const editorRingList = document.querySelector('#editor-ring-list');
   const editorJson = document.querySelector('#editor-json');
@@ -132,6 +134,15 @@ if (window.__FILE_MODE__) {
   );
   const FACILITY_RING_DIAMETER_WIDTH_PERCENT_BY_FACILITY = Object.fromEntries(
     facilityButtonDefinitions.map((definition) => [definition.facilityKey, DEFAULT_FACILITY_RING_DIAMETER_WIDTH_PERCENT])
+  );
+  const TOILET_RING_COLOR_VARIANT_OPTIONS = [
+    { value: 'red', label: '赤' },
+    { value: 'blue', label: '青' },
+    { value: 'white', label: '白' }
+  ];
+  const DEFAULT_TOILET_RING_COLOR_VARIANT = 'red';
+  const ringColorLabelByVariant = Object.fromEntries(
+    TOILET_RING_COLOR_VARIANT_OPTIONS.map((option) => [option.value, option.label])
   );
 
   const state = {
@@ -174,6 +185,7 @@ if (window.__FILE_MODE__) {
     activeEditorPinKey: null,
     activeEditorRingId: null,
     activeRingEditorFacilityKey: null,
+    activeToiletRingColorVariant: DEFAULT_TOILET_RING_COLOR_VARIANT,
     editMode: false,
     pendingEditorPoint: null,
     dragMoved: false,
@@ -244,6 +256,7 @@ if (window.__FILE_MODE__) {
   window.__setFacilityToggleState = setFacilityToggleState;
   window.__toggleFacilityToggleState = toggleFacilityToggleState;
   window.__facilityRingDiameterWidthPercentByFacility = FACILITY_RING_DIAMETER_WIDTH_PERCENT_BY_FACILITY;
+  window.__toiletRingColorVariantOptions = TOILET_RING_COLOR_VARIANT_OPTIONS;
 
   function getFacilityRingDiameterSize(facilityKey) {
     const widthPercent = Number(FACILITY_RING_DIAMETER_WIDTH_PERCENT_BY_FACILITY[facilityKey]);
@@ -289,6 +302,7 @@ if (window.__FILE_MODE__) {
       const ringNode = document.createElement('div');
       const diameterSize = getFacilityRingDiameterSize(ring.facilityKey);
       ringNode.className = 'facility-ring';
+      ringNode.classList.add(`color-${normalizeFacilityRingColorVariant(ring.facilityKey, ring.colorVariant)}`);
       ringNode.style.left = `${ring.xRatio * 100}%`;
       ringNode.style.top = `${ring.yRatio * 100}%`;
       ringNode.style.width = `${diameterSize.widthPercent}%`;
@@ -377,6 +391,23 @@ if (window.__FILE_MODE__) {
 
   function getFacilityLabel(facilityKey) {
     return facilityLabelByKey[facilityKey] ?? facilityKey;
+  }
+
+  function normalizeFacilityRingColorVariant(facilityKey, colorVariant) {
+    if (facilityKey !== 'toilet') {
+      return DEFAULT_TOILET_RING_COLOR_VARIANT;
+    }
+
+    const normalizedVariant = String(colorVariant ?? '').trim().toLowerCase();
+    return ringColorLabelByVariant[normalizedVariant] ? normalizedVariant : DEFAULT_TOILET_RING_COLOR_VARIANT;
+  }
+
+  function getFacilityRingColorLabel(facilityKey, colorVariant) {
+    if (facilityKey !== 'toilet') {
+      return '';
+    }
+
+    return ringColorLabelByVariant[normalizeFacilityRingColorVariant(facilityKey, colorVariant)] ?? '';
   }
 
   function sanitizeAliases(value) {
@@ -476,11 +507,14 @@ if (window.__FILE_MODE__) {
     }
 
     const floorLabel = FLOOR_FILES.find((floor) => floor.id === floorId)?.label ?? floorId;
+    const colorVariant = normalizeFacilityRingColorVariant(facilityKey, ring?.colorVariant);
 
     return {
       id: String(ring?.id ?? createFacilityRingId(facilityKey, floorId)),
       facilityKey,
       facilityLabel: getFacilityLabel(facilityKey),
+      colorVariant,
+      colorLabel: getFacilityRingColorLabel(facilityKey, colorVariant),
       floorId,
       floorLabel,
       floorOrder: getFloorOrder(floorId),
@@ -664,6 +698,7 @@ if (window.__FILE_MODE__) {
       .map((ring) => ({
         id: ring.id,
         facilityKey: ring.facilityKey,
+        colorVariant: normalizeFacilityRingColorVariant(ring.facilityKey, ring.colorVariant),
         floorId: ring.floorId,
         xRatio: Number(ring.xRatio.toFixed(6)),
         yRatio: Number(ring.yRatio.toFixed(6))
@@ -985,6 +1020,34 @@ if (window.__FILE_MODE__) {
     });
   }
 
+  function renderEditorRingColorButtons() {
+    if (!isEditorSite || !editorToiletRingColorTools) {
+      return;
+    }
+
+    const shouldShowToiletColors = state.activeRingEditorFacilityKey === 'toilet';
+    editorToiletRingColorTools.hidden = !shouldShowToiletColors;
+
+    editorRingColorButtons.forEach((button) => {
+      const colorVariant = button.dataset.ringColorVariant?.trim();
+      const isActive = shouldShowToiletColors && colorVariant === state.activeToiletRingColorVariant;
+      button.classList.toggle('is-active', Boolean(isActive));
+      button.setAttribute('aria-pressed', String(Boolean(isActive)));
+    });
+  }
+
+  function setActiveToiletRingColorVariant(colorVariant) {
+    state.activeToiletRingColorVariant = normalizeFacilityRingColorVariant('toilet', colorVariant);
+
+    if (state.activeRingEditorFacilityKey === 'toilet') {
+      setEditorFeedback(
+        `トイレリング編集モードです。現在色: ${getFacilityRingColorLabel('toilet', state.activeToiletRingColorVariant)}`
+      );
+    }
+
+    refreshEditorUi();
+  }
+
   function getCurrentFloorEditorRings() {
     const currentFloorId = getFloorDefinition().id;
     return state.facilityRings.filter((ring) => ring.floorId === currentFloorId);
@@ -1019,9 +1082,15 @@ if (window.__FILE_MODE__) {
     if (nextFacilityKey) {
       state.pendingEditorPoint = null;
       state.activeEditorPinKey = null;
-      setEditorFeedback(
-        `${getFacilityLabel(nextFacilityKey)} のリング編集モードです。地図をタップすると追加、既存リングをタップすると削除します`
-      );
+      if (nextFacilityKey === 'toilet') {
+        setEditorFeedback(
+          `トイレリング編集モードです。現在色: ${getFacilityRingColorLabel('toilet', state.activeToiletRingColorVariant)}`
+        );
+      } else {
+        setEditorFeedback(
+          `${getFacilityLabel(nextFacilityKey)} のリング編集モードです。地図をタップすると追加、既存リングをタップすると削除します`
+        );
+      }
     } else if (state.editMode) {
       setEditorFeedback('地図上の文字位置をクリックして表示名を記録できます。リング編集モードはオフです');
     }
@@ -1034,9 +1103,15 @@ if (window.__FILE_MODE__) {
     const ringButton = document.createElement('button');
     ringButton.type = 'button';
     ringButton.className = 'editor-ring-button';
+    ringButton.classList.add(`color-${normalizeFacilityRingColorVariant(ring.facilityKey, ring.colorVariant)}`);
     ringButton.dataset.ringId = ring.id;
     ringButton.dataset.facilityKey = ring.facilityKey;
-    ringButton.setAttribute('aria-label', `${ring.facilityLabel} のリングを操作`);
+    ringButton.setAttribute(
+      'aria-label',
+      ring.facilityKey === 'toilet' && ring.colorLabel
+        ? `${ring.facilityLabel} ${ring.colorLabel}リングを操作`
+        : `${ring.facilityLabel} のリングを操作`
+    );
     ringButton.style.left = `${ring.xRatio * 100}%`;
     ringButton.style.top = `${ring.yRatio * 100}%`;
     ringButton.style.width = `${diameterSize.widthPercent}%`;
@@ -1087,11 +1162,17 @@ if (window.__FILE_MODE__) {
 
       const label = document.createElement('div');
       label.className = 'editor-entry-label';
-      label.textContent = `${ring.facilityLabel} リング ${index + 1}`;
+      label.textContent =
+        ring.facilityKey === 'toilet' && ring.colorLabel
+          ? `${ring.facilityLabel}(${ring.colorLabel}) リング ${index + 1}`
+          : `${ring.facilityLabel} リング ${index + 1}`;
 
       const meta = document.createElement('div');
       meta.className = 'editor-entry-meta';
-      meta.textContent = `x ${ring.xRatio.toFixed(4)} / y ${ring.yRatio.toFixed(4)}`;
+      meta.textContent =
+        ring.facilityKey === 'toilet' && ring.colorLabel
+          ? `${ring.colorLabel} / x ${ring.xRatio.toFixed(4)} / y ${ring.yRatio.toFixed(4)}`
+          : `x ${ring.xRatio.toFixed(4)} / y ${ring.yRatio.toFixed(4)}`;
 
       body.append(label, meta);
 
@@ -1364,6 +1445,7 @@ if (window.__FILE_MODE__) {
       editorFloor.textContent = getCurrentFloorLabel();
     }
     renderEditorRingModeButtons();
+    renderEditorRingColorButtons();
     updateEditorCoords();
     updateEditorJsonOutput();
     renderEditorList();
@@ -1985,9 +2067,15 @@ if (window.__FILE_MODE__) {
 
   function createFacilityRing(point, facilityKey) {
     const floor = getFloorDefinition();
+    const colorVariant =
+      facilityKey === 'toilet'
+        ? state.activeToiletRingColorVariant
+        : DEFAULT_TOILET_RING_COLOR_VARIANT;
+
     return hydrateFacilityRing({
       id: createFacilityRingId(facilityKey, floor.id),
       facilityKey,
+      colorVariant,
       floorId: floor.id,
       xRatio: point.xRatio,
       yRatio: point.yRatio
@@ -2018,7 +2106,11 @@ if (window.__FILE_MODE__) {
     persistCurrentEditorState();
     renderFacilityRings();
     refreshEditorUi();
-    setEditorFeedback(`${ring.floorLabel} に ${ring.facilityLabel} リングを追加しました`);
+    setEditorFeedback(
+      ring.facilityKey === 'toilet' && ring.colorLabel
+        ? `${ring.floorLabel} に ${ring.facilityLabel}(${ring.colorLabel}) リングを追加しました`
+        : `${ring.floorLabel} に ${ring.facilityLabel} リングを追加しました`
+    );
   }
 
   function removeFacilityRing(ringId, { silent = false } = {}) {
@@ -2043,7 +2135,11 @@ if (window.__FILE_MODE__) {
     refreshEditorUi();
 
     if (!silent) {
-      setEditorFeedback(`${ring.floorLabel} の ${ring.facilityLabel} リングを削除しました`);
+      setEditorFeedback(
+        ring.facilityKey === 'toilet' && ring.colorLabel
+          ? `${ring.floorLabel} の ${ring.facilityLabel}(${ring.colorLabel}) リングを削除しました`
+          : `${ring.floorLabel} の ${ring.facilityLabel} リングを削除しました`
+      );
     }
   }
 
@@ -2083,7 +2179,15 @@ if (window.__FILE_MODE__) {
     state.activeEditorRingId = ring?.id ?? null;
 
     if (ring) {
-      setEditorFeedback(`${ring.floorLabel} / ${ring.facilityLabel} リング`);
+      if (ring.facilityKey === 'toilet') {
+        state.activeToiletRingColorVariant = normalizeFacilityRingColorVariant(ring.facilityKey, ring.colorVariant);
+      }
+
+      setEditorFeedback(
+        ring.facilityKey === 'toilet' && ring.colorLabel
+          ? `${ring.floorLabel} / ${ring.facilityLabel}(${ring.colorLabel}) リング`
+          : `${ring.floorLabel} / ${ring.facilityLabel} リング`
+      );
     }
 
     refreshEditorUi();
@@ -2105,10 +2209,17 @@ if (window.__FILE_MODE__) {
     }
 
     state.activeRingEditorFacilityKey = ring.facilityKey;
+    if (ring.facilityKey === 'toilet') {
+      state.activeToiletRingColorVariant = normalizeFacilityRingColorVariant(ring.facilityKey, ring.colorVariant);
+    }
     state.activeEditorRingId = ring.id;
     focusMapPoint({ xRatio: ring.xRatio, yRatio: ring.yRatio });
     refreshEditorUi();
-    setEditorFeedback(`${ring.floorLabel} / ${ring.facilityLabel} リングへ移動しました`);
+    setEditorFeedback(
+      ring.facilityKey === 'toilet' && ring.colorLabel
+        ? `${ring.floorLabel} / ${ring.facilityLabel}(${ring.colorLabel}) リングへ移動しました`
+        : `${ring.floorLabel} / ${ring.facilityLabel} リングへ移動しました`
+    );
   }
 
   function saveManualEntry() {
@@ -2440,6 +2551,12 @@ if (window.__FILE_MODE__) {
   editorRingModeButtons.forEach((button) => {
     button.addEventListener('click', () => {
       setActiveRingEditorFacilityKey(button.dataset.facilityKey?.trim());
+    });
+  });
+
+  editorRingColorButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      setActiveToiletRingColorVariant(button.dataset.ringColorVariant?.trim());
     });
   });
 
