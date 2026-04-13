@@ -68,9 +68,7 @@ if (window.__FILE_MODE__) {
   const SEARCH_FOCUS_ZOOM = 6;
   const SEARCH_PIN_VERTICAL_OFFSET_RATIO = 0.01;
   const EDITOR_GUIDE_PIN_VERTICAL_OFFSET_RATIO = 0.01;
-  const FACILITY_RING_DIAMETER_RATIO = 0.042;
-  const FACILITY_RING_DIAMETER_MIN = 34;
-  const FACILITY_RING_DIAMETER_MAX = 72;
+  const DEFAULT_FACILITY_RING_DIAMETER_WIDTH_PERCENT = 0.8;
   const DOUBLE_TAP_SUPPRESSION_WINDOW_MS = 320;
   const MANUAL_POINT_RECT_RATIO = 0.001;
   const LEGACY_MANUAL_STORAGE_KEY = 'campus-map-manual-entries-v2';
@@ -131,6 +129,9 @@ if (window.__FILE_MODE__) {
     .filter((definition) => definition !== null);
   const facilityLabelByKey = Object.fromEntries(
     facilityButtonDefinitions.map((definition) => [definition.facilityKey, definition.label])
+  );
+  const FACILITY_RING_DIAMETER_WIDTH_PERCENT_BY_FACILITY = Object.fromEntries(
+    facilityButtonDefinitions.map((definition) => [definition.facilityKey, DEFAULT_FACILITY_RING_DIAMETER_WIDTH_PERCENT])
   );
 
   const state = {
@@ -242,13 +243,20 @@ if (window.__FILE_MODE__) {
   window.__facilityToggleState = state.facilityToggleState;
   window.__setFacilityToggleState = setFacilityToggleState;
   window.__toggleFacilityToggleState = toggleFacilityToggleState;
+  window.__facilityRingDiameterWidthPercentByFacility = FACILITY_RING_DIAMETER_WIDTH_PERCENT_BY_FACILITY;
 
-  function getFacilityRingDiameter() {
-    return clamp(
-      Math.min(state.baseWidth, state.baseHeight) * FACILITY_RING_DIAMETER_RATIO,
-      FACILITY_RING_DIAMETER_MIN,
-      FACILITY_RING_DIAMETER_MAX
-    );
+  function getFacilityRingDiameterSize(facilityKey) {
+    const widthPercent = Number(FACILITY_RING_DIAMETER_WIDTH_PERCENT_BY_FACILITY[facilityKey]);
+
+    const normalizedWidthPercent =
+      Number.isFinite(widthPercent) && widthPercent > 0 ? widthPercent : DEFAULT_FACILITY_RING_DIAMETER_WIDTH_PERCENT;
+    const aspectRatio =
+      state.baseWidth > 0 && state.baseHeight > 0 ? state.baseWidth / state.baseHeight : 1;
+
+    return {
+      widthPercent: normalizedWidthPercent,
+      heightPercent: normalizedWidthPercent * aspectRatio
+    };
   }
 
   function getCurrentFloorFacilityRings() {
@@ -275,16 +283,16 @@ if (window.__FILE_MODE__) {
       return;
     }
 
-    const diameter = getFacilityRingDiameter();
     const fragment = document.createDocumentFragment();
 
     currentFloorRings.forEach((ring) => {
       const ringNode = document.createElement('div');
+      const diameterSize = getFacilityRingDiameterSize(ring.facilityKey);
       ringNode.className = 'facility-ring';
       ringNode.style.left = `${ring.xRatio * 100}%`;
       ringNode.style.top = `${ring.yRatio * 100}%`;
-      ringNode.style.width = `${diameter}px`;
-      ringNode.style.height = `${diameter}px`;
+      ringNode.style.width = `${diameterSize.widthPercent}%`;
+      ringNode.style.height = `${diameterSize.heightPercent}%`;
       ringNode.setAttribute('aria-hidden', 'true');
       fragment.append(ringNode);
     });
@@ -1022,6 +1030,7 @@ if (window.__FILE_MODE__) {
   }
 
   function createEditorRingHandle(ring, { isActive = false } = {}) {
+    const diameterSize = getFacilityRingDiameterSize(ring.facilityKey);
     const ringButton = document.createElement('button');
     ringButton.type = 'button';
     ringButton.className = 'editor-ring-button';
@@ -1030,8 +1039,8 @@ if (window.__FILE_MODE__) {
     ringButton.setAttribute('aria-label', `${ring.facilityLabel} のリングを操作`);
     ringButton.style.left = `${ring.xRatio * 100}%`;
     ringButton.style.top = `${ring.yRatio * 100}%`;
-    ringButton.style.width = `${getFacilityRingDiameter()}px`;
-    ringButton.style.height = `${getFacilityRingDiameter()}px`;
+    ringButton.style.width = `${diameterSize.widthPercent}%`;
+    ringButton.style.height = `${diameterSize.heightPercent}%`;
 
     if (isActive) {
       ringButton.classList.add('is-active');
