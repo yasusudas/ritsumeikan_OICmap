@@ -95,6 +95,7 @@ if (window.__FILE_MODE__) {
   const searchClearButton = document.querySelector('#search-clear');
   const searchFeedback = document.querySelector('#search-feedback');
   const searchResults = document.querySelector('#search-results');
+  const toiletRingLegend = document.querySelector('#toilet-ring-legend');
   const searchIconButtons = Array.from(document.querySelectorAll('.search-icon-button'));
   const editorToggleButton = document.querySelector('#editor-toggle');
   const editorPanel = document.querySelector('#editor-panel');
@@ -232,6 +233,11 @@ if (window.__FILE_MODE__) {
       button.classList.toggle('is-active', isActive);
       button.setAttribute('aria-pressed', String(isActive));
     });
+
+    if (toiletRingLegend) {
+      const isToiletActive = state.facilityToggleState.toilet === 1;
+      toiletRingLegend.hidden = !isToiletActive;
+    }
   }
 
   function setFacilityToggleState(facilityKey, nextValue) {

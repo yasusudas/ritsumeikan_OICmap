@@ -131,11 +131,27 @@ body[data-app-mode="viewer"] .app-shell {
   min-width: 0;
 }
 
+.search-label-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
 .search-label {
   font-size: 0.8rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   color: rgba(16, 36, 49, 0.72);
+}
+
+.toilet-ring-legend {
+  min-width: 0;
+  font-size: 0.82rem;
+  font-weight: 900;
+  color: var(--accent-dark);
+  line-height: 1.45;
 }
 
 .search-box {
@@ -1308,6 +1324,14 @@ body[data-app-mode="editor"] .map-card {
 
   .search-label {
     font-size: 0.75rem;
+  }
+
+  .search-label-row {
+    gap: 8px;
+  }
+
+  .toilet-ring-legend {
+    font-size: 0.72rem;
   }
 
   .search-clear {
