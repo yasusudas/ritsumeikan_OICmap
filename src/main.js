@@ -245,7 +245,12 @@ if (window.__FILE_MODE__) {
       return;
     }
 
-    state.facilityToggleState[facilityKey] = nextValue === 1 ? 1 : 0;
+    const normalizedNextValue = nextValue === 1 ? 1 : 0;
+
+    Object.keys(state.facilityToggleState).forEach((key) => {
+      state.facilityToggleState[key] = normalizedNextValue === 1 && key === facilityKey ? 1 : 0;
+    });
+
     renderFacilityToggleButtons();
     renderFacilityRings();
   }
