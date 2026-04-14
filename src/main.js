@@ -59,10 +59,6 @@ if (window.__FILE_MODE__) {
   const SEARCH_INDEX_URL = `${PDF_SUPPORT_ASSET_BASE}${MANUAL_SEARCH_INDEX_FILENAME}`;
   const CMAP_URL = `${PDF_SUPPORT_ASSET_BASE}cmaps/`;
   const STANDARD_FONT_DATA_URL = `${PDF_SUPPORT_ASSET_BASE}standard_fonts/`;
-  const PINCH_COMPOSITE_TEST_HOSTNAMES = new Set([
-    'rits-oic-map-git-codex-test-yasususdas-projects.vercel.app'
-  ]);
-
   const MAP_PADDING = 32;
   const SEARCH_RESULT_LIMIT = 18;
   const SEARCH_FOCUS_ZOOM = 6;
@@ -82,8 +78,6 @@ if (window.__FILE_MODE__) {
   const svgCache = new Map();
   const appMode = document.body?.dataset.appMode === 'editor' ? 'editor' : 'viewer';
   const isEditorSite = appMode === 'editor';
-  const usePinchCompositeOptimization = PINCH_COMPOSITE_TEST_HOSTNAMES.has(window.location.hostname);
-
   const viewer = document.querySelector('#viewer');
   const canvasLayer = document.querySelector('#canvas-layer');
   const statusElement = document.querySelector('#status');
@@ -868,20 +862,9 @@ if (window.__FILE_MODE__) {
 
   function flushViewRender() {
     state.viewRenderFrame = 0;
-    const useCompositePinchRender = usePinchCompositeOptimization && state.isPinching;
-    canvasLayer.classList.toggle('is-pinch-composite', useCompositePinchRender);
-
-    if (useCompositePinchRender) {
-      // Keep the SVG at its fitted base size while pinching so the browser can
-      // reuse a GPU-composited layer instead of re-rasterizing every frame.
-      canvasLayer.style.width = `${state.baseWidth}px`;
-      canvasLayer.style.height = `${state.baseHeight}px`;
-      canvasLayer.style.transform = `translate3d(${state.x}px, ${state.y}px, 0) scale(${state.zoom})`;
-    } else {
-      canvasLayer.style.width = `${state.baseWidth * state.zoom}px`;
-      canvasLayer.style.height = `${state.baseHeight * state.zoom}px`;
-      canvasLayer.style.transform = `translate3d(${state.x}px, ${state.y}px, 0)`;
-    }
+    canvasLayer.style.width = `${state.baseWidth * state.zoom}px`;
+    canvasLayer.style.height = `${state.baseHeight * state.zoom}px`;
+    canvasLayer.style.transform = `translate3d(${state.x}px, ${state.y}px, 0)`;
 
     const percent = Math.round(state.zoom * 100);
     setStatus(`${getFloorDefinition().label} | ${percent}%`);
