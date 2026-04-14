@@ -6,9 +6,9 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
     />
-    <link rel="icon" href="/icon/favicon.ico?v=20260412-2" sizes="any" />
-    <link rel="icon" type="image/png" href="/icon/favicon.png?v=20260412-2" />
-    <link rel="apple-touch-icon" href="/icon/favicon.png?v=20260412-2" />
+    <link rel="icon" href="/icon/favicon-20260412b.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="/icon/favicon-20260412b.png" />
+    <link rel="apple-touch-icon" href="/icon/pwa-512-20260412b.png" />
     <meta name="robots" content="noindex,nofollow" />
     <title>立命館OICマップ編集</title>
     <script>
@@ -63,7 +63,7 @@
         <div class="editor-header-row">
           <h1 class="app-title">
             <span class="app-title-main">立命館OICマップ編集</span>
-            <span class="app-title-version">Ver. 1.0.0</span>
+            <span class="app-title-version">Ver. 2.0</span>
           </h1>
           <button id="editor-logout-button" class="editor-logout-button" type="button">ログアウト</button>
         </div>
@@ -71,21 +71,84 @@
           <div class="editor-caption">編集用URLです。地図をクリックして検索用テキストと位置を記録できます。</div>
         </div>
         <div id="search-panel" class="search-panel">
-          <label class="search-label" for="search-input">教室検索</label>
-          <div class="search-box">
-            <input
-              id="search-input"
-              class="search-input"
-              type="search"
-              placeholder="教室名を検索"
-              autocomplete="off"
-              autocapitalize="characters"
-              spellcheck="false"
-              enterkeyhint="search"
-            />
-            <button id="search-clear" class="search-clear" type="button" aria-label="検索をクリア" hidden>
-              ×
-            </button>
+          <div class="search-label-row">
+            <label class="search-label" for="search-input">教室検索</label>
+            <span id="toilet-ring-legend" class="toilet-ring-legend" hidden>
+              青色は男子トイレ、赤色は女子トイレ、黄色は多目的トイレです
+            </span>
+          </div>
+          <div class="search-controls">
+            <div class="search-box">
+              <input
+                id="search-input"
+                class="search-input"
+                type="search"
+                placeholder="教室名を検索"
+                autocomplete="off"
+                autocapitalize="characters"
+                spellcheck="false"
+                enterkeyhint="search"
+              />
+              <button id="search-clear" class="search-clear" type="button" aria-label="検索をクリア" hidden>
+                ×
+              </button>
+            </div>
+            <div class="search-icon-actions" role="group" aria-label="施設アイコン">
+              <button
+                class="search-icon-button"
+                type="button"
+                data-facility-key="toilet"
+                aria-label="トイレ"
+                aria-pressed="false"
+              >
+                <img class="search-icon-image" src="/iconsvg/toilet.svg" alt="" aria-hidden="true" />
+              </button>
+              <button
+                class="search-icon-button"
+                type="button"
+                data-facility-key="waterServer"
+                aria-label="ウォーターサーバー"
+                aria-pressed="false"
+              >
+                <img class="search-icon-image" src="/iconsvg/water-server.svg" alt="" aria-hidden="true" />
+              </button>
+              <button
+                class="search-icon-button"
+                type="button"
+                data-facility-key="vendingMachine"
+                aria-label="自販機"
+                aria-pressed="false"
+              >
+                <img class="search-icon-image" src="/iconsvg/vending-machine.svg" alt="" aria-hidden="true" />
+              </button>
+              <button
+                class="search-icon-button"
+                type="button"
+                data-facility-key="stairs"
+                aria-label="階段"
+                aria-pressed="false"
+              >
+                <img class="search-icon-image" src="/iconsvg/stairs.svg" alt="" aria-hidden="true" />
+              </button>
+              <button
+                class="search-icon-button"
+                type="button"
+                data-facility-key="escalator"
+                aria-label="エスカレーター"
+                aria-pressed="false"
+              >
+                <img class="search-icon-image" src="/iconsvg/escalator.svg" alt="" aria-hidden="true" />
+              </button>
+              <button
+                class="search-icon-button"
+                type="button"
+                data-facility-key="elevator"
+                aria-label="エレベーター"
+                aria-pressed="false"
+              >
+                <img class="search-icon-image" src="/iconsvg/elevator.svg" alt="" aria-hidden="true" />
+              </button>
+            </div>
           </div>
           <div id="search-feedback" class="search-feedback" aria-live="polite">
             500以上の教室の位置を検索できます / 地図は拡大･縮小･移動できます
@@ -127,9 +190,88 @@
               <button id="editor-import" class="editor-action" type="button">JSONを読み込み</button>
               <button id="editor-publish" class="editor-action" type="button">編集を確定</button>
             </div>
+            <section class="editor-ring-tools" aria-label="蛍光リング編集">
+              <div class="editor-section-label">蛍光リング設定</div>
+              <div id="editor-ring-mode-buttons" class="editor-ring-mode-buttons" role="group" aria-label="リング対象">
+                <button class="editor-ring-mode-button" type="button" data-facility-key="toilet" aria-pressed="false">
+                  トイレ
+                </button>
+                <button
+                  class="editor-ring-mode-button"
+                  type="button"
+                  data-facility-key="waterServer"
+                  aria-pressed="false"
+                >
+                  ウォーターサーバー
+                </button>
+                <button
+                  class="editor-ring-mode-button"
+                  type="button"
+                  data-facility-key="vendingMachine"
+                  aria-pressed="false"
+                >
+                  自販機
+                </button>
+                <button class="editor-ring-mode-button" type="button" data-facility-key="stairs" aria-pressed="false">
+                  階段
+                </button>
+                <button
+                  class="editor-ring-mode-button"
+                  type="button"
+                  data-facility-key="escalator"
+                  aria-pressed="false"
+                >
+                  エスカレーター
+                </button>
+                <button
+                  class="editor-ring-mode-button"
+                  type="button"
+                  data-facility-key="elevator"
+                  aria-pressed="false"
+                >
+                  エレベーター
+                </button>
+              </div>
+              <div
+                id="editor-toilet-ring-color-tools"
+                class="editor-toilet-ring-color-tools"
+                role="group"
+                aria-label="トイレリング色"
+                hidden
+              >
+                <button
+                  class="editor-ring-color-button"
+                  type="button"
+                  data-ring-color-variant="red"
+                  aria-pressed="true"
+                >
+                  赤
+                </button>
+                <button
+                  class="editor-ring-color-button"
+                  type="button"
+                  data-ring-color-variant="blue"
+                  aria-pressed="false"
+                >
+                  青
+                </button>
+                <button
+                  class="editor-ring-color-button"
+                  type="button"
+                  data-ring-color-variant="yellow"
+                  aria-pressed="false"
+                >
+                  黄
+                </button>
+              </div>
+              <div class="editor-ring-actions">
+                <button id="editor-ring-clear" class="editor-action" type="button">選択中施設の現在階リングをクリア</button>
+              </div>
+              <div id="editor-ring-list" class="editor-ring-list"></div>
+            </section>
             <input id="editor-import-input" type="file" accept="application/json,.json" hidden />
             <div id="editor-feedback" class="editor-feedback" aria-live="polite">
-              地図上の文字位置をクリックしてから、表示名を入力し、最後に「編集を確定」を押してください
+              地図上の文字位置をクリックして表示名を記録できます。蛍光リング設定ボタンをオンにすると、地図タップで対応リングを設置または削除できます
             </div>
             <div id="editor-list" class="editor-list"></div>
             <textarea
