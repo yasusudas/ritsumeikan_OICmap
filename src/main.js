@@ -138,7 +138,7 @@ if (window.__FILE_MODE__) {
   const TOILET_RING_COLOR_VARIANT_OPTIONS = [
     { value: 'red', label: '赤' },
     { value: 'blue', label: '青' },
-    { value: 'white', label: '白' }
+    { value: 'yellow', label: '黄' }
   ];
   const DEFAULT_TOILET_RING_COLOR_VARIANT = 'red';
   const ringColorLabelByVariant = Object.fromEntries(
@@ -399,6 +399,10 @@ if (window.__FILE_MODE__) {
     }
 
     const normalizedVariant = String(colorVariant ?? '').trim().toLowerCase();
+    if (normalizedVariant === 'white') {
+      return 'yellow';
+    }
+
     return ringColorLabelByVariant[normalizedVariant] ? normalizedVariant : DEFAULT_TOILET_RING_COLOR_VARIANT;
   }
 
