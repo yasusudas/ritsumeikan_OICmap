@@ -607,19 +607,44 @@ if (window.__FILE_MODE__) {
     });
   }
 
+  function shouldPreferStoredEditorData(snapshot, fallbackEntries = [], fallbackFacilityRings = []) {
+    if (!snapshot?.exists) {
+      return false;
+    }
+
+    const storedEntryCount = snapshot.entries.length;
+    const storedRingCount = snapshot.facilityRings.length;
+    const fallbackEntryCount = fallbackEntries.length;
+    const fallbackRingCount = fallbackFacilityRings.length;
+
+    if (storedEntryCount === 0 && storedRingCount === 0) {
+      return false;
+    }
+
+    if (fallbackEntryCount > 0 && storedEntryCount === 0) {
+      return false;
+    }
+
+    if (fallbackRingCount > 0 && storedRingCount === 0) {
+      return false;
+    }
+
+    return true;
+  }
+
   function getCurrentPublishedEditorData(deployedEntries = [], deployedFacilityRings = []) {
     const legacySnapshot = readStoredEditorData(LEGACY_MANUAL_STORAGE_KEY);
     const publishedSnapshot = readStoredEditorData(MANUAL_PUBLISHED_STORAGE_KEY);
-    const sourceSnapshot =
-      publishedSnapshot.exists || publishedSnapshot.entries.length > 0 || publishedSnapshot.facilityRings.length > 0
-        ? publishedSnapshot
-        : legacySnapshot.exists || legacySnapshot.entries.length > 0 || legacySnapshot.facilityRings.length > 0
-          ? legacySnapshot
-          : {
-              exists: false,
-              entries: deployedEntries,
-              facilityRings: deployedFacilityRings
-            };
+    const deployedSnapshot = {
+      exists: false,
+      entries: deployedEntries,
+      facilityRings: deployedFacilityRings
+    };
+    const sourceSnapshot = shouldPreferStoredEditorData(publishedSnapshot, deployedEntries, deployedFacilityRings)
+      ? publishedSnapshot
+      : shouldPreferStoredEditorData(legacySnapshot, deployedEntries, deployedFacilityRings)
+        ? legacySnapshot
+        : deployedSnapshot;
 
     return {
       entries: cloneManualEntries(sourceSnapshot.entries),
@@ -635,7 +660,13 @@ if (window.__FILE_MODE__) {
     }
 
     const draftSnapshot = readStoredEditorData(MANUAL_DRAFT_STORAGE_KEY);
-    return draftSnapshot.exists ? draftSnapshot : currentPublishedData;
+    return shouldPreferStoredEditorData(
+      draftSnapshot,
+      currentPublishedData.entries,
+      currentPublishedData.facilityRings
+    )
+      ? draftSnapshot
+      : currentPublishedData;
   }
 
   function resolveInitialEditorData(deployedEntries = [], deployedFacilityRings = []) {
@@ -643,7 +674,7 @@ if (window.__FILE_MODE__) {
     const initialPublishedData = getCurrentPublishedEditorData(deployedEntries, deployedFacilityRings);
 
     if (
-      !publishedSnapshot.exists &&
+      !shouldPreferStoredEditorData(publishedSnapshot, deployedEntries, deployedFacilityRings) &&
       (initialPublishedData.entries.length > 0 || initialPublishedData.facilityRings.length > 0)
     ) {
       persistEditorData(MANUAL_PUBLISHED_STORAGE_KEY, initialPublishedData);
@@ -655,7 +686,7 @@ if (window.__FILE_MODE__) {
 
     const draftSnapshot = readStoredEditorData(MANUAL_DRAFT_STORAGE_KEY);
 
-    if (draftSnapshot.exists) {
+    if (shouldPreferStoredEditorData(draftSnapshot, initialPublishedData.entries, initialPublishedData.facilityRings)) {
       return draftSnapshot;
     }
 
