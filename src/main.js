@@ -72,9 +72,9 @@ if (window.__FILE_MODE__) {
   const DEFAULT_FACILITY_RING_DIAMETER_WIDTH_PERCENT = 0.8;
   const DOUBLE_TAP_SUPPRESSION_WINDOW_MS = 320;
   const MANUAL_POINT_RECT_RATIO = 0.001;
-  const LEGACY_MANUAL_STORAGE_KEY = 'campus-map-manual-entries-v2';
-  const MANUAL_DRAFT_STORAGE_KEY = 'campus-map-manual-draft-v3';
-  const MANUAL_PUBLISHED_STORAGE_KEY = 'campus-map-manual-published-v3';
+  const LEGACY_MANUAL_STORAGE_KEY = 'campus-map-manual-entries-v4';
+  const MANUAL_DRAFT_STORAGE_KEY = 'campus-map-manual-draft-v4';
+  const MANUAL_PUBLISHED_STORAGE_KEY = 'campus-map-manual-published-v4';
   const MANUAL_EXPORT_FILENAME = MANUAL_SEARCH_INDEX_FILENAME;
   const ROOM_CODE_PATTERN = /[A-Z]{1,3}\s*-?\s*\d{2,4}[A-Z]?/g;
   const SEARCHABLE_CHAR_PATTERN = /[\p{L}\p{N}]/u;
