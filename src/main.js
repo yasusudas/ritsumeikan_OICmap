@@ -176,6 +176,7 @@ if (window.__FILE_MODE__) {
     searchLoading: false,
     searchPromise: null,
     baseSearchEntries: [],
+    baseFacilityRings: [],
     searchEntries: [],
     searchSuggestions: [],
     activeSuggestionIndex: -1,
@@ -654,7 +655,7 @@ if (window.__FILE_MODE__) {
     return initialPublishedData;
   }
 
-  async function fetchBundledSearchEntries() {
+  async function fetchBundledEditorData() {
     const response = await fetch(SEARCH_INDEX_URL, { cache: 'no-store' });
 
     if (!response.ok) {
@@ -662,7 +663,10 @@ if (window.__FILE_MODE__) {
     }
 
     const payload = await response.json();
-    return hydrateManualEntriesCollection(payload);
+    return {
+      entries: hydrateManualEntriesCollection(payload),
+      facilityRings: hydrateFacilityRingsCollection(payload)
+    };
   }
 
   function serializeEntries(entries) {
@@ -1860,13 +1864,16 @@ if (window.__FILE_MODE__) {
 
     state.searchPromise = (async () => {
       try {
-        state.baseSearchEntries = await fetchBundledSearchEntries();
+        const bundledEditorData = await fetchBundledEditorData();
+        state.baseSearchEntries = bundledEditorData.entries;
+        state.baseFacilityRings = bundledEditorData.facilityRings;
       } catch (error) {
         console.warn('Failed to load bundled search index.', error);
         state.baseSearchEntries = [];
+        state.baseFacilityRings = [];
       }
 
-      const initialEditorData = resolveInitialEditorData(state.baseSearchEntries);
+      const initialEditorData = resolveInitialEditorData(state.baseSearchEntries, state.baseFacilityRings);
       state.manualEntries = initialEditorData.entries;
       state.facilityRings = initialEditorData.facilityRings;
       refreshSearchEntries();
@@ -2885,7 +2892,7 @@ if (window.__FILE_MODE__) {
       return;
     }
 
-    const currentEditorData = resolveCurrentEditorData(state.baseSearchEntries);
+    const currentEditorData = resolveCurrentEditorData(state.baseSearchEntries, state.baseFacilityRings);
     state.manualEntries = currentEditorData.entries;
     state.facilityRings = currentEditorData.facilityRings;
 
