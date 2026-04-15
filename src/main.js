@@ -59,23 +59,17 @@ if (window.__FILE_MODE__) {
   const SEARCH_INDEX_URL = `${PDF_SUPPORT_ASSET_BASE}${MANUAL_SEARCH_INDEX_FILENAME}`;
   const CMAP_URL = `${PDF_SUPPORT_ASSET_BASE}cmaps/`;
   const STANDARD_FONT_DATA_URL = `${PDF_SUPPORT_ASSET_BASE}standard_fonts/`;
-  const PINCH_COMPOSITE_TEST_HOSTNAMES = new Set([
-    'rits-oic-map-git-codex-test-yasususdas-projects.vercel.app'
-  ]);
-
   const MAP_PADDING = 32;
   const SEARCH_RESULT_LIMIT = 18;
   const SEARCH_FOCUS_ZOOM = 6;
   const SEARCH_PIN_VERTICAL_OFFSET_RATIO = 0.01;
   const EDITOR_GUIDE_PIN_VERTICAL_OFFSET_RATIO = 0.01;
-  const FACILITY_RING_DIAMETER_RATIO = 0.042;
-  const FACILITY_RING_DIAMETER_MIN = 34;
-  const FACILITY_RING_DIAMETER_MAX = 72;
+  const DEFAULT_FACILITY_RING_DIAMETER_WIDTH_PERCENT = 0.8;
   const DOUBLE_TAP_SUPPRESSION_WINDOW_MS = 320;
   const MANUAL_POINT_RECT_RATIO = 0.001;
-  const LEGACY_MANUAL_STORAGE_KEY = 'campus-map-manual-entries-v2';
-  const MANUAL_DRAFT_STORAGE_KEY = 'campus-map-manual-draft-v3';
-  const MANUAL_PUBLISHED_STORAGE_KEY = 'campus-map-manual-published-v3';
+  const LEGACY_MANUAL_STORAGE_KEY = 'campus-map-manual-entries-v4';
+  const MANUAL_DRAFT_STORAGE_KEY = 'campus-map-manual-draft-v4';
+  const MANUAL_PUBLISHED_STORAGE_KEY = 'campus-map-manual-published-v4';
   const MANUAL_EXPORT_FILENAME = MANUAL_SEARCH_INDEX_FILENAME;
   const ROOM_CODE_PATTERN = /[A-Z]{1,3}\s*-?\s*\d{2,4}[A-Z]?/g;
   const SEARCHABLE_CHAR_PATTERN = /[\p{L}\p{N}]/u;
@@ -84,8 +78,6 @@ if (window.__FILE_MODE__) {
   const svgCache = new Map();
   const appMode = document.body?.dataset.appMode === 'editor' ? 'editor' : 'viewer';
   const isEditorSite = appMode === 'editor';
-  const usePinchCompositeOptimization = PINCH_COMPOSITE_TEST_HOSTNAMES.has(window.location.hostname);
-
   const viewer = document.querySelector('#viewer');
   const canvasLayer = document.querySelector('#canvas-layer');
   const statusElement = document.querySelector('#status');
@@ -97,6 +89,7 @@ if (window.__FILE_MODE__) {
   const searchClearButton = document.querySelector('#search-clear');
   const searchFeedback = document.querySelector('#search-feedback');
   const searchResults = document.querySelector('#search-results');
+  const toiletRingLegend = document.querySelector('#toilet-ring-legend');
   const searchIconButtons = Array.from(document.querySelectorAll('.search-icon-button'));
   const editorToggleButton = document.querySelector('#editor-toggle');
   const editorPanel = document.querySelector('#editor-panel');
@@ -113,6 +106,8 @@ if (window.__FILE_MODE__) {
   const editorFeedback = document.querySelector('#editor-feedback');
   const editorList = document.querySelector('#editor-list');
   const editorRingModeButtons = Array.from(document.querySelectorAll('.editor-ring-mode-button'));
+  const editorToiletRingColorTools = document.querySelector('#editor-toilet-ring-color-tools');
+  const editorRingColorButtons = Array.from(document.querySelectorAll('.editor-ring-color-button'));
   const editorRingClearButton = document.querySelector('#editor-ring-clear');
   const editorRingList = document.querySelector('#editor-ring-list');
   const editorJson = document.querySelector('#editor-json');
@@ -131,6 +126,18 @@ if (window.__FILE_MODE__) {
     .filter((definition) => definition !== null);
   const facilityLabelByKey = Object.fromEntries(
     facilityButtonDefinitions.map((definition) => [definition.facilityKey, definition.label])
+  );
+  const FACILITY_RING_DIAMETER_WIDTH_PERCENT_BY_FACILITY = Object.fromEntries(
+    facilityButtonDefinitions.map((definition) => [definition.facilityKey, DEFAULT_FACILITY_RING_DIAMETER_WIDTH_PERCENT])
+  );
+  const TOILET_RING_COLOR_VARIANT_OPTIONS = [
+    { value: 'red', label: '赤' },
+    { value: 'blue', label: '青' },
+    { value: 'yellow', label: '黄' }
+  ];
+  const DEFAULT_TOILET_RING_COLOR_VARIANT = 'red';
+  const ringColorLabelByVariant = Object.fromEntries(
+    TOILET_RING_COLOR_VARIANT_OPTIONS.map((option) => [option.value, option.label])
   );
 
   const state = {
@@ -164,6 +171,7 @@ if (window.__FILE_MODE__) {
     searchLoading: false,
     searchPromise: null,
     baseSearchEntries: [],
+    baseFacilityRings: [],
     searchEntries: [],
     searchSuggestions: [],
     activeSuggestionIndex: -1,
@@ -173,6 +181,7 @@ if (window.__FILE_MODE__) {
     activeEditorPinKey: null,
     activeEditorRingId: null,
     activeRingEditorFacilityKey: null,
+    activeToiletRingColorVariant: DEFAULT_TOILET_RING_COLOR_VARIANT,
     editMode: false,
     pendingEditorPoint: null,
     dragMoved: false,
@@ -218,6 +227,11 @@ if (window.__FILE_MODE__) {
       button.classList.toggle('is-active', isActive);
       button.setAttribute('aria-pressed', String(isActive));
     });
+
+    if (toiletRingLegend) {
+      const isToiletActive = state.facilityToggleState.toilet === 1;
+      toiletRingLegend.hidden = !isToiletActive;
+    }
   }
 
   function setFacilityToggleState(facilityKey, nextValue) {
@@ -225,7 +239,12 @@ if (window.__FILE_MODE__) {
       return;
     }
 
-    state.facilityToggleState[facilityKey] = nextValue === 1 ? 1 : 0;
+    const normalizedNextValue = nextValue === 1 ? 1 : 0;
+
+    Object.keys(state.facilityToggleState).forEach((key) => {
+      state.facilityToggleState[key] = normalizedNextValue === 1 && key === facilityKey ? 1 : 0;
+    });
+
     renderFacilityToggleButtons();
     renderFacilityRings();
   }
@@ -242,13 +261,21 @@ if (window.__FILE_MODE__) {
   window.__facilityToggleState = state.facilityToggleState;
   window.__setFacilityToggleState = setFacilityToggleState;
   window.__toggleFacilityToggleState = toggleFacilityToggleState;
+  window.__facilityRingDiameterWidthPercentByFacility = FACILITY_RING_DIAMETER_WIDTH_PERCENT_BY_FACILITY;
+  window.__toiletRingColorVariantOptions = TOILET_RING_COLOR_VARIANT_OPTIONS;
 
-  function getFacilityRingDiameter() {
-    return clamp(
-      Math.min(state.baseWidth, state.baseHeight) * FACILITY_RING_DIAMETER_RATIO,
-      FACILITY_RING_DIAMETER_MIN,
-      FACILITY_RING_DIAMETER_MAX
-    );
+  function getFacilityRingDiameterSize(facilityKey) {
+    const widthPercent = Number(FACILITY_RING_DIAMETER_WIDTH_PERCENT_BY_FACILITY[facilityKey]);
+
+    const normalizedWidthPercent =
+      Number.isFinite(widthPercent) && widthPercent > 0 ? widthPercent : DEFAULT_FACILITY_RING_DIAMETER_WIDTH_PERCENT;
+    const aspectRatio =
+      state.baseWidth > 0 && state.baseHeight > 0 ? state.baseWidth / state.baseHeight : 1;
+
+    return {
+      widthPercent: normalizedWidthPercent,
+      heightPercent: normalizedWidthPercent * aspectRatio
+    };
   }
 
   function getCurrentFloorFacilityRings() {
@@ -275,16 +302,17 @@ if (window.__FILE_MODE__) {
       return;
     }
 
-    const diameter = getFacilityRingDiameter();
     const fragment = document.createDocumentFragment();
 
     currentFloorRings.forEach((ring) => {
       const ringNode = document.createElement('div');
+      const diameterSize = getFacilityRingDiameterSize(ring.facilityKey);
       ringNode.className = 'facility-ring';
+      ringNode.classList.add(`color-${getFacilityRingVisualVariant(ring.facilityKey, ring.colorVariant)}`);
       ringNode.style.left = `${ring.xRatio * 100}%`;
       ringNode.style.top = `${ring.yRatio * 100}%`;
-      ringNode.style.width = `${diameter}px`;
-      ringNode.style.height = `${diameter}px`;
+      ringNode.style.width = `${diameterSize.widthPercent}%`;
+      ringNode.style.height = `${diameterSize.heightPercent}%`;
       ringNode.setAttribute('aria-hidden', 'true');
       fragment.append(ringNode);
     });
@@ -369,6 +397,31 @@ if (window.__FILE_MODE__) {
 
   function getFacilityLabel(facilityKey) {
     return facilityLabelByKey[facilityKey] ?? facilityKey;
+  }
+
+  function normalizeFacilityRingColorVariant(facilityKey, colorVariant) {
+    if (facilityKey !== 'toilet') {
+      return DEFAULT_TOILET_RING_COLOR_VARIANT;
+    }
+
+    const normalizedVariant = String(colorVariant ?? '').trim().toLowerCase();
+    return ringColorLabelByVariant[normalizedVariant] ? normalizedVariant : DEFAULT_TOILET_RING_COLOR_VARIANT;
+  }
+
+  function getFacilityRingColorLabel(facilityKey, colorVariant) {
+    if (facilityKey !== 'toilet') {
+      return '';
+    }
+
+    return ringColorLabelByVariant[normalizeFacilityRingColorVariant(facilityKey, colorVariant)] ?? '';
+  }
+
+  function getFacilityRingVisualVariant(facilityKey, colorVariant) {
+    if (facilityKey !== 'toilet') {
+      return 'other';
+    }
+
+    return normalizeFacilityRingColorVariant(facilityKey, colorVariant);
   }
 
   function sanitizeAliases(value) {
@@ -468,11 +521,14 @@ if (window.__FILE_MODE__) {
     }
 
     const floorLabel = FLOOR_FILES.find((floor) => floor.id === floorId)?.label ?? floorId;
+    const colorVariant = normalizeFacilityRingColorVariant(facilityKey, ring?.colorVariant);
 
     return {
       id: String(ring?.id ?? createFacilityRingId(facilityKey, floorId)),
       facilityKey,
       facilityLabel: getFacilityLabel(facilityKey),
+      colorVariant,
+      colorLabel: getFacilityRingColorLabel(facilityKey, colorVariant),
       floorId,
       floorLabel,
       floorOrder: getFloorOrder(floorId),
@@ -544,19 +600,44 @@ if (window.__FILE_MODE__) {
     });
   }
 
+  function shouldPreferStoredEditorData(snapshot, fallbackEntries = [], fallbackFacilityRings = []) {
+    if (!snapshot?.exists) {
+      return false;
+    }
+
+    const storedEntryCount = snapshot.entries.length;
+    const storedRingCount = snapshot.facilityRings.length;
+    const fallbackEntryCount = fallbackEntries.length;
+    const fallbackRingCount = fallbackFacilityRings.length;
+
+    if (storedEntryCount === 0 && storedRingCount === 0) {
+      return false;
+    }
+
+    if (fallbackEntryCount > 0 && storedEntryCount === 0) {
+      return false;
+    }
+
+    if (fallbackRingCount > 0 && storedRingCount === 0) {
+      return false;
+    }
+
+    return true;
+  }
+
   function getCurrentPublishedEditorData(deployedEntries = [], deployedFacilityRings = []) {
     const legacySnapshot = readStoredEditorData(LEGACY_MANUAL_STORAGE_KEY);
     const publishedSnapshot = readStoredEditorData(MANUAL_PUBLISHED_STORAGE_KEY);
-    const sourceSnapshot =
-      publishedSnapshot.exists || publishedSnapshot.entries.length > 0 || publishedSnapshot.facilityRings.length > 0
-        ? publishedSnapshot
-        : legacySnapshot.exists || legacySnapshot.entries.length > 0 || legacySnapshot.facilityRings.length > 0
-          ? legacySnapshot
-          : {
-              exists: false,
-              entries: deployedEntries,
-              facilityRings: deployedFacilityRings
-            };
+    const deployedSnapshot = {
+      exists: false,
+      entries: deployedEntries,
+      facilityRings: deployedFacilityRings
+    };
+    const sourceSnapshot = shouldPreferStoredEditorData(publishedSnapshot, deployedEntries, deployedFacilityRings)
+      ? publishedSnapshot
+      : shouldPreferStoredEditorData(legacySnapshot, deployedEntries, deployedFacilityRings)
+        ? legacySnapshot
+        : deployedSnapshot;
 
     return {
       entries: cloneManualEntries(sourceSnapshot.entries),
@@ -572,7 +653,13 @@ if (window.__FILE_MODE__) {
     }
 
     const draftSnapshot = readStoredEditorData(MANUAL_DRAFT_STORAGE_KEY);
-    return draftSnapshot.exists ? draftSnapshot : currentPublishedData;
+    return shouldPreferStoredEditorData(
+      draftSnapshot,
+      currentPublishedData.entries,
+      currentPublishedData.facilityRings
+    )
+      ? draftSnapshot
+      : currentPublishedData;
   }
 
   function resolveInitialEditorData(deployedEntries = [], deployedFacilityRings = []) {
@@ -580,7 +667,7 @@ if (window.__FILE_MODE__) {
     const initialPublishedData = getCurrentPublishedEditorData(deployedEntries, deployedFacilityRings);
 
     if (
-      !publishedSnapshot.exists &&
+      !shouldPreferStoredEditorData(publishedSnapshot, deployedEntries, deployedFacilityRings) &&
       (initialPublishedData.entries.length > 0 || initialPublishedData.facilityRings.length > 0)
     ) {
       persistEditorData(MANUAL_PUBLISHED_STORAGE_KEY, initialPublishedData);
@@ -592,7 +679,7 @@ if (window.__FILE_MODE__) {
 
     const draftSnapshot = readStoredEditorData(MANUAL_DRAFT_STORAGE_KEY);
 
-    if (draftSnapshot.exists) {
+    if (shouldPreferStoredEditorData(draftSnapshot, initialPublishedData.entries, initialPublishedData.facilityRings)) {
       return draftSnapshot;
     }
 
@@ -600,7 +687,7 @@ if (window.__FILE_MODE__) {
     return initialPublishedData;
   }
 
-  async function fetchBundledSearchEntries() {
+  async function fetchBundledEditorData() {
     const response = await fetch(SEARCH_INDEX_URL, { cache: 'no-store' });
 
     if (!response.ok) {
@@ -608,7 +695,10 @@ if (window.__FILE_MODE__) {
     }
 
     const payload = await response.json();
-    return hydrateManualEntriesCollection(payload);
+    return {
+      entries: hydrateManualEntriesCollection(payload),
+      facilityRings: hydrateFacilityRingsCollection(payload)
+    };
   }
 
   function serializeEntries(entries) {
@@ -656,6 +746,7 @@ if (window.__FILE_MODE__) {
       .map((ring) => ({
         id: ring.id,
         facilityKey: ring.facilityKey,
+        colorVariant: normalizeFacilityRingColorVariant(ring.facilityKey, ring.colorVariant),
         floorId: ring.floorId,
         xRatio: Number(ring.xRatio.toFixed(6)),
         yRatio: Number(ring.yRatio.toFixed(6))
@@ -802,20 +893,9 @@ if (window.__FILE_MODE__) {
 
   function flushViewRender() {
     state.viewRenderFrame = 0;
-    const useCompositePinchRender = usePinchCompositeOptimization && state.isPinching;
-    canvasLayer.classList.toggle('is-pinch-composite', useCompositePinchRender);
-
-    if (useCompositePinchRender) {
-      // Keep the SVG at its fitted base size while pinching so the browser can
-      // reuse a GPU-composited layer instead of re-rasterizing every frame.
-      canvasLayer.style.width = `${state.baseWidth}px`;
-      canvasLayer.style.height = `${state.baseHeight}px`;
-      canvasLayer.style.transform = `translate3d(${state.x}px, ${state.y}px, 0) scale(${state.zoom})`;
-    } else {
-      canvasLayer.style.width = `${state.baseWidth * state.zoom}px`;
-      canvasLayer.style.height = `${state.baseHeight * state.zoom}px`;
-      canvasLayer.style.transform = `translate3d(${state.x}px, ${state.y}px, 0)`;
-    }
+    canvasLayer.style.width = `${state.baseWidth * state.zoom}px`;
+    canvasLayer.style.height = `${state.baseHeight * state.zoom}px`;
+    canvasLayer.style.transform = `translate3d(${state.x}px, ${state.y}px, 0)`;
 
     const percent = Math.round(state.zoom * 100);
     setStatus(`${getFloorDefinition().label} | ${percent}%`);
@@ -977,6 +1057,34 @@ if (window.__FILE_MODE__) {
     });
   }
 
+  function renderEditorRingColorButtons() {
+    if (!isEditorSite || !editorToiletRingColorTools) {
+      return;
+    }
+
+    const shouldShowToiletColors = state.activeRingEditorFacilityKey === 'toilet';
+    editorToiletRingColorTools.hidden = !shouldShowToiletColors;
+
+    editorRingColorButtons.forEach((button) => {
+      const colorVariant = button.dataset.ringColorVariant?.trim();
+      const isActive = shouldShowToiletColors && colorVariant === state.activeToiletRingColorVariant;
+      button.classList.toggle('is-active', Boolean(isActive));
+      button.setAttribute('aria-pressed', String(Boolean(isActive)));
+    });
+  }
+
+  function setActiveToiletRingColorVariant(colorVariant) {
+    state.activeToiletRingColorVariant = normalizeFacilityRingColorVariant('toilet', colorVariant);
+
+    if (state.activeRingEditorFacilityKey === 'toilet') {
+      setEditorFeedback(
+        `トイレリング編集モードです。現在色: ${getFacilityRingColorLabel('toilet', state.activeToiletRingColorVariant)}`
+      );
+    }
+
+    refreshEditorUi();
+  }
+
   function getCurrentFloorEditorRings() {
     const currentFloorId = getFloorDefinition().id;
     return state.facilityRings.filter((ring) => ring.floorId === currentFloorId);
@@ -1011,9 +1119,15 @@ if (window.__FILE_MODE__) {
     if (nextFacilityKey) {
       state.pendingEditorPoint = null;
       state.activeEditorPinKey = null;
-      setEditorFeedback(
-        `${getFacilityLabel(nextFacilityKey)} のリング編集モードです。地図をタップすると追加、既存リングをタップすると削除します`
-      );
+      if (nextFacilityKey === 'toilet') {
+        setEditorFeedback(
+          `トイレリング編集モードです。現在色: ${getFacilityRingColorLabel('toilet', state.activeToiletRingColorVariant)}`
+        );
+      } else {
+        setEditorFeedback(
+          `${getFacilityLabel(nextFacilityKey)} のリング編集モードです。地図をタップすると追加、既存リングをタップすると削除します`
+        );
+      }
     } else if (state.editMode) {
       setEditorFeedback('地図上の文字位置をクリックして表示名を記録できます。リング編集モードはオフです');
     }
@@ -1022,16 +1136,23 @@ if (window.__FILE_MODE__) {
   }
 
   function createEditorRingHandle(ring, { isActive = false } = {}) {
+    const diameterSize = getFacilityRingDiameterSize(ring.facilityKey);
     const ringButton = document.createElement('button');
     ringButton.type = 'button';
     ringButton.className = 'editor-ring-button';
+    ringButton.classList.add(`color-${getFacilityRingVisualVariant(ring.facilityKey, ring.colorVariant)}`);
     ringButton.dataset.ringId = ring.id;
     ringButton.dataset.facilityKey = ring.facilityKey;
-    ringButton.setAttribute('aria-label', `${ring.facilityLabel} のリングを操作`);
+    ringButton.setAttribute(
+      'aria-label',
+      ring.facilityKey === 'toilet' && ring.colorLabel
+        ? `${ring.facilityLabel} ${ring.colorLabel}リングを操作`
+        : `${ring.facilityLabel} のリングを操作`
+    );
     ringButton.style.left = `${ring.xRatio * 100}%`;
     ringButton.style.top = `${ring.yRatio * 100}%`;
-    ringButton.style.width = `${getFacilityRingDiameter()}px`;
-    ringButton.style.height = `${getFacilityRingDiameter()}px`;
+    ringButton.style.width = `${diameterSize.widthPercent}%`;
+    ringButton.style.height = `${diameterSize.heightPercent}%`;
 
     if (isActive) {
       ringButton.classList.add('is-active');
@@ -1078,11 +1199,17 @@ if (window.__FILE_MODE__) {
 
       const label = document.createElement('div');
       label.className = 'editor-entry-label';
-      label.textContent = `${ring.facilityLabel} リング ${index + 1}`;
+      label.textContent =
+        ring.facilityKey === 'toilet' && ring.colorLabel
+          ? `${ring.facilityLabel}(${ring.colorLabel}) リング ${index + 1}`
+          : `${ring.facilityLabel} リング ${index + 1}`;
 
       const meta = document.createElement('div');
       meta.className = 'editor-entry-meta';
-      meta.textContent = `x ${ring.xRatio.toFixed(4)} / y ${ring.yRatio.toFixed(4)}`;
+      meta.textContent =
+        ring.facilityKey === 'toilet' && ring.colorLabel
+          ? `${ring.colorLabel} / x ${ring.xRatio.toFixed(4)} / y ${ring.yRatio.toFixed(4)}`
+          : `x ${ring.xRatio.toFixed(4)} / y ${ring.yRatio.toFixed(4)}`;
 
       body.append(label, meta);
 
@@ -1355,6 +1482,7 @@ if (window.__FILE_MODE__) {
       editorFloor.textContent = getCurrentFloorLabel();
     }
     renderEditorRingModeButtons();
+    renderEditorRingColorButtons();
     updateEditorCoords();
     updateEditorJsonOutput();
     renderEditorList();
@@ -1757,13 +1885,16 @@ if (window.__FILE_MODE__) {
 
     state.searchPromise = (async () => {
       try {
-        state.baseSearchEntries = await fetchBundledSearchEntries();
+        const bundledEditorData = await fetchBundledEditorData();
+        state.baseSearchEntries = bundledEditorData.entries;
+        state.baseFacilityRings = bundledEditorData.facilityRings;
       } catch (error) {
         console.warn('Failed to load bundled search index.', error);
         state.baseSearchEntries = [];
+        state.baseFacilityRings = [];
       }
 
-      const initialEditorData = resolveInitialEditorData(state.baseSearchEntries);
+      const initialEditorData = resolveInitialEditorData(state.baseSearchEntries, state.baseFacilityRings);
       state.manualEntries = initialEditorData.entries;
       state.facilityRings = initialEditorData.facilityRings;
       refreshSearchEntries();
@@ -1976,9 +2107,15 @@ if (window.__FILE_MODE__) {
 
   function createFacilityRing(point, facilityKey) {
     const floor = getFloorDefinition();
+    const colorVariant =
+      facilityKey === 'toilet'
+        ? state.activeToiletRingColorVariant
+        : DEFAULT_TOILET_RING_COLOR_VARIANT;
+
     return hydrateFacilityRing({
       id: createFacilityRingId(facilityKey, floor.id),
       facilityKey,
+      colorVariant,
       floorId: floor.id,
       xRatio: point.xRatio,
       yRatio: point.yRatio
@@ -2009,7 +2146,11 @@ if (window.__FILE_MODE__) {
     persistCurrentEditorState();
     renderFacilityRings();
     refreshEditorUi();
-    setEditorFeedback(`${ring.floorLabel} に ${ring.facilityLabel} リングを追加しました`);
+    setEditorFeedback(
+      ring.facilityKey === 'toilet' && ring.colorLabel
+        ? `${ring.floorLabel} に ${ring.facilityLabel}(${ring.colorLabel}) リングを追加しました`
+        : `${ring.floorLabel} に ${ring.facilityLabel} リングを追加しました`
+    );
   }
 
   function removeFacilityRing(ringId, { silent = false } = {}) {
@@ -2034,7 +2175,11 @@ if (window.__FILE_MODE__) {
     refreshEditorUi();
 
     if (!silent) {
-      setEditorFeedback(`${ring.floorLabel} の ${ring.facilityLabel} リングを削除しました`);
+      setEditorFeedback(
+        ring.facilityKey === 'toilet' && ring.colorLabel
+          ? `${ring.floorLabel} の ${ring.facilityLabel}(${ring.colorLabel}) リングを削除しました`
+          : `${ring.floorLabel} の ${ring.facilityLabel} リングを削除しました`
+      );
     }
   }
 
@@ -2074,7 +2219,15 @@ if (window.__FILE_MODE__) {
     state.activeEditorRingId = ring?.id ?? null;
 
     if (ring) {
-      setEditorFeedback(`${ring.floorLabel} / ${ring.facilityLabel} リング`);
+      if (ring.facilityKey === 'toilet') {
+        state.activeToiletRingColorVariant = normalizeFacilityRingColorVariant(ring.facilityKey, ring.colorVariant);
+      }
+
+      setEditorFeedback(
+        ring.facilityKey === 'toilet' && ring.colorLabel
+          ? `${ring.floorLabel} / ${ring.facilityLabel}(${ring.colorLabel}) リング`
+          : `${ring.floorLabel} / ${ring.facilityLabel} リング`
+      );
     }
 
     refreshEditorUi();
@@ -2096,10 +2249,17 @@ if (window.__FILE_MODE__) {
     }
 
     state.activeRingEditorFacilityKey = ring.facilityKey;
+    if (ring.facilityKey === 'toilet') {
+      state.activeToiletRingColorVariant = normalizeFacilityRingColorVariant(ring.facilityKey, ring.colorVariant);
+    }
     state.activeEditorRingId = ring.id;
     focusMapPoint({ xRatio: ring.xRatio, yRatio: ring.yRatio });
     refreshEditorUi();
-    setEditorFeedback(`${ring.floorLabel} / ${ring.facilityLabel} リングへ移動しました`);
+    setEditorFeedback(
+      ring.facilityKey === 'toilet' && ring.colorLabel
+        ? `${ring.floorLabel} / ${ring.facilityLabel}(${ring.colorLabel}) リングへ移動しました`
+        : `${ring.floorLabel} / ${ring.facilityLabel} リングへ移動しました`
+    );
   }
 
   function saveManualEntry() {
@@ -2434,6 +2594,12 @@ if (window.__FILE_MODE__) {
     });
   });
 
+  editorRingColorButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      setActiveToiletRingColorVariant(button.dataset.ringColorVariant?.trim());
+    });
+  });
+
   if (editorList) {
     editorList.addEventListener('click', (event) => {
       const button = event.target.closest('.editor-entry-button');
@@ -2747,7 +2913,7 @@ if (window.__FILE_MODE__) {
       return;
     }
 
-    const currentEditorData = resolveCurrentEditorData(state.baseSearchEntries);
+    const currentEditorData = resolveCurrentEditorData(state.baseSearchEntries, state.baseFacilityRings);
     state.manualEntries = currentEditorData.entries;
     state.facilityRings = currentEditorData.facilityRings;
 

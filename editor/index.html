@@ -6,11 +6,11 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
     />
-    <link rel="icon" href="/icon/favicon.ico" sizes="any" />
-    <link rel="icon" type="image/png" href="/icon/favicon.png" />
-    <link rel="apple-touch-icon" href="/icon/favicon.png" />
+    <link rel="icon" href="/icon/favicon-20260412b.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="/icon/favicon-20260412b.png" />
+    <link rel="apple-touch-icon" href="/icon/pwa-512-20260412b.png" />
     <meta name="robots" content="noindex,nofollow" />
-    <title>立命館OICマップ 編集用テスト</title>
+    <title>立命館OICマップ編集</title>
     <script>
       const isFileMode = window.location.protocol === 'file:';
       const EDITOR_AUTH_STORAGE_KEY = 'rits-oic-map-editor-auth-v1';
@@ -30,7 +30,7 @@
           document.body.innerHTML = `
             <main style="min-height:100vh;display:grid;place-items:center;margin:0;padding:24px;background:linear-gradient(180deg,#fff1f1 0%,#eedddd 100%);font-family:'Hiragino Sans','Yu Gothic','Noto Sans JP',sans-serif;color:#102431;">
               <section style="max-width:720px;padding:28px;border-radius:24px;background:rgba(255,255,255,0.9);box-shadow:0 24px 50px rgba(16,36,49,0.12);">
-                <h1 style="margin:0 0 16px;font-size:2rem;">立命館OICマップ 編集用テスト</h1>
+                <h1 style="margin:0 0 16px;font-size:2rem;">立命館OICマップ編集</h1>
                 <p style="margin:0 0 12px;line-height:1.8;">このアプリは <strong>index.html を直接開く方式では動作しません</strong>。地図表示と編集機能はローカルサーバー経由で起動する必要があります。</p>
                 <p style="margin:0 0 12px;line-height:1.8;">ターミナルで <code>npm run dev</code> を実行して、<code>http://127.0.0.1:5173/editor/</code> を開いてください。</p>
                 <p style="margin:0;line-height:1.8;">閲覧用サイトは <code>http://127.0.0.1:5173/</code> です。</p>
@@ -61,14 +61,22 @@
     <div class="app-shell">
       <header class="topbar">
         <div class="editor-header-row">
-          <h1 class="app-title">立命館OICマップ 編集用テスト</h1>
+          <h1 class="app-title">
+            <span class="app-title-main">立命館OICマップ編集</span>
+            <span class="app-title-version">Ver. 2.0</span>
+          </h1>
           <button id="editor-logout-button" class="editor-logout-button" type="button">ログアウト</button>
         </div>
         <div class="search-panel">
           <div class="editor-caption">編集用URLです。地図をクリックして検索用テキストと位置を記録できます。</div>
         </div>
         <div id="search-panel" class="search-panel">
-          <label class="search-label" for="search-input">教室検索</label>
+          <div class="search-label-row">
+            <label class="search-label" for="search-input">教室検索</label>
+            <span id="toilet-ring-legend" class="toilet-ring-legend" hidden>
+              青色は男子トイレ、赤色は女子トイレ、黄色は多目的トイレです
+            </span>
+          </div>
           <div class="search-controls">
             <div class="search-box">
               <input
@@ -103,6 +111,15 @@
                 aria-pressed="false"
               >
                 <img class="search-icon-image" src="/iconsvg/water-server.svg" alt="" aria-hidden="true" />
+              </button>
+              <button
+                class="search-icon-button"
+                type="button"
+                data-facility-key="vendingMachine"
+                aria-label="自販機"
+                aria-pressed="false"
+              >
+                <img class="search-icon-image" src="/iconsvg/vending-machine.svg" alt="" aria-hidden="true" />
               </button>
               <button
                 class="search-icon-button"
@@ -187,6 +204,14 @@
                 >
                   ウォーターサーバー
                 </button>
+                <button
+                  class="editor-ring-mode-button"
+                  type="button"
+                  data-facility-key="vendingMachine"
+                  aria-pressed="false"
+                >
+                  自販機
+                </button>
                 <button class="editor-ring-mode-button" type="button" data-facility-key="stairs" aria-pressed="false">
                   階段
                 </button>
@@ -205,6 +230,38 @@
                   aria-pressed="false"
                 >
                   エレベーター
+                </button>
+              </div>
+              <div
+                id="editor-toilet-ring-color-tools"
+                class="editor-toilet-ring-color-tools"
+                role="group"
+                aria-label="トイレリング色"
+                hidden
+              >
+                <button
+                  class="editor-ring-color-button"
+                  type="button"
+                  data-ring-color-variant="red"
+                  aria-pressed="true"
+                >
+                  赤
+                </button>
+                <button
+                  class="editor-ring-color-button"
+                  type="button"
+                  data-ring-color-variant="blue"
+                  aria-pressed="false"
+                >
+                  青
+                </button>
+                <button
+                  class="editor-ring-color-button"
+                  type="button"
+                  data-ring-color-variant="yellow"
+                  aria-pressed="false"
+                >
+                  黄
                 </button>
               </div>
               <div class="editor-ring-actions">
