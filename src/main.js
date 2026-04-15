@@ -68,8 +68,8 @@ if (window.__FILE_MODE__) {
   const DOUBLE_TAP_SUPPRESSION_WINDOW_MS = 320;
   const MANUAL_POINT_RECT_RATIO = 0.001;
   const LEGACY_MANUAL_STORAGE_KEY = 'campus-map-manual-entries-v4';
-  const MANUAL_DRAFT_STORAGE_KEY = 'campus-map-manual-draft-v4';
-  const MANUAL_PUBLISHED_STORAGE_KEY = 'campus-map-manual-published-v4';
+  const MANUAL_DRAFT_STORAGE_KEY = 'campus-map-manual-draft-v5';
+  const MANUAL_PUBLISHED_STORAGE_KEY = 'campus-map-manual-published-v5';
   const MANUAL_EXPORT_FILENAME = MANUAL_SEARCH_INDEX_FILENAME;
   const ROOM_CODE_PATTERN = /[A-Z]{1,3}\s*-?\s*\d{2,4}[A-Z]?/g;
   const SEARCHABLE_CHAR_PATTERN = /[\p{L}\p{N}]/u;
@@ -405,7 +405,8 @@ if (window.__FILE_MODE__) {
     }
 
     const normalizedVariant = String(colorVariant ?? '').trim().toLowerCase();
-    return ringColorLabelByVariant[normalizedVariant] ? normalizedVariant : DEFAULT_TOILET_RING_COLOR_VARIANT;
+    const resolvedVariant = normalizedVariant === 'white' ? 'yellow' : normalizedVariant;
+    return ringColorLabelByVariant[resolvedVariant] ? resolvedVariant : DEFAULT_TOILET_RING_COLOR_VARIANT;
   }
 
   function getFacilityRingColorLabel(facilityKey, colorVariant) {

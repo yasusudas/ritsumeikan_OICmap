@@ -7846,7 +7846,7 @@
     {
       "id": "ring-toilet-1F-1776126276605-s7az7d",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "1F",
       "xRatio": 0.35103,
       "yRatio": 0.354984
@@ -7902,7 +7902,7 @@
     {
       "id": "ring-toilet-1F-1776126312341-89a1vd",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "1F",
       "xRatio": 0.433682,
       "yRatio": 0.368012
@@ -7910,7 +7910,7 @@
     {
       "id": "ring-toilet-1F-1776126283684-vm0onh",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "1F",
       "xRatio": 0.365746,
       "yRatio": 0.43363
@@ -7966,7 +7966,7 @@
     {
       "id": "ring-toilet-1F-1776126289296-iky88n",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "1F",
       "xRatio": 0.134665,
       "yRatio": 0.498844
@@ -7974,7 +7974,7 @@
     {
       "id": "ring-toilet-1F-1776126320749-8f16rj",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "1F",
       "xRatio": 0.66047,
       "yRatio": 0.514697
@@ -8022,7 +8022,7 @@
     {
       "id": "ring-toilet-1F-1776126301192-hh7cct",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "1F",
       "xRatio": 0.404714,
       "yRatio": 0.667669
@@ -8062,7 +8062,7 @@
     {
       "id": "ring-toilet-1F-1776126305454-xcx8ar",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "1F",
       "xRatio": 0.436131,
       "yRatio": 0.71061
@@ -8070,7 +8070,7 @@
     {
       "id": "ring-toilet-1F-1776126303317-1dpj1w",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "1F",
       "xRatio": 0.427021,
       "yRatio": 0.713748
@@ -8518,7 +8518,7 @@
     {
       "id": "ring-toilet-2F-1776127411263-zqgel2",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "2F",
       "xRatio": 0.214866,
       "yRatio": 0.35625
@@ -8582,7 +8582,7 @@
     {
       "id": "ring-toilet-2F-1776127424263-r03t8f",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "2F",
       "xRatio": 0.179703,
       "yRatio": 0.42863
@@ -8590,7 +8590,7 @@
     {
       "id": "ring-toilet-2F-1776127416922-y12g41",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "2F",
       "xRatio": 0.358694,
       "yRatio": 0.429255
@@ -8654,7 +8654,7 @@
     {
       "id": "ring-toilet-2F-1776127462283-xwriyr",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "2F",
       "xRatio": 0.563742,
       "yRatio": 0.486554
@@ -8686,7 +8686,7 @@
     {
       "id": "ring-toilet-2F-1776127438391-4ifbu3",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "2F",
       "xRatio": 0.459329,
       "yRatio": 0.72076
@@ -8702,7 +8702,7 @@
     {
       "id": "ring-toilet-2F-1776127442358-uvwmm6",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "2F",
       "xRatio": 0.410629,
       "yRatio": 0.733168
@@ -8726,7 +8726,7 @@
     {
       "id": "ring-toilet-2F-1776127448599-0smlha",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "2F",
       "xRatio": 0.447845,
       "yRatio": 0.936412
@@ -9238,7 +9238,7 @@
     {
       "id": "ring-toilet-3F-1776128098461-y6hiqy",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "3F",
       "xRatio": 0.358492,
       "yRatio": 0.430472
@@ -9278,7 +9278,7 @@
     {
       "id": "ring-toilet-3F-1776128092961-bff2kt",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "3F",
       "xRatio": 0.161441,
       "yRatio": 0.459052
@@ -9294,7 +9294,7 @@
     {
       "id": "ring-toilet-3F-1776128110773-joo85n",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "3F",
       "xRatio": 0.563544,
       "yRatio": 0.48724
@@ -9342,7 +9342,7 @@
     {
       "id": "ring-toilet-3F-1776128116581-e4vppe",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "3F",
       "xRatio": 0.423266,
       "yRatio": 0.640781
@@ -9358,7 +9358,7 @@
     {
       "id": "ring-toilet-3F-1776128131731-enmjpy",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "3F",
       "xRatio": 0.438581,
       "yRatio": 0.934304
@@ -9718,7 +9718,7 @@
     {
       "id": "ring-toilet-4F-1776128783258-vyb98r",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "4F",
       "xRatio": 0.304928,
       "yRatio": 0.438147
@@ -9734,7 +9734,7 @@
     {
       "id": "ring-toilet-4F-1776128776421-g37gi1",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "4F",
       "xRatio": 0.159921,
       "yRatio": 0.46238
@@ -9766,7 +9766,7 @@
     {
       "id": "ring-toilet-4F-1776128793500-85rjgo",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "4F",
       "xRatio": 0.421885,
       "yRatio": 0.719297
@@ -9774,7 +9774,7 @@
     {
       "id": "ring-toilet-4F-1776128804058-h0ymls",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "4F",
       "xRatio": 0.440083,
       "yRatio": 0.934367
@@ -10134,7 +10134,7 @@
     {
       "id": "ring-toilet-5F-1776130236064-mptj8l",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "5F",
       "xRatio": 0.34274,
       "yRatio": 0.403582
@@ -10174,7 +10174,7 @@
     {
       "id": "ring-toilet-5F-1776130231006-iz2hvx",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "5F",
       "xRatio": 0.159943,
       "yRatio": 0.462494
@@ -10190,7 +10190,7 @@
     {
       "id": "ring-toilet-5F-1776130258413-9bqnxo",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "5F",
       "xRatio": 0.674934,
       "yRatio": 0.471892
@@ -10238,7 +10238,7 @@
     {
       "id": "ring-toilet-5F-1776130242935-7na5td",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "5F",
       "xRatio": 0.426178,
       "yRatio": 0.513042
@@ -10262,7 +10262,7 @@
     {
       "id": "ring-toilet-5F-1776130249809-szgq07",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "5F",
       "xRatio": 0.423897,
       "yRatio": 0.715541
@@ -10598,7 +10598,7 @@
     {
       "id": "ring-toilet-A-6-9F-1776130798015-fho4on",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "A-6-9F",
       "xRatio": 0.699425,
       "yRatio": 0.432098
@@ -10638,7 +10638,7 @@
     {
       "id": "ring-toilet-A-6-9F-1776130785220-smjnoc",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "A-6-9F",
       "xRatio": 0.295487,
       "yRatio": 0.438964
@@ -10774,7 +10774,7 @@
     {
       "id": "ring-toilet-A-6-9F-1776130815106-44haml",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "A-6-9F",
       "xRatio": 0.294301,
       "yRatio": 0.800818
@@ -10782,7 +10782,7 @@
     {
       "id": "ring-toilet-A-6-9F-1776130809473-t4ke8j",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "A-6-9F",
       "xRatio": 0.69916,
       "yRatio": 0.80101
@@ -11110,7 +11110,7 @@
     {
       "id": "ring-toilet-H-6-9F-1776151413850-82xust",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "H-6-9F",
       "xRatio": 0.154711,
       "yRatio": 0.350569
@@ -11118,7 +11118,7 @@
     {
       "id": "ring-toilet-H-6-9F-1776151437275-iv32np",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "H-6-9F",
       "xRatio": 0.654509,
       "yRatio": 0.350771
@@ -11190,7 +11190,7 @@
     {
       "id": "ring-toilet-H-6-9F-1776151428688-r7f1pm",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "H-6-9F",
       "xRatio": 0.654496,
       "yRatio": 0.681037
@@ -11198,7 +11198,7 @@
     {
       "id": "ring-toilet-H-6-9F-1776151419908-p3q1h6",
       "facilityKey": "toilet",
-      "colorVariant": "yellow",
+      "colorVariant": "white",
       "floorId": "H-6-9F",
       "xRatio": 0.154637,
       "yRatio": 0.681269
