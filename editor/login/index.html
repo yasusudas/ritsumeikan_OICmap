@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ja">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta
@@ -10,7 +10,7 @@
     <link rel="icon" type="image/png" href="/icon/favicon-20260412b.png" />
     <link rel="apple-touch-icon" href="/icon/pwa-512-20260412b.png" />
     <meta name="robots" content="noindex,nofollow" />
-    <title>編集ページログイン</title>
+    <title>Editor Login</title>
     <style>
       :root {
         color: #102431;
@@ -161,8 +161,8 @@
           document.body.innerHTML = `
             <main style="min-height:100vh;display:grid;place-items:center;margin:0;padding:24px;background:linear-gradient(180deg,#fff1f1 0%,#eedddd 100%);font-family:'Hiragino Sans','Yu Gothic','Noto Sans JP',sans-serif;color:#102431;">
               <section style="max-width:720px;padding:28px;border-radius:24px;background:rgba(255,255,255,0.9);box-shadow:0 24px 50px rgba(16,36,49,0.12);">
-                <h1 style="margin:0 0 16px;font-size:2rem;">編集ページログイン</h1>
-                <p style="margin:0;line-height:1.8;">このログイン画面はローカルサーバー経由で開く必要があります。<code>npm run dev</code> のあと <code>http://127.0.0.1:5173/editor/login/</code> を開いてください。</p>
+                <h1 style="margin:0 0 16px;font-size:2rem;">Editor Login</h1>
+                <p style="margin:0;line-height:1.8;">This login page must be opened through a local server. After running <code>npm run dev</code>, open <code>http://127.0.0.1:5173/editor/login/</code>.</p>
               </section>
             </main>
           `;
@@ -193,7 +193,7 @@
               const passwordHash = await sha256Hex(passwordInput.value);
 
               if (passwordHash !== EDITOR_PASSWORD_HASH) {
-                errorMessage.textContent = 'パスワードが違います。';
+                errorMessage.textContent = 'Incorrect password.';
                 passwordInput.select();
                 return;
               }
@@ -212,11 +212,11 @@
     </script>
   </head>
   <body>
-    <main class="login-card" aria-label="編集ページログイン">
+    <main class="login-card" aria-label="Editor Login">
       <p class="login-eyebrow">EDITOR ACCESS</p>
-      <h1 class="login-title">編集ページにログイン</h1>
+      <h1 class="login-title">Sign In to the Editor</h1>
       <form id="editor-login-form" class="login-form">
-        <label class="login-label" for="editor-login-password">パスワード</label>
+        <label class="login-label" for="editor-login-password">Password</label>
         <input
           id="editor-login-password"
           class="login-input"
@@ -226,8 +226,8 @@
           required
         />
         <div class="login-actions">
-          <button id="editor-login-submit" class="login-submit" type="submit">ログイン</button>
-          <a class="login-link" href="/">閲覧用サイトへ戻る</a>
+          <button id="editor-login-submit" class="login-submit" type="submit">Log In</button>
+          <a class="login-link" href="/">Back to the Viewer</a>
         </div>
         <p id="editor-login-error" class="login-error" aria-live="polite"></p>
       </form>

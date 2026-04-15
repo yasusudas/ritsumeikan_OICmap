@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ja">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta
@@ -29,9 +29,9 @@
             <main style="min-height:100vh;display:grid;place-items:center;margin:0;padding:24px;background:linear-gradient(180deg,#fff1f1 0%,#eedddd 100%);font-family:'Hiragino Sans','Yu Gothic','Noto Sans JP',sans-serif;color:#102431;">
               <section style="max-width:720px;padding:28px;border-radius:24px;background:rgba(255,255,255,0.9);box-shadow:0 24px 50px rgba(16,36,49,0.12);">
                 <h1 style="margin:0 0 16px;font-size:2rem;">Ritsumeikan OIC Map</h1>
-                <p style="margin:0 0 12px;line-height:1.8;">このアプリは <strong>index.html を直接開く方式では動作しません</strong>。地図表示と操作機能はローカルサーバー経由で起動する必要があります。</p>
-                <p style="margin:0 0 12px;line-height:1.8;">一番簡単なのは、プロジェクト直下の <code>start-map.command</code> をダブルクリックする方法です。</p>
-                <p style="margin:0;line-height:1.8;">ターミナルを使う場合は <code>npm run dev</code> のあと、<code>http://127.0.0.1:5173/</code> を開いてください。</p>
+                <p style="margin:0 0 12px;line-height:1.8;">This app does <strong>not work when you open <code>index.html</code> directly</strong>. The map and its controls must be launched through a local server.</p>
+                <p style="margin:0 0 12px;line-height:1.8;">The easiest option is to double-click <code>start-map.command</code> in the project root.</p>
+                <p style="margin:0;line-height:1.8;">If you prefer the terminal, run <code>npm run dev</code> and then open <code>http://127.0.0.1:5173/</code>.</p>
               </section>
             </main>
           `;
@@ -49,9 +49,9 @@
         </h1>
         <div id="search-panel" class="search-panel">
           <div class="search-label-row">
-            <label class="search-label" for="search-input">教室検索</label>
+            <label class="search-label" for="search-input">Search Rooms & Facilities</label>
             <span id="toilet-ring-legend" class="toilet-ring-legend" hidden>
-              青色は男子トイレ、赤色は女子トイレ、黄色は多目的トイレです
+              Blue rings mark men's restrooms, red rings mark women's restrooms, and yellow rings mark accessible restrooms.
             </span>
           </div>
           <div class="search-controls">
@@ -60,22 +60,22 @@
                 id="search-input"
                 class="search-input"
                 type="search"
-                placeholder="教室名を検索"
+                placeholder="Search by room or facility name"
                 autocomplete="off"
                 autocapitalize="characters"
                 spellcheck="false"
                 enterkeyhint="search"
               />
-              <button id="search-clear" class="search-clear" type="button" aria-label="検索をクリア" hidden>
+              <button id="search-clear" class="search-clear" type="button" aria-label="Clear search" hidden>
                 ×
               </button>
             </div>
-            <div class="search-icon-actions" role="group" aria-label="施設アイコン">
+            <div class="search-icon-actions" role="group" aria-label="Facility filters">
               <button
                 class="search-icon-button"
                 type="button"
                 data-facility-key="toilet"
-                aria-label="トイレ"
+                aria-label="Restroom"
                 aria-pressed="false"
               >
                 <img class="search-icon-image" src="/iconsvg/toilet.svg" alt="" aria-hidden="true" />
@@ -84,7 +84,7 @@
                 class="search-icon-button"
                 type="button"
                 data-facility-key="waterServer"
-                aria-label="ウォーターサーバー"
+                aria-label="Water Dispenser"
                 aria-pressed="false"
               >
                 <img class="search-icon-image" src="/iconsvg/water-server.svg" alt="" aria-hidden="true" />
@@ -93,7 +93,7 @@
                 class="search-icon-button"
                 type="button"
                 data-facility-key="vendingMachine"
-                aria-label="自販機"
+                aria-label="Vending Machine"
                 aria-pressed="false"
               >
                 <img class="search-icon-image" src="/iconsvg/vending-machine.svg" alt="" aria-hidden="true" />
@@ -102,7 +102,7 @@
                 class="search-icon-button"
                 type="button"
                 data-facility-key="stairs"
-                aria-label="階段"
+                aria-label="Staircase"
                 aria-pressed="false"
               >
                 <img class="search-icon-image" src="/iconsvg/stairs.svg" alt="" aria-hidden="true" />
@@ -111,7 +111,7 @@
                 class="search-icon-button"
                 type="button"
                 data-facility-key="escalator"
-                aria-label="エスカレーター"
+                aria-label="Escalator"
                 aria-pressed="false"
               >
                 <img class="search-icon-image" src="/iconsvg/escalator.svg" alt="" aria-hidden="true" />
@@ -120,7 +120,7 @@
                 class="search-icon-button"
                 type="button"
                 data-facility-key="elevator"
-                aria-label="エレベーター"
+                aria-label="Elevator"
                 aria-pressed="false"
               >
                 <img class="search-icon-image" src="/iconsvg/elevator.svg" alt="" aria-hidden="true" />
@@ -128,30 +128,30 @@
             </div>
           </div>
           <div id="search-feedback" class="search-feedback" aria-live="polite">
-            500以上の教室の位置を検索できます / 地図は拡大･縮小･移動できます
+            Search for more than 500 rooms and campus locations. You can zoom, pan, and explore the map.
           </div>
           <div id="search-results" class="search-results" role="listbox" hidden></div>
         </div>
         <div class="floor-tab-stack">
-          <nav class="floor-tabs floor-tabs-primary" aria-label="フロア切替">
+          <nav class="floor-tabs floor-tabs-primary" aria-label="Floor selector">
             <button class="floor-tab" data-floor="1F" type="button">1F</button>
             <button class="floor-tab" data-floor="2F" type="button">2F</button>
             <button class="floor-tab" data-floor="3F" type="button">3F</button>
             <button class="floor-tab" data-floor="4F" type="button">4F</button>
             <button class="floor-tab" data-floor="5F" type="button">5F</button>
           </nav>
-          <nav class="floor-tabs floor-tabs-secondary" aria-label="棟別フロア切替">
-            <button class="floor-tab floor-tab-wide" data-floor="A-6-9F" type="button">A棟6,7,8,9F</button>
-            <button class="floor-tab floor-tab-wide" data-floor="H-6-9F" type="button">H棟6,7,8,9F</button>
+          <nav class="floor-tabs floor-tabs-secondary" aria-label="Upper-floor building selector">
+            <button class="floor-tab floor-tab-wide" data-floor="A-6-9F" type="button">Building A 6F-9F</button>
+            <button class="floor-tab floor-tab-wide" data-floor="H-6-9F" type="button">Building H 6F-9F</button>
           </nav>
         </div>
       </header>
 
       <main class="map-stage">
         <section class="map-card">
-          <div id="viewer" class="viewer" aria-label="フロアマップ">
+          <div id="viewer" class="viewer" aria-label="Floor map">
             <div id="canvas-layer" class="canvas-layer"></div>
-            <div id="status" class="status-pill" aria-live="polite">読み込み中...</div>
+            <div id="status" class="status-pill" aria-live="polite">Loading...</div>
           </div>
         </section>
       </main>
@@ -163,13 +163,13 @@
           | Instagram:
           <a href="https://www.instagram.com/yasusudas/" target="_blank" rel="noopener noreferrer">@yasusudas</a>
         </p>
-        <p>出典：立命館大学「立命館大学 大阪いばらきキャンパス フロアガイド 日本語」（2025年3月発行、OIC地域連携課）</p>
+        <p>Source: Ritsumeikan University, Osaka Ibaraki Campus Floor Guide (Japanese), published in March 2025 by the OIC Regional Partnerships Office.</p>
         <p>
           <a href="https://www.ritsumei.ac.jp/file.jsp?id=229844&f=.pdf" target="_blank" rel="noopener noreferrer">
             https://www.ritsumei.ac.jp/file.jsp?id=229844&f=.pdf
           </a>
         </p>
-        <p>© 2026 Issei Yasuda (立命館大学非公式)</p>
+        <p>© 2026 Issei Yasuda (Unofficial Ritsumeikan University site)</p>
       </footer>
     </div>
   </body>

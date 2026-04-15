@@ -45,12 +45,12 @@ if (window.__FILE_MODE__) {
     },
     {
       id: 'A-6-9F',
-      label: 'A棟6,7,8,9F',
+      label: 'Building A 6F-9F',
       svgUrl: new URL('../floor_img/6F7F8F9F_BldgA.svg', import.meta.url).href
     },
     {
       id: 'H-6-9F',
-      label: 'H棟6,7,8,9F',
+      label: 'Building H 6F-9F',
       svgUrl: new URL('../floor_img/6F7F8F9F_BldgH.svg', import.meta.url).href
     }
   ];
@@ -74,7 +74,7 @@ if (window.__FILE_MODE__) {
   const ROOM_CODE_PATTERN = /[A-Z]{1,3}\s*-?\s*\d{2,4}[A-Z]?/g;
   const SEARCHABLE_CHAR_PATTERN = /[\p{L}\p{N}]/u;
   const LETTER_PATTERN = /\p{L}/u;
-  const roomCodeCollator = new Intl.Collator('ja', { numeric: true, sensitivity: 'base' });
+  const roomCodeCollator = new Intl.Collator('en', { numeric: true, sensitivity: 'base' });
   const svgCache = new Map();
   const appMode = document.body?.dataset.appMode === 'editor' ? 'editor' : 'viewer';
   const isEditorSite = appMode === 'editor';
@@ -131,9 +131,9 @@ if (window.__FILE_MODE__) {
     facilityButtonDefinitions.map((definition) => [definition.facilityKey, DEFAULT_FACILITY_RING_DIAMETER_WIDTH_PERCENT])
   );
   const TOILET_RING_COLOR_VARIANT_OPTIONS = [
-    { value: 'red', label: '赤' },
-    { value: 'blue', label: '青' },
-    { value: 'yellow', label: '黄' }
+    { value: 'red', label: 'Red' },
+    { value: 'blue', label: 'Blue' },
+    { value: 'yellow', label: 'Yellow' }
   ];
   const DEFAULT_TOILET_RING_COLOR_VARIANT = 'red';
   const ringColorLabelByVariant = Object.fromEntries(
@@ -1078,7 +1078,7 @@ if (window.__FILE_MODE__) {
 
     if (state.activeRingEditorFacilityKey === 'toilet') {
       setEditorFeedback(
-        `トイレリング編集モードです。現在色: ${getFacilityRingColorLabel('toilet', state.activeToiletRingColorVariant)}`
+        `Restroom ring editing is active. Current color: ${getFacilityRingColorLabel('toilet', state.activeToiletRingColorVariant)}`
       );
     }
 
@@ -1121,15 +1121,15 @@ if (window.__FILE_MODE__) {
       state.activeEditorPinKey = null;
       if (nextFacilityKey === 'toilet') {
         setEditorFeedback(
-          `トイレリング編集モードです。現在色: ${getFacilityRingColorLabel('toilet', state.activeToiletRingColorVariant)}`
+          `Restroom ring editing is active. Current color: ${getFacilityRingColorLabel('toilet', state.activeToiletRingColorVariant)}`
         );
       } else {
         setEditorFeedback(
-          `${getFacilityLabel(nextFacilityKey)} のリング編集モードです。地図をタップすると追加、既存リングをタップすると削除します`
+          `${getFacilityLabel(nextFacilityKey)} ring editing is active. Tap the map to add a ring, or tap an existing ring to remove it.`
         );
       }
     } else if (state.editMode) {
-      setEditorFeedback('地図上の文字位置をクリックして表示名を記録できます。リング編集モードはオフです');
+      setEditorFeedback('Click a text location on the map to record its label. Ring editing is currently off.');
     }
 
     refreshEditorUi();
@@ -1146,8 +1146,8 @@ if (window.__FILE_MODE__) {
     ringButton.setAttribute(
       'aria-label',
       ring.facilityKey === 'toilet' && ring.colorLabel
-        ? `${ring.facilityLabel} ${ring.colorLabel}リングを操作`
-        : `${ring.facilityLabel} のリングを操作`
+        ? `Manage the ${ring.colorLabel.toLowerCase()} ${ring.facilityLabel.toLowerCase()} ring`
+        : `Manage the ${ring.facilityLabel.toLowerCase()} ring`
     );
     ringButton.style.left = `${ring.xRatio * 100}%`;
     ringButton.style.top = `${ring.yRatio * 100}%`;
@@ -1171,7 +1171,7 @@ if (window.__FILE_MODE__) {
     if (!facilityKey) {
       const empty = document.createElement('div');
       empty.className = 'editor-empty';
-      empty.textContent = '施設ボタンをオンにすると、その施設用のリングを追加・削除できます';
+      empty.textContent = 'Turn on a facility button to add or remove highlight rings for that facility.';
       editorRingList.replaceChildren(empty);
       updateEditorRingClearButtonState();
       return;
@@ -1182,7 +1182,7 @@ if (window.__FILE_MODE__) {
     if (rings.length === 0) {
       const empty = document.createElement('div');
       empty.className = 'editor-empty';
-      empty.textContent = `${getCurrentFloorLabel()} の ${getFacilityLabel(facilityKey)} リングはまだありません`;
+      empty.textContent = `There are no ${getFacilityLabel(facilityKey).toLowerCase()} rings on ${getCurrentFloorLabel()} yet.`;
       editorRingList.replaceChildren(empty);
       updateEditorRingClearButtonState();
       return;
@@ -1201,8 +1201,8 @@ if (window.__FILE_MODE__) {
       label.className = 'editor-entry-label';
       label.textContent =
         ring.facilityKey === 'toilet' && ring.colorLabel
-          ? `${ring.facilityLabel}(${ring.colorLabel}) リング ${index + 1}`
-          : `${ring.facilityLabel} リング ${index + 1}`;
+          ? `${ring.facilityLabel} (${ring.colorLabel}) Ring ${index + 1}`
+          : `${ring.facilityLabel} Ring ${index + 1}`;
 
       const meta = document.createElement('div');
       meta.className = 'editor-entry-meta';
@@ -1221,14 +1221,14 @@ if (window.__FILE_MODE__) {
       focusButton.className = 'editor-entry-button';
       focusButton.dataset.action = 'focus-ring';
       focusButton.dataset.ringId = ring.id;
-      focusButton.textContent = '移動';
+      focusButton.textContent = 'Go to';
 
       const deleteButton = document.createElement('button');
       deleteButton.type = 'button';
       deleteButton.className = 'editor-entry-button';
       deleteButton.dataset.action = 'delete-ring';
       deleteButton.dataset.ringId = ring.id;
-      deleteButton.textContent = '削除';
+      deleteButton.textContent = 'Delete';
 
       actions.append(focusButton, deleteButton);
       row.append(body, actions);
@@ -1250,7 +1250,7 @@ if (window.__FILE_MODE__) {
       const entry = getManualEntryById(entryId);
 
       if (entry) {
-        const aliasText = entry.aliases.length ? ` / 別名: ${entry.aliases.join(', ')}` : '';
+        const aliasText = entry.aliases.length ? ` / Aliases: ${entry.aliases.join(', ')}` : '';
         setEditorFeedback(`${entry.label}${aliasText}`);
       }
     }
@@ -1314,7 +1314,7 @@ if (window.__FILE_MODE__) {
       return;
     }
 
-    editorCoords.textContent = '位置未指定';
+    editorCoords.textContent = 'No location selected';
   }
 
   function updateEditorJsonOutput() {
@@ -1336,7 +1336,7 @@ if (window.__FILE_MODE__) {
     if (currentFloorEntries.length === 0) {
       const empty = document.createElement('div');
       empty.className = 'editor-empty';
-      empty.textContent = `${getCurrentFloorLabel()} の手入力データはまだありません`;
+      empty.textContent = `There are no manually added entries on ${getCurrentFloorLabel()} yet.`;
       editorList.replaceChildren(empty);
       return;
     }
@@ -1357,7 +1357,7 @@ if (window.__FILE_MODE__) {
       const meta = document.createElement('div');
       meta.className = 'editor-entry-meta';
       meta.textContent = `${entry.rects.length} rect${entry.rects.length > 1 ? 's' : ''}${
-        entry.aliases.length ? ` / 別名: ${entry.aliases.join(', ')}` : ''
+        entry.aliases.length ? ` / Aliases: ${entry.aliases.join(', ')}` : ''
       }`;
 
       body.append(label, meta);
@@ -1370,14 +1370,14 @@ if (window.__FILE_MODE__) {
       focusButton.className = 'editor-entry-button';
       focusButton.dataset.action = 'focus';
       focusButton.dataset.entryId = entry.id;
-      focusButton.textContent = '移動';
+      focusButton.textContent = 'Go to';
 
       const deleteButton = document.createElement('button');
       deleteButton.type = 'button';
       deleteButton.className = 'editor-entry-button';
       deleteButton.dataset.action = 'delete';
       deleteButton.dataset.entryId = entry.id;
-      deleteButton.textContent = '削除';
+      deleteButton.textContent = 'Delete';
 
       actions.append(focusButton, deleteButton);
       row.append(body, actions);
@@ -1422,7 +1422,7 @@ if (window.__FILE_MODE__) {
         pin.className = 'editor-pin-button';
         pin.dataset.entryId = entry.id;
         pin.dataset.rectIndex = String(rectIndex);
-        pin.setAttribute('aria-label', `${entry.label} を確認`);
+        pin.setAttribute('aria-label', `View ${entry.label}`);
         pin.style.left = `${center.xRatio * 100}%`;
         pin.style.top = `${center.yRatio * 100}%`;
 
@@ -1445,7 +1445,7 @@ if (window.__FILE_MODE__) {
           const meta = document.createElement('div');
           meta.className = 'editor-pin-popover-meta';
           meta.textContent = entry.aliases.length
-            ? `${entry.floorLabel} / 別名: ${entry.aliases.join(', ')}`
+            ? `${entry.floorLabel} / Aliases: ${entry.aliases.join(', ')}`
             : `${entry.floorLabel}`;
 
           popover.append(label, meta);
@@ -1535,13 +1535,13 @@ if (window.__FILE_MODE__) {
       state.activeSuggestionIndex = -1;
 
       if (getActiveSearchEntry()) {
-        setSearchFeedback(`${getActiveSearchEntry().label} を ${getActiveSearchEntry().floorLabel} で表示中`);
+        setSearchFeedback(`Showing ${getActiveSearchEntry().label} on ${getActiveSearchEntry().floorLabel}`);
       } else if (state.searchLoading) {
-        setSearchFeedback('検索データを読み込み中...');
+        setSearchFeedback('Loading search data...');
       } else if (state.searchEntries.length === 0) {
-        setSearchFeedback('検索データがまだありません');
+        setSearchFeedback('No search data is available yet.');
       } else {
-        setSearchFeedback('500以上の教室の位置を検索できます / 地図は拡大･縮小･移動できます');
+        setSearchFeedback('Search for more than 500 rooms and campus locations. You can zoom, pan, and explore the map.');
       }
       return;
     }
@@ -1551,12 +1551,12 @@ if (window.__FILE_MODE__) {
     if (!normalizedQuery) {
       const hint = document.createElement('div');
       hint.className = 'search-result-empty';
-      hint.textContent = 'アルファベットと数字で検索できます';
+      hint.textContent = 'Search using letters and numbers.';
       searchResults.replaceChildren(hint);
       searchResults.hidden = false;
       state.searchSuggestions = [];
       state.activeSuggestionIndex = -1;
-      setSearchFeedback('検索語を入力してください');
+      setSearchFeedback('Enter a search term.');
       return;
     }
 
@@ -1593,10 +1593,10 @@ if (window.__FILE_MODE__) {
       const empty = document.createElement('div');
       empty.className = 'search-result-empty';
       empty.textContent =
-        state.searchEntries.length === 0 ? '検索データがまだ登録されていません' : '一致する教室候補がありません';
+        state.searchEntries.length === 0 ? 'No search data has been added yet.' : 'No matching locations were found.';
       searchResults.replaceChildren(empty);
       searchResults.hidden = false;
-      setSearchFeedback(state.searchEntries.length === 0 ? '検索データなし' : '一致候補なし');
+      setSearchFeedback(state.searchEntries.length === 0 ? 'No search data' : 'No matches');
       return;
     }
 
@@ -1626,7 +1626,7 @@ if (window.__FILE_MODE__) {
 
     searchResults.replaceChildren(fragment);
     searchResults.hidden = false;
-    setSearchFeedback(`${state.searchSuggestions.length} 件の候補`);
+    setSearchFeedback(`${state.searchSuggestions.length} match${state.searchSuggestions.length === 1 ? '' : 'es'}`);
   }
 
   function clearActiveSearchSelection({ clearInput = false } = {}) {
@@ -1657,7 +1657,7 @@ if (window.__FILE_MODE__) {
 
     renderSearchHighlights();
     focusSearchEntry(entry);
-    setSearchFeedback(`${entry.label} を ${entry.floorLabel} で表示中`);
+    setSearchFeedback(`Showing ${entry.label} on ${entry.floorLabel}`);
   }
 
   function createTextMatchRect(item, viewport, matchIndex, matchLength, sourceLength) {
@@ -1881,7 +1881,7 @@ if (window.__FILE_MODE__) {
     }
 
     state.searchLoading = true;
-    setSearchFeedback('検索データを読み込み中...');
+    setSearchFeedback('Loading search data...');
 
     state.searchPromise = (async () => {
       try {
@@ -1932,7 +1932,7 @@ if (window.__FILE_MODE__) {
     const floorLoadToken = ++state.floorLoadToken;
     const centerRatios = preserveView ? captureViewportCenterRatios() : null;
 
-    setStatus(`${floor.label} を読み込み中...`);
+    setStatus(`Loading ${floor.label}...`);
 
     try {
       const asset = await fetchSvgAsset(floor);
@@ -1994,7 +1994,7 @@ if (window.__FILE_MODE__) {
       state.highlightLayer = null;
       state.ringLayer = null;
       state.editorLayer = null;
-      setStatus('地図の読み込みに失敗しました');
+      setStatus('Failed to load the map.');
     }
   }
 
@@ -2060,9 +2060,9 @@ if (window.__FILE_MODE__) {
     viewer.classList.toggle('is-editing', state.editMode);
 
     if (state.editMode) {
-      setEditorFeedback('地図上の文字位置をクリックして表示名を記録できます。リング編集ボタンがオンの時はリングを追加・削除できます');
+      setEditorFeedback('Click a text location on the map to record its label. When a ring tool is active, you can add or remove highlight rings.');
     } else {
-      setEditorFeedback('編集モードをオンにして、地図上の文字位置をクリックしてください');
+      setEditorFeedback('Turn on edit mode, then click a text location on the map.');
       state.pendingEditorPoint = null;
       state.activeEditorPinKey = null;
       state.activeEditorRingId = null;
@@ -2137,7 +2137,7 @@ if (window.__FILE_MODE__) {
     const ring = createFacilityRing(point, facilityKey);
 
     if (!ring) {
-      setEditorFeedback('リング位置を記録できませんでした');
+      setEditorFeedback('The ring location could not be recorded.');
       return;
     }
 
@@ -2148,8 +2148,8 @@ if (window.__FILE_MODE__) {
     refreshEditorUi();
     setEditorFeedback(
       ring.facilityKey === 'toilet' && ring.colorLabel
-        ? `${ring.floorLabel} に ${ring.facilityLabel}(${ring.colorLabel}) リングを追加しました`
-        : `${ring.floorLabel} に ${ring.facilityLabel} リングを追加しました`
+        ? `Added a ${ring.colorLabel.toLowerCase()} ${ring.facilityLabel.toLowerCase()} ring on ${ring.floorLabel}.`
+        : `Added a ${ring.facilityLabel.toLowerCase()} ring on ${ring.floorLabel}.`
     );
   }
 
@@ -2177,8 +2177,8 @@ if (window.__FILE_MODE__) {
     if (!silent) {
       setEditorFeedback(
         ring.facilityKey === 'toilet' && ring.colorLabel
-          ? `${ring.floorLabel} の ${ring.facilityLabel}(${ring.colorLabel}) リングを削除しました`
-          : `${ring.floorLabel} の ${ring.facilityLabel} リングを削除しました`
+          ? `Removed the ${ring.colorLabel.toLowerCase()} ${ring.facilityLabel.toLowerCase()} ring from ${ring.floorLabel}.`
+          : `Removed the ${ring.facilityLabel.toLowerCase()} ring from ${ring.floorLabel}.`
       );
     }
   }
@@ -2200,7 +2200,7 @@ if (window.__FILE_MODE__) {
     const removedCount = beforeCount - state.facilityRings.length;
 
     if (removedCount === 0) {
-      setEditorFeedback(`${currentFloorLabel} の ${facilityLabel} リングはまだありません`);
+      setEditorFeedback(`There are no ${facilityLabel.toLowerCase()} rings on ${currentFloorLabel} yet.`);
       return;
     }
 
@@ -2211,7 +2211,7 @@ if (window.__FILE_MODE__) {
     persistCurrentEditorState();
     renderFacilityRings();
     refreshEditorUi();
-    setEditorFeedback(`${currentFloorLabel} の ${facilityLabel} リングを ${removedCount} 件クリアしました`);
+    setEditorFeedback(`Cleared ${removedCount} ${facilityLabel.toLowerCase()} ring${removedCount === 1 ? '' : 's'} from ${currentFloorLabel}.`);
   }
 
   function setActiveEditorRing(ringId = null) {
@@ -2225,8 +2225,8 @@ if (window.__FILE_MODE__) {
 
       setEditorFeedback(
         ring.facilityKey === 'toilet' && ring.colorLabel
-          ? `${ring.floorLabel} / ${ring.facilityLabel}(${ring.colorLabel}) リング`
-          : `${ring.floorLabel} / ${ring.facilityLabel} リング`
+          ? `${ring.floorLabel} / ${ring.facilityLabel} (${ring.colorLabel}) Ring`
+          : `${ring.floorLabel} / ${ring.facilityLabel} Ring`
       );
     }
 
@@ -2257,8 +2257,8 @@ if (window.__FILE_MODE__) {
     refreshEditorUi();
     setEditorFeedback(
       ring.facilityKey === 'toilet' && ring.colorLabel
-        ? `${ring.floorLabel} / ${ring.facilityLabel}(${ring.colorLabel}) リングへ移動しました`
-        : `${ring.floorLabel} / ${ring.facilityLabel} リングへ移動しました`
+        ? `Moved to the ${ring.colorLabel.toLowerCase()} ${ring.facilityLabel.toLowerCase()} ring on ${ring.floorLabel}.`
+        : `Moved to the ${ring.facilityLabel.toLowerCase()} ring on ${ring.floorLabel}.`
     );
   }
 
@@ -2270,7 +2270,7 @@ if (window.__FILE_MODE__) {
     const label = editorLabelInput.value.trim();
 
     if (!label) {
-      setEditorFeedback('表示名を入力してください');
+      setEditorFeedback('Enter a label.');
       editorLabelInput.focus();
       return;
     }
@@ -2278,7 +2278,7 @@ if (window.__FILE_MODE__) {
     const rect = createPointRect(state.pendingEditorPoint);
 
     if (!rect) {
-      setEditorFeedback('先に地図上をクリックして位置を指定してください');
+      setEditorFeedback('Click the map first to choose a location.');
       return;
     }
 
@@ -2292,7 +2292,7 @@ if (window.__FILE_MODE__) {
     });
 
     if (!entry) {
-      setEditorFeedback('入力値から検索データを作成できませんでした');
+      setEditorFeedback('The current input could not be converted into search data.');
       return;
     }
 
@@ -2302,7 +2302,7 @@ if (window.__FILE_MODE__) {
     state.pendingEditorPoint = null;
     state.activeEditorPinKey = null;
     editorLabelInput.value = '';
-    setEditorFeedback(`${entry.label} を ${floor.label} に記録しました`);
+    setEditorFeedback(`Saved ${entry.label} on ${floor.label}.`);
     refreshEditorUi();
     renderSearchSuggestions();
   }
@@ -2316,11 +2316,11 @@ if (window.__FILE_MODE__) {
 
     try {
       await navigator.clipboard.writeText(payload);
-      setEditorFeedback('JSON をクリップボードにコピーしました');
+      setEditorFeedback('Copied the JSON to the clipboard.');
     } catch (error) {
       editorJson?.focus();
       editorJson?.select();
-      setEditorFeedback('自動コピーに失敗したため、JSON を選択した状態にしました');
+      setEditorFeedback('Automatic copy failed, so the JSON has been selected for manual copying.');
     }
   }
 
@@ -2339,7 +2339,7 @@ if (window.__FILE_MODE__) {
     link.click();
     link.remove();
     URL.revokeObjectURL(url);
-    setEditorFeedback(`${MANUAL_EXPORT_FILENAME} を保存しました`);
+    setEditorFeedback(`Saved ${MANUAL_EXPORT_FILENAME}.`);
   }
 
   async function importManualEntriesJson(file) {
@@ -2367,12 +2367,12 @@ if (window.__FILE_MODE__) {
       renderSearchSuggestions();
       setEditorFeedback(
         importedEntries.length > 0 || importedFacilityRings.length > 0
-          ? `${importedEntries.length} 件の検索データと ${importedFacilityRings.length} 件のリング下書きを読み込みました。「編集を確定」で閲覧用に反映されます`
-          : '空の JSON を読み込みました。「編集を確定」で閲覧用からも削除されます'
+          ? `Loaded ${importedEntries.length} search entr${importedEntries.length === 1 ? 'y' : 'ies'} and ${importedFacilityRings.length} ring draft${importedFacilityRings.length === 1 ? '' : 's'}. Click "Publish Changes" to send them to the viewer.`
+          : 'Loaded an empty JSON file. Click "Publish Changes" to clear the viewer as well.'
       );
     } catch (error) {
       console.warn('Failed to import manual search entries.', error);
-      setEditorFeedback('JSON の読み込みに失敗しました');
+      setEditorFeedback('Failed to load the JSON file.');
     }
   }
 
@@ -2389,8 +2389,8 @@ if (window.__FILE_MODE__) {
     });
     setEditorFeedback(
       publishedEntries.length > 0 || publishedFacilityRings.length > 0
-        ? `${publishedEntries.length} 件の検索データと ${publishedFacilityRings.length} 件のリングを閲覧用サイトに反映しました`
-        : '閲覧用サイトの検索データとリングを空に反映しました'
+        ? `Published ${publishedEntries.length} search entr${publishedEntries.length === 1 ? 'y' : 'ies'} and ${publishedFacilityRings.length} ring${publishedFacilityRings.length === 1 ? '' : 's'} to the viewer site.`
+        : 'Published an empty set of search data and rings to the viewer site.'
     );
   }
 
@@ -2402,7 +2402,7 @@ if (window.__FILE_MODE__) {
     const point = getMapPointFromClient(clientX, clientY);
 
     if (!point) {
-      setEditorFeedback('地図の外側は記録できません');
+      setEditorFeedback('You cannot record a point outside the map.');
       return;
     }
 
@@ -2414,7 +2414,7 @@ if (window.__FILE_MODE__) {
     state.activeEditorPinKey = null;
     state.activeEditorRingId = null;
     state.pendingEditorPoint = point;
-    setEditorFeedback('位置を取得しました。表示名を入れて「この位置を記録」を押してください');
+    setEditorFeedback('Location selected. Enter a label and click "Save This Location".');
     refreshEditorUi();
   }
 
@@ -2547,7 +2547,7 @@ if (window.__FILE_MODE__) {
   if (editorClearPointButton) {
     editorClearPointButton.addEventListener('click', () => {
       state.pendingEditorPoint = null;
-      setEditorFeedback('仮位置をクリアしました');
+      setEditorFeedback('Cleared the temporary location.');
       refreshEditorUi();
     });
   }
@@ -2716,7 +2716,7 @@ if (window.__FILE_MODE__) {
     const entry = getManualEntryById(entryId);
 
     if (entry && state.activeEditorPinKey) {
-      const aliasText = entry.aliases.length ? ` / 別名: ${entry.aliases.join(', ')}` : '';
+      const aliasText = entry.aliases.length ? ` / Aliases: ${entry.aliases.join(', ')}` : '';
       setEditorFeedback(`${entry.label}${aliasText}`);
     }
 

@@ -18,7 +18,7 @@
     {
       "id": "manual-1F-1775276384725-y0na0t",
       "floorId": "1F",
-      "label": "AC事務室",
+      "label": "AC Office",
       "aliases": [],
       "rects": [
         {
@@ -46,7 +46,7 @@
     {
       "id": "manual-1F-1775276331434-6lrv19",
       "floorId": "1F",
-      "label": "AN事務室",
+      "label": "AN Office",
       "aliases": [],
       "rects": [
         {
@@ -60,7 +60,7 @@
     {
       "id": "manual-1F-1775276397883-3ppsv2",
       "floorId": "1F",
-      "label": "AS事務室",
+      "label": "AS Office",
       "aliases": [],
       "rects": [
         {
@@ -88,7 +88,7 @@
     {
       "id": "manual-1F-1775230504884-lk2mwr",
       "floorId": "1F",
-      "label": "D事務室",
+      "label": "D Office",
       "aliases": [],
       "rects": [
         {
@@ -214,7 +214,7 @@
     {
       "id": "manual-1F-1775167899159-nrqbk2",
       "floorId": "1F",
-      "label": "Noh[能] - Theater",
+      "label": "Noh Theater",
       "aliases": [],
       "rects": [
         {
@@ -508,7 +508,7 @@
     {
       "id": "manual-1F-1775276132325-7xapn5",
       "floorId": "1F",
-      "label": "イベントホール1",
+      "label": "Event Hall 1",
       "aliases": [],
       "rects": [
         {
@@ -522,7 +522,7 @@
     {
       "id": "manual-1F-1775276138988-r98fqm",
       "floorId": "1F",
-      "label": "イベントホール2",
+      "label": "Event Hall 2",
       "aliases": [],
       "rects": [
         {
@@ -536,7 +536,7 @@
     {
       "id": "manual-1F-1775276147617-kuif1d",
       "floorId": "1F",
-      "label": "イベントホール3",
+      "label": "Event Hall 3",
       "aliases": [],
       "rects": [
         {
@@ -550,7 +550,7 @@
     {
       "id": "manual-1F-1775230586009-my4zd3",
       "floorId": "1F",
-      "label": "インフォメーション(B棟ホール受付)",
+      "label": "Information (Building B Hall Reception)",
       "aliases": [],
       "rects": [
         {
@@ -564,7 +564,7 @@
     {
       "id": "manual-1F-1775230596676-b72rre",
       "floorId": "1F",
-      "label": "カンファレンスホール",
+      "label": "Conference Hall",
       "aliases": [],
       "rects": [
         {
@@ -578,7 +578,7 @@
     {
       "id": "manual-1F-1775276376304-tyc217",
       "floorId": "1F",
-      "label": "キャンパスインフォメーション",
+      "label": "Campus Information",
       "aliases": [],
       "rects": [
         {
@@ -592,7 +592,7 @@
     {
       "id": "manual-1F-1775276357297-mkconb",
       "floorId": "1F",
-      "label": "キャンパス管理室1",
+      "label": "Campus Management Office 1",
       "aliases": [],
       "rects": [
         {
@@ -606,7 +606,7 @@
     {
       "id": "manual-1F-1775276347197-sitkay",
       "floorId": "1F",
-      "label": "キャンパス管理室2",
+      "label": "Campus Management Office 2",
       "aliases": [],
       "rects": [
         {
@@ -620,7 +620,7 @@
     {
       "id": "manual-1F-1775178126269-gkeqr2",
       "floorId": "1F",
-      "label": "クラブボックス",
+      "label": "Club Box",
       "aliases": [],
       "rects": [
         {
@@ -634,7 +634,7 @@
     {
       "id": "manual-1F-1775277787756-6ulo7v",
       "floorId": "1F",
-      "label": "グランドホール(1F)",
+      "label": "Grand Hall (1F)",
       "aliases": [],
       "rects": [
         {
@@ -648,7 +648,7 @@
     {
       "id": "manual-1F-1775178163639-5a4zwo",
       "floorId": "1F",
-      "label": "コンディショニングルーム",
+      "label": "Conditioning Room",
       "aliases": [],
       "rects": [
         {
@@ -662,7 +662,7 @@
     {
       "id": "manual-1F-1775276070168-w74szt",
       "floorId": "1F",
-      "label": "スターバックスコーヒー",
+      "label": "Starbucks Coffee",
       "aliases": [],
       "rects": [
         {
@@ -676,7 +676,7 @@
     {
       "id": "manual-1F-1775276488715-0vkkmq",
       "floorId": "1F",
-      "label": "スタッフルーム",
+      "label": "Staff Room",
       "aliases": [],
       "rects": [
         {
@@ -690,7 +690,7 @@
     {
       "id": "manual-1F-1775276194346-agkncx",
       "floorId": "1F",
-      "label": "セブン-イレブン",
+      "label": "7-Eleven",
       "aliases": [],
       "rects": [
         {
@@ -704,7 +704,7 @@
     {
       "id": "manual-1F-1775178231502-tnlcqo",
       "floorId": "1F",
-      "label": "トレーナールーム",
+      "label": "Trainers' Room",
       "aliases": [],
       "rects": [
         {
@@ -718,7 +718,7 @@
     {
       "id": "manual-1F-1775178181780-67ua3b",
       "floorId": "1F",
-      "label": "トレーニングルーム",
+      "label": "Training Room",
       "aliases": [],
       "rects": [
         {
@@ -732,7 +732,7 @@
     {
       "id": "manual-1F-1775276089056-py4hnw",
       "floorId": "1F",
-      "label": "まちライブラリー@OIC",
+      "label": "Machi Library @ OIC",
       "aliases": [],
       "rects": [
         {
@@ -746,7 +746,7 @@
     {
       "id": "manual-1F-1775230520967-89bqi5",
       "floorId": "1F",
-      "label": "ミーティングルーム1･2",
+      "label": "Meeting Rooms 1 / 2",
       "aliases": [],
       "rects": [
         {
@@ -760,7 +760,7 @@
     {
       "id": "manual-1F-1775276166712-57ri6c",
       "floorId": "1F",
-      "label": "みなめんcafe",
+      "label": "Minamen Cafe",
       "aliases": [],
       "rects": [
         {
@@ -774,7 +774,7 @@
     {
       "id": "manual-1F-1775230529758-ksko0x",
       "floorId": "1F",
-      "label": "ミニ練習スタジオ",
+      "label": "Mini Practice Studio",
       "aliases": [],
       "rects": [
         {
@@ -788,7 +788,7 @@
     {
       "id": "manual-1F-1775230538897-62pvp7",
       "floorId": "1F",
-      "label": "ロッカーラウンジ",
+      "label": "Locker Lounge",
       "aliases": [],
       "rects": [
         {
@@ -802,7 +802,7 @@
     {
       "id": "manual-1F-1775191321942-zip9wt",
       "floorId": "1F",
-      "label": "ロッカールーム",
+      "label": "Locker Room",
       "aliases": [],
       "rects": [
         {
@@ -816,7 +816,7 @@
     {
       "id": "manual-1F-1775276118609-t56rfz",
       "floorId": "1F",
-      "label": "音楽練習室",
+      "label": "Music Practice Room",
       "aliases": [],
       "rects": [
         {
@@ -830,7 +830,7 @@
     {
       "id": "manual-1F-1775276319231-7gfakw",
       "floorId": "1F",
-      "label": "学修支援コモンズ･Beyond Borders Plaza (BBP)",
+      "label": "Learning Support Commons / Beyond Borders Plaza (BBP)",
       "aliases": [],
       "rects": [
         {
@@ -844,7 +844,7 @@
     {
       "id": "manual-1F-1775276409499-7o2hye",
       "floorId": "1F",
-      "label": "学生サポートルーム",
+      "label": "Student Support Room",
       "aliases": [],
       "rects": [
         {
@@ -858,7 +858,7 @@
     {
       "id": "manual-1F-1775192247078-61reuo",
       "floorId": "1F",
-      "label": "学生ホール1",
+      "label": "Student Hall 1",
       "aliases": [],
       "rects": [
         {
@@ -872,7 +872,7 @@
     {
       "id": "manual-1F-1775192236916-i7oh6u",
       "floorId": "1F",
-      "label": "学生ホール2",
+      "label": "Student Hall 2",
       "aliases": [],
       "rects": [
         {
@@ -886,7 +886,7 @@
     {
       "id": "manual-1F-1775168103780-lpuoyl",
       "floorId": "1F",
-      "label": "管理人室",
+      "label": "Caretaker's Room",
       "aliases": [],
       "rects": [
         {
@@ -900,7 +900,7 @@
     {
       "id": "manual-1F-1775192351892-mt9461",
       "floorId": "1F",
-      "label": "機材管理室",
+      "label": "Equipment Management Room",
       "aliases": [],
       "rects": [
         {
@@ -914,7 +914,7 @@
     {
       "id": "manual-1F-1775192406358-c8v4x2",
       "floorId": "1F",
-      "label": "機材庫",
+      "label": "Equipment Storage",
       "aliases": [],
       "rects": [
         {
@@ -928,7 +928,7 @@
     {
       "id": "manual-1F-1775230485496-t6dvjs",
       "floorId": "1F",
-      "label": "共同研究室",
+      "label": "Shared Research Room",
       "aliases": [],
       "rects": [
         {
@@ -942,7 +942,7 @@
     {
       "id": "manual-1F-1775276338601-2qz3bs",
       "floorId": "1F",
-      "label": "教員ラウンジ",
+      "label": "Faculty Lounge",
       "aliases": [],
       "rects": [
         {
@@ -956,7 +956,7 @@
     {
       "id": "manual-1F-1775230570647-6me2ud",
       "floorId": "1F",
-      "label": "校友ラウンジ",
+      "label": "Alumni Lounge",
       "aliases": [],
       "rects": [
         {
@@ -970,7 +970,7 @@
     {
       "id": "manual-1F-1775230497271-u8fiif",
       "floorId": "1F",
-      "label": "講師控室",
+      "label": "Instructors' Lounge",
       "aliases": [],
       "rects": [
         {
@@ -984,7 +984,7 @@
     {
       "id": "manual-1F-1775192178585-mf9vx7",
       "floorId": "1F",
-      "label": "作業室1",
+      "label": "Workroom 1",
       "aliases": [],
       "rects": [
         {
@@ -998,7 +998,7 @@
     {
       "id": "manual-1F-1775192168747-xr3ezg",
       "floorId": "1F",
-      "label": "作業室2",
+      "label": "Workroom 2",
       "aliases": [],
       "rects": [
         {
@@ -1012,7 +1012,7 @@
     {
       "id": "manual-1F-1775192151264-nnn25i",
       "floorId": "1F",
-      "label": "作業室3",
+      "label": "Workroom 3",
       "aliases": [],
       "rects": [
         {
@@ -1026,7 +1026,7 @@
     {
       "id": "manual-1F-1775192465934-ir15sn",
       "floorId": "1F",
-      "label": "社会共創デスク",
+      "label": "Social Co-Creation Desk",
       "aliases": [],
       "rects": [
         {
@@ -1040,7 +1040,7 @@
     {
       "id": "manual-1F-1775276453028-x6ko3m",
       "floorId": "1F",
-      "label": "証明書自動発行機",
+      "label": "Automated Certificate Issuance Machine",
       "aliases": [],
       "rects": [
         {
@@ -1054,7 +1054,7 @@
     {
       "id": "manual-1F-1775276426828-bumr9i",
       "floorId": "1F",
-      "label": "心理･教育相談センター",
+      "label": "Psychological and Educational Counseling Center",
       "aliases": [],
       "rects": [
         {
@@ -1068,7 +1068,7 @@
     {
       "id": "manual-1F-1775192307264-bw6xtm",
       "floorId": "1F",
-      "label": "立命館いばらき診療所保健センター",
+      "label": "Ritsumeikan Ibaraki Clinic Health Center",
       "aliases": [],
       "rects": [
         {
@@ -1698,7 +1698,7 @@
     {
       "id": "manual-2F-1775276618789-j1by6l",
       "floorId": "2F",
-      "label": "H246 音響編集実習室",
+      "label": "H246 Audio Editing Studio",
       "aliases": [],
       "rects": [
         {
@@ -1796,7 +1796,7 @@
     {
       "id": "manual-2F-1775278037009-yqv8rx",
       "floorId": "2F",
-      "label": "OICアリーナ",
+      "label": "OIC Arena",
       "aliases": [],
       "rects": [
         {
@@ -1810,7 +1810,7 @@
     {
       "id": "manual-2F-1775277833098-m4efsz",
       "floorId": "2F",
-      "label": "OICライブラリー",
+      "label": "OIC Library",
       "aliases": [],
       "rects": [
         {
@@ -1824,7 +1824,7 @@
     {
       "id": "manual-2F-1775277852531-6642ck",
       "floorId": "2F",
-      "label": "OICライブラリー事務室",
+      "label": "OIC Library Office",
       "aliases": [],
       "rects": [
         {
@@ -1838,7 +1838,7 @@
     {
       "id": "manual-2F-1775277997672-8tc17i",
       "floorId": "2F",
-      "label": "RAINBOWサービスデスク",
+      "label": "RAINBOW Service Desk",
       "aliases": [],
       "rects": [
         {
@@ -1866,7 +1866,7 @@
     {
       "id": "manual-2F-1775277050730-fxycll",
       "floorId": "2F",
-      "label": "アナウンスブース",
+      "label": "Announcer Booth",
       "aliases": [],
       "rects": [
         {
@@ -1880,7 +1880,7 @@
     {
       "id": "manual-2F-1775277927314-1i63fy",
       "floorId": "2F",
-      "label": "ギャラリー R-AGORA",
+      "label": "Gallery R-AGORA",
       "aliases": [],
       "rects": [
         {
@@ -1894,7 +1894,7 @@
     {
       "id": "manual-2F-1775277753785-8znj1j",
       "floorId": "2F",
-      "label": "グランドホール(2F)",
+      "label": "Grand Hall (2F)",
       "aliases": [],
       "rects": [
         {
@@ -1908,7 +1908,7 @@
     {
       "id": "manual-2F-1775277399519-uu4w8e",
       "floorId": "2F",
-      "label": "サウンドデザインルーム 1･2",
+      "label": "Sound Design Rooms 1 / 2",
       "aliases": [],
       "rects": [
         {
@@ -1922,7 +1922,7 @@
     {
       "id": "manual-2F-1775277012526-zqtpcr",
       "floorId": "2F",
-      "label": "スクリーニングスタジオ",
+      "label": "Screening Studio",
       "aliases": [],
       "rects": [
         {
@@ -1936,7 +1936,7 @@
     {
       "id": "manual-2F-1775277821181-3d8oft",
       "floorId": "2F",
-      "label": "ぴあら",
+      "label": "Piara",
       "aliases": [],
       "rects": [
         {
@@ -1950,7 +1950,7 @@
     {
       "id": "manual-2F-1775277720290-sbwf1p",
       "floorId": "2F",
-      "label": "メディアアーカイブ･メディアトランスファールーム",
+      "label": "Media Archive / Media Transfer Room",
       "aliases": [],
       "rects": [
         {
@@ -1964,7 +1964,7 @@
     {
       "id": "manual-2F-1775277889365-34khyi",
       "floorId": "2F",
-      "label": "ラーニングスタジオ",
+      "label": "Learning Studio",
       "aliases": [],
       "rects": [
         {
@@ -1978,7 +1978,7 @@
     {
       "id": "manual-2F-1775277969064-z3l6vd",
       "floorId": "2F",
-      "label": "ラーニングスタジオ",
+      "label": "Learning Studio",
       "aliases": [],
       "rects": [
         {
@@ -1992,7 +1992,7 @@
     {
       "id": "manual-2F-1775277309157-phjk32",
       "floorId": "2F",
-      "label": "映写室",
+      "label": "Projection Room",
       "aliases": [],
       "rects": [
         {
@@ -2006,7 +2006,7 @@
     {
       "id": "manual-2F-1775277300074-3icz3r",
       "floorId": "2F",
-      "label": "映像学部自治会室",
+      "label": "College of Image Arts and Sciences Student Council Room",
       "aliases": [],
       "rects": [
         {
@@ -2020,7 +2020,7 @@
     {
       "id": "manual-2F-1775277338269-gk4jz9",
       "floorId": "2F",
-      "label": "音響調整室",
+      "label": "Sound Control Room",
       "aliases": [],
       "rects": [
         {
@@ -2034,7 +2034,7 @@
     {
       "id": "manual-2F-1775277655351-pyu9ze",
       "floorId": "2F",
-      "label": "楽心軒(茶室)",
+      "label": "Rakushinken (Tea Room)",
       "aliases": [],
       "rects": [
         {
@@ -2048,7 +2048,7 @@
     {
       "id": "manual-2F-1775277601910-bnblqj",
       "floorId": "2F",
-      "label": "館長室",
+      "label": "Director's Office",
       "aliases": [],
       "rects": [
         {
@@ -2062,7 +2062,7 @@
     {
       "id": "manual-2F-1775277374652-022qui",
       "floorId": "2F",
-      "label": "社会連携スペース",
+      "label": "Community Partnership Space",
       "aliases": [],
       "rects": [
         {
@@ -2076,7 +2076,7 @@
     {
       "id": "manual-2F-1775277165937-auobrc",
       "floorId": "2F",
-      "label": "授業準備室",
+      "label": "Class Preparation Room",
       "aliases": [],
       "rects": [
         {
@@ -2090,7 +2090,7 @@
     {
       "id": "manual-2F-1775277911597-b61exg",
       "floorId": "2F",
-      "label": "地域連携室･社会共創推進本部",
+      "label": "Regional Partnerships Office / Social Co-Creation Promotion Headquarters",
       "aliases": [],
       "rects": [
         {
@@ -2104,7 +2104,7 @@
     {
       "id": "manual-2F-1775277590193-13ngry",
       "floorId": "2F",
-      "label": "分林保弘記念室",
+      "label": "Yasuhiro Bunbayashi Memorial Room",
       "aliases": [],
       "rects": [
         {
@@ -2510,7 +2510,7 @@
     {
       "id": "manual-3F-1775278682899-ikr9n6",
       "floorId": "3F",
-      "label": "B374コロキウム",
+      "label": "B374 Colloquium",
       "aliases": [],
       "rects": [
         {
@@ -2566,7 +2566,7 @@
     {
       "id": "manual-3F-1775278722492-rgkxor",
       "floorId": "3F",
-      "label": "C373ラーニングシアター",
+      "label": "C373 Learning Theater",
       "aliases": [],
       "rects": [
         {
@@ -2664,7 +2664,7 @@
     {
       "id": "manual-3F-1775278448664-jbqrkt",
       "floorId": "3F",
-      "label": "H325映像編集実習室",
+      "label": "H325 Video Editing Studio",
       "aliases": [],
       "rects": [
         {
@@ -2846,7 +2846,7 @@
     {
       "id": "manual-3F-1775278558605-22b30o",
       "floorId": "3F",
-      "label": "サーバールーム･レンダーファーム",
+      "label": "Server Room / Render Farm",
       "aliases": [],
       "rects": [
         {
@@ -2860,7 +2860,7 @@
     {
       "id": "manual-3F-1775278434256-8wok8y",
       "floorId": "3F",
-      "label": "パーソナルクリエーション･ラボ",
+      "label": "Personal Creation Lab",
       "aliases": [],
       "rects": [
         {
@@ -2874,7 +2874,7 @@
     {
       "id": "manual-3F-1775278792507-gwezbg",
       "floorId": "3F",
-      "label": "ラーニングスタジオ",
+      "label": "Learning Studio",
       "aliases": [],
       "rects": [
         {
@@ -2888,7 +2888,7 @@
     {
       "id": "manual-3F-1775278509551-941x0d",
       "floorId": "3F",
-      "label": "映像編集室1",
+      "label": "Video Editing Room 1",
       "aliases": [],
       "rects": [
         {
@@ -2902,7 +2902,7 @@
     {
       "id": "manual-3F-1775278502564-7o9zcu",
       "floorId": "3F",
-      "label": "映像編集室2",
+      "label": "Video Editing Room 2",
       "aliases": [],
       "rects": [
         {
@@ -2916,7 +2916,7 @@
     {
       "id": "manual-3F-1775278497856-j1b0ql",
       "floorId": "3F",
-      "label": "映像編集室3",
+      "label": "Video Editing Room 3",
       "aliases": [],
       "rects": [
         {
@@ -2930,7 +2930,7 @@
     {
       "id": "manual-3F-1775278493777-v5m5ye",
       "floorId": "3F",
-      "label": "映像編集室4",
+      "label": "Video Editing Room 4",
       "aliases": [],
       "rects": [
         {
@@ -2944,7 +2944,7 @@
     {
       "id": "manual-3F-1775278488907-b7jtml",
       "floorId": "3F",
-      "label": "映像編集室5",
+      "label": "Video Editing Room 5",
       "aliases": [],
       "rects": [
         {
@@ -2958,7 +2958,7 @@
     {
       "id": "manual-3F-1775278484939-nea6n2",
       "floorId": "3F",
-      "label": "映像編集室6",
+      "label": "Video Editing Room 6",
       "aliases": [],
       "rects": [
         {
@@ -2972,7 +2972,7 @@
     {
       "id": "manual-3F-1775278474201-1gbvyb",
       "floorId": "3F",
-      "label": "映像編集室7",
+      "label": "Video Editing Room 7",
       "aliases": [],
       "rects": [
         {
@@ -2986,7 +2986,7 @@
     {
       "id": "manual-3F-1775278464393-5ef60f",
       "floorId": "3F",
-      "label": "映像編集室8",
+      "label": "Video Editing Room 8",
       "aliases": [],
       "rects": [
         {
@@ -3532,7 +3532,7 @@
     {
       "id": "manual-4F-1775279482239-v3im2n",
       "floorId": "4F",
-      "label": "B401〜B408プロジェクト室",
+      "label": "B401-B408 Project Rooms",
       "aliases": [],
       "rects": [
         {
@@ -3546,7 +3546,7 @@
     {
       "id": "manual-4F-1775279466681-hweydl",
       "floorId": "4F",
-      "label": "B411〜B413研究会室",
+      "label": "B411-B413 Seminar Rooms",
       "aliases": [],
       "rects": [
         {
@@ -3616,7 +3616,7 @@
     {
       "id": "manual-4F-1775279276048-d91ano",
       "floorId": "4F",
-      "label": "H421チーム･クリエーション･ラボ",
+      "label": "H421 Team Creation Lab",
       "aliases": [],
       "rects": [
         {
@@ -3630,7 +3630,7 @@
     {
       "id": "manual-4F-1775279254152-cv87qo",
       "floorId": "4F",
-      "label": "H422メディア･デベロップメント･ラボ",
+      "label": "H422 Media Development Lab",
       "aliases": [],
       "rects": [
         {
@@ -3644,7 +3644,7 @@
     {
       "id": "manual-4F-1775279182637-0gs308",
       "floorId": "4F",
-      "label": "H423クリエイティブPC教室1",
+      "label": "H423 Creative PC Classroom 1",
       "aliases": [],
       "rects": [
         {
@@ -3658,7 +3658,7 @@
     {
       "id": "manual-4F-1775279170084-jhx1zv",
       "floorId": "4F",
-      "label": "H424クリエイティブPC教室2",
+      "label": "H424 Creative PC Classroom 2",
       "aliases": [],
       "rects": [
         {
@@ -3770,7 +3770,7 @@
     {
       "id": "manual-4F-1775279724109-rb6jux",
       "floorId": "4F",
-      "label": "エクステンションセンター自習室",
+      "label": "Extension Center Study Room",
       "aliases": [],
       "rects": [
         {
@@ -3784,7 +3784,7 @@
     {
       "id": "manual-4F-1775279387825-751ctk",
       "floorId": "4F",
-      "label": "映像研究室1",
+      "label": "Image Arts Research Room 1",
       "aliases": [],
       "rects": [
         {
@@ -3798,7 +3798,7 @@
     {
       "id": "manual-4F-1775279396303-og4rhv",
       "floorId": "4F",
-      "label": "映像研究室2",
+      "label": "Image Arts Research Room 2",
       "aliases": [],
       "rects": [
         {
@@ -3812,7 +3812,7 @@
     {
       "id": "manual-4F-1775279684647-z88qhj",
       "floorId": "4F",
-      "label": "嘱託講師室(言語教育)",
+      "label": "Adjunct Lecturer Room (Language Education)",
       "aliases": [],
       "rects": [
         {
@@ -3826,7 +3826,7 @@
     {
       "id": "manual-4F-1775279532909-dndlca",
       "floorId": "4F",
-      "label": "大学院ラウンジ",
+      "label": "Graduate Student Lounge",
       "aliases": [],
       "rects": [
         {
@@ -4148,7 +4148,7 @@
     {
       "id": "manual-5F-1775280510389-twl8ha",
       "floorId": "5F",
-      "label": "B501〜B510研究センター･研究所",
+      "label": "B501-B510 Research Centers / Institutes",
       "aliases": [],
       "rects": [
         {
@@ -4162,7 +4162,7 @@
     {
       "id": "manual-5F-1775280535421-s4y5p2",
       "floorId": "5F",
-      "label": "B511〜B516研究会室･プロジェクト室",
+      "label": "B511-B516 Seminar Rooms / Project Rooms",
       "aliases": [],
       "rects": [
         {
@@ -4176,7 +4176,7 @@
     {
       "id": "manual-5F-1775280450707-ffgw1o",
       "floorId": "5F",
-      "label": "B517研究所",
+      "label": "B517 Research Institute",
       "aliases": [],
       "rects": [
         {
@@ -4372,7 +4372,7 @@
     {
       "id": "manual-5F-1775280164263-m1qhsd",
       "floorId": "5F",
-      "label": "H509実験室",
+      "label": "H509 Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -4386,7 +4386,7 @@
     {
       "id": "manual-5F-1775280155859-kr5wa8",
       "floorId": "5F",
-      "label": "H510実験室",
+      "label": "H510 Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -4624,7 +4624,7 @@
     {
       "id": "manual-5F-1775280427724-1bvp6q",
       "floorId": "5F",
-      "label": "OICセミナーハウス",
+      "label": "OIC Seminar House",
       "aliases": [],
       "rects": [
         {
@@ -4666,7 +4666,7 @@
     {
       "id": "manual-5F-1775280898477-gvxk0y",
       "floorId": "5F",
-      "label": "アネックス",
+      "label": "Annex",
       "aliases": [],
       "rects": [
         {
@@ -4680,7 +4680,7 @@
     {
       "id": "manual-5F-1775280919685-gme087",
       "floorId": "5F",
-      "label": "アネックス",
+      "label": "Annex",
       "aliases": [],
       "rects": [
         {
@@ -4694,7 +4694,7 @@
     {
       "id": "manual-5F-1775280558479-d38d56",
       "floorId": "5F",
-      "label": "ガーデンライブラリー",
+      "label": "Garden Library",
       "aliases": [],
       "rects": [
         {
@@ -4708,7 +4708,7 @@
     {
       "id": "manual-5F-1775280356229-2i3iqi",
       "floorId": "5F",
-      "label": "プロジェクトルーム",
+      "label": "Project Room",
       "aliases": [],
       "rects": [
         {
@@ -4722,7 +4722,7 @@
     {
       "id": "manual-5F-1775281002747-z51e74",
       "floorId": "5F",
-      "label": "フロント",
+      "label": "Front Desk",
       "aliases": [],
       "rects": [
         {
@@ -4736,7 +4736,7 @@
     {
       "id": "manual-5F-1775280933923-3haxbw",
       "floorId": "5F",
-      "label": "ラーニングスタジオ",
+      "label": "Learning Studio",
       "aliases": [],
       "rects": [
         {
@@ -4750,7 +4750,7 @@
     {
       "id": "manual-5F-1775280942735-5zsrgz",
       "floorId": "5F",
-      "label": "ラーニングスタジオ",
+      "label": "Learning Studio",
       "aliases": [],
       "rects": [
         {
@@ -4764,7 +4764,7 @@
     {
       "id": "manual-5F-1775280393683-2kax4y",
       "floorId": "5F",
-      "label": "ラウンジ1",
+      "label": "Lounge 1",
       "aliases": [],
       "rects": [
         {
@@ -4778,7 +4778,7 @@
     {
       "id": "manual-5F-1775280400995-46ntg6",
       "floorId": "5F",
-      "label": "ラウンジ2",
+      "label": "Lounge 2",
       "aliases": [],
       "rects": [
         {
@@ -4792,7 +4792,7 @@
     {
       "id": "manual-5F-1775280378970-2lm3s7",
       "floorId": "5F",
-      "label": "ラウンジ3",
+      "label": "Lounge 3",
       "aliases": [],
       "rects": [
         {
@@ -4806,7 +4806,7 @@
     {
       "id": "manual-5F-1775280966868-9iz14e",
       "floorId": "5F",
-      "label": "共同実験室",
+      "label": "Shared Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -4820,7 +4820,7 @@
     {
       "id": "manual-5F-1775280978239-zihb4b",
       "floorId": "5F",
-      "label": "共同実験室",
+      "label": "Shared Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -4834,7 +4834,7 @@
     {
       "id": "manual-5F-1775280468231-8zm1es",
       "floorId": "5F",
-      "label": "産学交流ラウンジ",
+      "label": "Industry-Academia Lounge",
       "aliases": [],
       "rects": [
         {
@@ -4848,7 +4848,7 @@
     {
       "id": "manual-5F-1775280258752-pajtdz",
       "floorId": "5F",
-      "label": "情報理工学部自治会室",
+      "label": "College of Information Science and Engineering Student Council Room",
       "aliases": [],
       "rects": [
         {
@@ -4862,7 +4862,7 @@
     {
       "id": "manual-A-6-9F-1775283196728-i2ogl3",
       "floorId": "A-6-9F",
-      "label": "A610実習室",
+      "label": "A610 Practicum Room",
       "aliases": [],
       "rects": [
         {
@@ -4876,7 +4876,7 @@
     {
       "id": "manual-A-6-9F-1775283186953-fvl5xq",
       "floorId": "A-6-9F",
-      "label": "A620実習室",
+      "label": "A620 Practicum Room",
       "aliases": [],
       "rects": [
         {
@@ -4890,7 +4890,7 @@
     {
       "id": "manual-A-6-9F-1775282673739-152quq",
       "floorId": "A-6-9F",
-      "label": "A650データ解析室2",
+      "label": "A650 Data Analysis Room 2",
       "aliases": [],
       "rects": [
         {
@@ -4904,7 +4904,7 @@
     {
       "id": "manual-A-6-9F-1775282641387-ok0oyt",
       "floorId": "A-6-9F",
-      "label": "A660データ解析室2",
+      "label": "A660 Data Analysis Room 2",
       "aliases": [],
       "rects": [
         {
@@ -4988,7 +4988,7 @@
     {
       "id": "manual-A-6-9F-1775283036570-wkjjev",
       "floorId": "A-6-9F",
-      "label": "AC636実験室",
+      "label": "AC636 Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -5002,7 +5002,7 @@
     {
       "id": "manual-A-6-9F-1775283027161-idshho",
       "floorId": "A-6-9F",
-      "label": "AC637実験室",
+      "label": "AC637 Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -5016,7 +5016,7 @@
     {
       "id": "manual-A-6-9F-1775283014970-c1lmz8",
       "floorId": "A-6-9F",
-      "label": "AC638実験室",
+      "label": "AC638 Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -5030,7 +5030,7 @@
     {
       "id": "manual-A-6-9F-1775283006957-86b5pp",
       "floorId": "A-6-9F",
-      "label": "AC639実験室",
+      "label": "AC639 Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -5142,7 +5142,7 @@
     {
       "id": "manual-A-6-9F-1775282997003-qlqdh0",
       "floorId": "A-6-9F",
-      "label": "AC648実験室",
+      "label": "AC648 Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -5254,7 +5254,7 @@
     {
       "id": "manual-A-6-9F-1775283384008-yknizw",
       "floorId": "A-6-9F",
-      "label": "AN612実習室",
+      "label": "AN612 Practicum Room",
       "aliases": [],
       "rects": [
         {
@@ -5268,7 +5268,7 @@
     {
       "id": "manual-A-6-9F-1775283372425-b6no7c",
       "floorId": "A-6-9F",
-      "label": "AN613実習室",
+      "label": "AN613 Practicum Room",
       "aliases": [],
       "rects": [
         {
@@ -5282,7 +5282,7 @@
     {
       "id": "manual-A-6-9F-1775283359170-lb7xwc",
       "floorId": "A-6-9F",
-      "label": "AN614実習室",
+      "label": "AN614 Practicum Room",
       "aliases": [],
       "rects": [
         {
@@ -5338,7 +5338,7 @@
     {
       "id": "manual-A-6-9F-1775283281625-twogba",
       "floorId": "A-6-9F",
-      "label": "AN622実習室",
+      "label": "AN622 Practicum Room",
       "aliases": [],
       "rects": [
         {
@@ -5352,7 +5352,7 @@
     {
       "id": "manual-A-6-9F-1775283295400-s1y68t",
       "floorId": "A-6-9F",
-      "label": "AN623実習室",
+      "label": "AN623 Practicum Room",
       "aliases": [],
       "rects": [
         {
@@ -5366,7 +5366,7 @@
     {
       "id": "manual-A-6-9F-1775283305320-vzw9vf",
       "floorId": "A-6-9F",
-      "label": "AN624実習室",
+      "label": "AN624 Practicum Room",
       "aliases": [],
       "rects": [
         {
@@ -5604,7 +5604,7 @@
     {
       "id": "manual-A-6-9F-1775282555398-mnr0rt",
       "floorId": "A-6-9F",
-      "label": "AS665集団実習室3",
+      "label": "AS665 Group Practicum Room 3",
       "aliases": [],
       "rects": [
         {
@@ -5772,7 +5772,7 @@
     {
       "id": "manual-A-6-9F-1775283105128-epxrz6",
       "floorId": "A-6-9F",
-      "label": "PBL準備室",
+      "label": "PBL Preparation Room",
       "aliases": [],
       "rects": [
         {
@@ -5786,7 +5786,7 @@
     {
       "id": "manual-A-6-9F-1775282570574-1timkj",
       "floorId": "A-6-9F",
-      "label": "カウンセリング実習室",
+      "label": "Counseling Practicum Room",
       "aliases": [],
       "rects": [
         {
@@ -5800,7 +5800,7 @@
     {
       "id": "manual-A-6-9F-1775282811877-sx1ie0",
       "floorId": "A-6-9F",
-      "label": "カンファレンスルーム",
+      "label": "Conference Room",
       "aliases": [],
       "rects": [
         {
@@ -5814,7 +5814,7 @@
     {
       "id": "manual-A-6-9F-1775283163741-7hvheq",
       "floorId": "A-6-9F",
-      "label": "ここらぼスクエア",
+      "label": "Kokorabo Square",
       "aliases": [],
       "rects": [
         {
@@ -5828,7 +5828,7 @@
     {
       "id": "manual-A-6-9F-1775283729930-1tmm25",
       "floorId": "A-6-9F",
-      "label": "ひらめきラウンジ(6F)",
+      "label": "Hirameki Lounge (6F)",
       "aliases": [],
       "rects": [
         {
@@ -5842,7 +5842,7 @@
     {
       "id": "manual-A-6-9F-1775283741209-cfmdy7",
       "floorId": "A-6-9F",
-      "label": "ひらめきラウンジ(6F)",
+      "label": "Hirameki Lounge (6F)",
       "aliases": [],
       "rects": [
         {
@@ -5856,7 +5856,7 @@
     {
       "id": "manual-A-6-9F-1775283758947-gw7d9i",
       "floorId": "A-6-9F",
-      "label": "ひらめきラウンジ(7F)",
+      "label": "Hirameki Lounge (7F)",
       "aliases": [],
       "rects": [
         {
@@ -5870,7 +5870,7 @@
     {
       "id": "manual-A-6-9F-1775283767755-0o3e93",
       "floorId": "A-6-9F",
-      "label": "ひらめきラウンジ(7F)",
+      "label": "Hirameki Lounge (7F)",
       "aliases": [],
       "rects": [
         {
@@ -5884,7 +5884,7 @@
     {
       "id": "manual-A-6-9F-1775283674751-s21ose",
       "floorId": "A-6-9F",
-      "label": "ひらめきラウンジ(8F)",
+      "label": "Hirameki Lounge (8F)",
       "aliases": [],
       "rects": [
         {
@@ -5898,7 +5898,7 @@
     {
       "id": "manual-A-6-9F-1775283688005-g12al6",
       "floorId": "A-6-9F",
-      "label": "ひらめきラウンジ(8F)",
+      "label": "Hirameki Lounge (8F)",
       "aliases": [],
       "rects": [
         {
@@ -5912,7 +5912,7 @@
     {
       "id": "manual-A-6-9F-1775283806314-hsfz6v",
       "floorId": "A-6-9F",
-      "label": "ひらめきラウンジ(9F)",
+      "label": "Hirameki Lounge (9F)",
       "aliases": [],
       "rects": [
         {
@@ -5926,7 +5926,7 @@
     {
       "id": "manual-A-6-9F-1775283814455-ea6acc",
       "floorId": "A-6-9F",
-      "label": "ひらめきラウンジ(9F)",
+      "label": "Hirameki Lounge (9F)",
       "aliases": [],
       "rects": [
         {
@@ -5940,7 +5940,7 @@
     {
       "id": "manual-A-6-9F-1775282857094-ymx713",
       "floorId": "A-6-9F",
-      "label": "プレイルーム",
+      "label": "Play Room",
       "aliases": [],
       "rects": [
         {
@@ -5954,7 +5954,7 @@
     {
       "id": "manual-A-6-9F-1775283877872-31hvvq",
       "floorId": "A-6-9F",
-      "label": "リサーチ･コモンズ(7F)",
+      "label": "Research Commons (7F)",
       "aliases": [],
       "rects": [
         {
@@ -5968,7 +5968,7 @@
     {
       "id": "manual-A-6-9F-1775283843789-ljfr71",
       "floorId": "A-6-9F",
-      "label": "リサーチ･コモンズ(8F)",
+      "label": "Research Commons (8F)",
       "aliases": [],
       "rects": [
         {
@@ -5982,7 +5982,7 @@
     {
       "id": "manual-A-6-9F-1775283510742-uvlwg8",
       "floorId": "A-6-9F",
-      "label": "リサーチオフィスCo-Lab.",
+      "label": "Research Office Co-Lab.",
       "aliases": [],
       "rects": [
         {
@@ -5996,7 +5996,7 @@
     {
       "id": "manual-A-6-9F-1775283535629-aqmvld",
       "floorId": "A-6-9F",
-      "label": "教員共同利用研究室1",
+      "label": "Shared Faculty Research Room 1",
       "aliases": [],
       "rects": [
         {
@@ -6010,7 +6010,7 @@
     {
       "id": "manual-A-6-9F-1775282792056-qisc3g",
       "floorId": "A-6-9F",
-      "label": "公認心理士実習指導室",
+      "label": "Certified Psychologist Practicum Supervision Room",
       "aliases": [],
       "rects": [
         {
@@ -6024,7 +6024,7 @@
     {
       "id": "manual-A-6-9F-1775283136849-tao6qu",
       "floorId": "A-6-9F",
-      "label": "視覚実験室",
+      "label": "Visual Perception Lab",
       "aliases": [],
       "rects": [
         {
@@ -6038,7 +6038,7 @@
     {
       "id": "manual-A-6-9F-1775282771540-7xa4zv",
       "floorId": "A-6-9F",
-      "label": "執務室",
+      "label": "Office",
       "aliases": [],
       "rects": [
         {
@@ -6052,7 +6052,7 @@
     {
       "id": "manual-A-6-9F-1775282735565-f0izvk",
       "floorId": "A-6-9F",
-      "label": "集団実習室1",
+      "label": "Group Practicum Room 1",
       "aliases": [],
       "rects": [
         {
@@ -6066,7 +6066,7 @@
     {
       "id": "manual-A-6-9F-1775282616550-4wid4v",
       "floorId": "A-6-9F",
-      "label": "集団実習室2",
+      "label": "Group Practicum Room 2",
       "aliases": [],
       "rects": [
         {
@@ -6080,7 +6080,7 @@
     {
       "id": "manual-A-6-9F-1775282579450-b5y9rt",
       "floorId": "A-6-9F",
-      "label": "生活行動実験室",
+      "label": "Daily Life Behavior Lab",
       "aliases": [],
       "rects": [
         {
@@ -6094,7 +6094,7 @@
     {
       "id": "manual-A-6-9F-1775283147291-69hf7t",
       "floorId": "A-6-9F",
-      "label": "生理実験室",
+      "label": "Physiology Lab",
       "aliases": [],
       "rects": [
         {
@@ -6108,7 +6108,7 @@
     {
       "id": "manual-A-6-9F-1775282688656-4u2zrp",
       "floorId": "A-6-9F",
-      "label": "総合心理学実習ステーション",
+      "label": "Comprehensive Psychology Practicum Station",
       "aliases": [],
       "rects": [
         {
@@ -6122,7 +6122,7 @@
     {
       "id": "manual-A-6-9F-1775283522480-cabzzz",
       "floorId": "A-6-9F",
-      "label": "大会議室",
+      "label": "Large Conference Room",
       "aliases": [],
       "rects": [
         {
@@ -6136,7 +6136,7 @@
     {
       "id": "manual-A-6-9F-1775283606967-jvpljw",
       "floorId": "A-6-9F",
-      "label": "大学院共同研究室1",
+      "label": "Graduate School Shared Research Room 1",
       "aliases": [],
       "rects": [
         {
@@ -6150,7 +6150,7 @@
     {
       "id": "manual-A-6-9F-1775283611888-omn6pb",
       "floorId": "A-6-9F",
-      "label": "大学院共同研究室2",
+      "label": "Graduate School Shared Research Room 2",
       "aliases": [],
       "rects": [
         {
@@ -6164,7 +6164,7 @@
     {
       "id": "manual-A-6-9F-1775283574384-0f9ntz",
       "floorId": "A-6-9F",
-      "label": "大学院共同研究室3",
+      "label": "Graduate School Shared Research Room 3",
       "aliases": [],
       "rects": [
         {
@@ -6178,7 +6178,7 @@
     {
       "id": "manual-A-6-9F-1775283566017-4ap1cq",
       "floorId": "A-6-9F",
-      "label": "大学院共同研究室4",
+      "label": "Graduate School Shared Research Room 4",
       "aliases": [],
       "rects": [
         {
@@ -6192,7 +6192,7 @@
     {
       "id": "manual-A-6-9F-1775283588042-bpkeqj",
       "floorId": "A-6-9F",
-      "label": "大学院共同研究室5",
+      "label": "Graduate School Shared Research Room 5",
       "aliases": [],
       "rects": [
         {
@@ -6206,7 +6206,7 @@
     {
       "id": "manual-A-6-9F-1775283595351-8jldm6",
       "floorId": "A-6-9F",
-      "label": "大学院共同研究室6",
+      "label": "Graduate School Shared Research Room 6",
       "aliases": [],
       "rects": [
         {
@@ -6220,7 +6220,7 @@
     {
       "id": "manual-A-6-9F-1775283122466-qsj8wa",
       "floorId": "A-6-9F",
-      "label": "知覚実験室",
+      "label": "Perception Lab",
       "aliases": [],
       "rects": [
         {
@@ -6234,7 +6234,7 @@
     {
       "id": "manual-A-6-9F-1775282929115-aytip7",
       "floorId": "A-6-9F",
-      "label": "聴覚実験室",
+      "label": "Auditory Lab",
       "aliases": [],
       "rects": [
         {
@@ -6248,7 +6248,7 @@
     {
       "id": "manual-A-6-9F-1775283331304-pgp7f0",
       "floorId": "A-6-9F",
-      "label": "動物行動実験室",
+      "label": "Animal Behavior Lab",
       "aliases": [],
       "rects": [
         {
@@ -6262,7 +6262,7 @@
     {
       "id": "manual-A-6-9F-1775282962390-liniap",
       "floorId": "A-6-9F",
-      "label": "認知実験室",
+      "label": "Cognitive Lab",
       "aliases": [],
       "rects": [
         {
@@ -6276,7 +6276,7 @@
     {
       "id": "manual-A-6-9F-1775282524234-qyyyzh",
       "floorId": "A-6-9F",
-      "label": "面接実習室",
+      "label": "Interview Practicum Room",
       "aliases": [],
       "rects": [
         {
@@ -6290,7 +6290,7 @@
     {
       "id": "manual-H-6-9F-1775281343778-e3fg6q",
       "floorId": "H-6-9F",
-      "label": "H601共同実験室",
+      "label": "H601 Shared Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -6304,7 +6304,7 @@
     {
       "id": "manual-H-6-9F-1775281321357-p2s2v9",
       "floorId": "H-6-9F",
-      "label": "H602実験室",
+      "label": "H602 Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -6318,7 +6318,7 @@
     {
       "id": "manual-H-6-9F-1775281331849-wqnzwj",
       "floorId": "H-6-9F",
-      "label": "H603共同実験室",
+      "label": "H603 Shared Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -6360,7 +6360,7 @@
     {
       "id": "manual-H-6-9F-1775281301303-wpffr5",
       "floorId": "H-6-9F",
-      "label": "H606共同実験室",
+      "label": "H606 Shared Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -6374,7 +6374,7 @@
     {
       "id": "manual-H-6-9F-1775281292494-8zyn28",
       "floorId": "H-6-9F",
-      "label": "H607共同実験室",
+      "label": "H607 Shared Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -6458,7 +6458,7 @@
     {
       "id": "manual-H-6-9F-1775281261757-7clx95",
       "floorId": "H-6-9F",
-      "label": "H613実験室",
+      "label": "H613 Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -6626,7 +6626,7 @@
     {
       "id": "manual-H-6-9F-1775281403686-ruun5p",
       "floorId": "H-6-9F",
-      "label": "H701共同実験室",
+      "label": "H701 Shared Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -6640,7 +6640,7 @@
     {
       "id": "manual-H-6-9F-1775281584203-w0hvzj",
       "floorId": "H-6-9F",
-      "label": "H702実験室",
+      "label": "H702 Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -6654,7 +6654,7 @@
     {
       "id": "manual-H-6-9F-1775281595049-jycm3g",
       "floorId": "H-6-9F",
-      "label": "H703共同実験室",
+      "label": "H703 Shared Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -6794,7 +6794,7 @@
     {
       "id": "manual-H-6-9F-1775281680719-eqhyk9",
       "floorId": "H-6-9F",
-      "label": "H713共同実験室",
+      "label": "H713 Shared Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -6808,7 +6808,7 @@
     {
       "id": "manual-H-6-9F-1775281694986-qxtrp9",
       "floorId": "H-6-9F",
-      "label": "H714共同実験室",
+      "label": "H714 Shared Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -6822,7 +6822,7 @@
     {
       "id": "manual-H-6-9F-1775281686081-ttef3m",
       "floorId": "H-6-9F",
-      "label": "H715共同実験室",
+      "label": "H715 Shared Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -6836,7 +6836,7 @@
     {
       "id": "manual-H-6-9F-1775281703365-wsoln2",
       "floorId": "H-6-9F",
-      "label": "H716共同実験室",
+      "label": "H716 Shared Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -7004,7 +7004,7 @@
     {
       "id": "manual-H-6-9F-1775281802714-hltjsl",
       "floorId": "H-6-9F",
-      "label": "H801共同実験室",
+      "label": "H801 Shared Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -7018,7 +7018,7 @@
     {
       "id": "manual-H-6-9F-1775281825481-dq1vj8",
       "floorId": "H-6-9F",
-      "label": "H802実験室",
+      "label": "H802 Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -7032,7 +7032,7 @@
     {
       "id": "manual-H-6-9F-1775281814952-tep84r",
       "floorId": "H-6-9F",
-      "label": "H803共同実験室",
+      "label": "H803 Shared Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -7060,7 +7060,7 @@
     {
       "id": "manual-H-6-9F-1775281851718-9dufoi",
       "floorId": "H-6-9F",
-      "label": "H805実験室",
+      "label": "H805 Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -7074,7 +7074,7 @@
     {
       "id": "manual-H-6-9F-1775281859443-omnxji",
       "floorId": "H-6-9F",
-      "label": "H806実験室",
+      "label": "H806 Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -7116,7 +7116,7 @@
     {
       "id": "manual-H-6-9F-1775281883614-mdy850",
       "floorId": "H-6-9F",
-      "label": "H809実験室",
+      "label": "H809 Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -7130,7 +7130,7 @@
     {
       "id": "manual-H-6-9F-1775281892339-044ngk",
       "floorId": "H-6-9F",
-      "label": "H810実験室",
+      "label": "H810 Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -7298,7 +7298,7 @@
     {
       "id": "manual-H-6-9F-1775281996213-coytt2",
       "floorId": "H-6-9F",
-      "label": "H901共同実験室",
+      "label": "H901 Shared Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -7312,7 +7312,7 @@
     {
       "id": "manual-H-6-9F-1775282007117-rh9ale",
       "floorId": "H-6-9F",
-      "label": "H902共同実験室",
+      "label": "H902 Shared Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -7326,7 +7326,7 @@
     {
       "id": "manual-H-6-9F-1775282020384-x3895g",
       "floorId": "H-6-9F",
-      "label": "H903共同実験室",
+      "label": "H903 Shared Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -7354,7 +7354,7 @@
     {
       "id": "manual-H-6-9F-1775282035359-baceus",
       "floorId": "H-6-9F",
-      "label": "H905実験室",
+      "label": "H905 Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -7368,7 +7368,7 @@
     {
       "id": "manual-H-6-9F-1775282234673-5z0d0z",
       "floorId": "H-6-9F",
-      "label": "H906実験室",
+      "label": "H906 Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -7382,7 +7382,7 @@
     {
       "id": "manual-H-6-9F-1775282245198-5r27hp",
       "floorId": "H-6-9F",
-      "label": "H907共同実験室",
+      "label": "H907 Shared Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -7396,7 +7396,7 @@
     {
       "id": "manual-H-6-9F-1775282255131-h1flz8",
       "floorId": "H-6-9F",
-      "label": "H908共同実験室",
+      "label": "H908 Shared Laboratory",
       "aliases": [],
       "rects": [
         {
@@ -7452,7 +7452,7 @@
     {
       "id": "manual-H-6-9F-1775282350977-26nen4",
       "floorId": "H-6-9F",
-      "label": "H912実験室",
+      "label": "H912 Laboratory",
       "aliases": [],
       "rects": [
         {
