@@ -1,7 +1,7 @@
 {
   "id": "/",
-  "name": "立命館OICマップ",
-  "short_name": "立命館OICマップ",
+  "name": "Ritsumeikan OIC Map",
+  "short_name": "Ritsumeikan OIC Map",
   "description": "立命館大学大阪いばらきキャンパスの教室検索とフロアマップ閲覧ができるキャンパスマップです。",
   "lang": "ja",
   "start_url": "/?source=pwa",
