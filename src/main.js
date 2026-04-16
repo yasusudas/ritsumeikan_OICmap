@@ -2,6 +2,7 @@ import './style.css';
 import { inject } from '@vercel/analytics';
 import * as pdfjsLib from 'pdfjs-dist';
 import workerUrl from 'pdfjs-dist/build/pdf.worker.mjs?url';
+import { inject } from '@vercel/analytics';
 
 if (window.__FILE_MODE__) {
   console.warn('This app must be opened through a local server, not file://');
@@ -11,6 +12,7 @@ if (window.__FILE_MODE__) {
   });
 
   pdfjsLib.GlobalWorkerOptions.workerSrc = workerUrl;
+  inject();
 
   const FLOOR_FILES = [
     {
@@ -1597,7 +1599,7 @@ if (window.__FILE_MODE__) {
         state.searchEntries.length === 0 ? '検索データがまだ登録されていません' : '一致する教室候補がありません';
       searchResults.replaceChildren(empty);
       searchResults.hidden = false;
-      setSearchFeedback(state.searchEntries.length === 0 ? '検索データなし' : '一致候補なし');
+      setSearchFeedback(state.searchEntries.length === 0 ? '���索データなし' : '一致候補なし');
       return;
     }
 
@@ -2293,7 +2295,7 @@ if (window.__FILE_MODE__) {
     });
 
     if (!entry) {
-      setEditorFeedback('入力値から検索データを作成できませんでした');
+      setEditorFeedback('入力値から検索デー���を作成できませんでした');
       return;
     }
 
