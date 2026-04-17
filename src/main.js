@@ -278,7 +278,6 @@ if (window.__FILE_MODE__) {
     if (isNextSpecialFloorActive) {
       clearMapSelectionsForSpecialFloor();
       searchResults.hidden = true;
-      setSearchFeedback('プリンター設置図を表示中');
     }
 
     renderFacilityToggleButtons();
