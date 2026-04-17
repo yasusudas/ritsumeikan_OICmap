@@ -111,6 +111,15 @@ if (window.__FILE_MODE__) {
   const editorRingClearButton = document.querySelector('#editor-ring-clear');
   const editorRingList = document.querySelector('#editor-ring-list');
   const editorJson = document.querySelector('#editor-json');
+  const knownFacilityDefinitions = [
+    { facilityKey: 'toilet', label: 'トイレ' },
+    { facilityKey: 'waterServer', label: 'ウォーターサーバー' },
+    { facilityKey: 'vendingMachine', label: '自販機' },
+    { facilityKey: 'printer', label: 'プリンター' },
+    { facilityKey: 'stairs', label: '階段' },
+    { facilityKey: 'escalator', label: 'エスカレーター' },
+    { facilityKey: 'elevator', label: 'エレベーター' }
+  ];
   const facilityButtonDefinitions = searchIconButtons
     .map((button) => {
       const facilityKey = button.dataset.facilityKey?.trim();
@@ -125,10 +134,21 @@ if (window.__FILE_MODE__) {
     })
     .filter((definition) => definition !== null);
   const facilityLabelByKey = Object.fromEntries(
-    facilityButtonDefinitions.map((definition) => [definition.facilityKey, definition.label])
+    [...knownFacilityDefinitions, ...facilityButtonDefinitions].map((definition) => [
+      definition.facilityKey,
+      definition.label
+    ])
   );
   const FACILITY_RING_DIAMETER_WIDTH_PERCENT_BY_FACILITY = Object.fromEntries(
-    facilityButtonDefinitions.map((definition) => [definition.facilityKey, DEFAULT_FACILITY_RING_DIAMETER_WIDTH_PERCENT])
+    knownFacilityDefinitions.map((definition) => [
+      definition.facilityKey,
+      DEFAULT_FACILITY_RING_DIAMETER_WIDTH_PERCENT
+    ])
+  );
+  const editorRingFacilityKeys = new Set(
+    editorRingModeButtons
+      .map((button) => button.dataset.facilityKey?.trim())
+      .filter((facilityKey) => Boolean(facilityKey && facilityKey in facilityLabelByKey))
   );
   const TOILET_RING_COLOR_VARIANT_OPTIONS = [
     { value: 'red', label: '赤' },
@@ -516,7 +536,7 @@ if (window.__FILE_MODE__) {
       getFloorDefinition().id;
     const point = normalizeFacilityRingPoint(ring);
 
-    if (!facilityKey || !(facilityKey in state.facilityToggleState) || !point) {
+    if (!facilityKey || !(facilityKey in facilityLabelByKey) || !point) {
       return null;
     }
 
@@ -1078,7 +1098,7 @@ if (window.__FILE_MODE__) {
 
   function setActiveRingEditorFacilityKey(facilityKey = null) {
     const normalizedFacilityKey =
-      facilityKey && facilityKey in state.facilityToggleState ? facilityKey : null;
+      facilityKey && editorRingFacilityKeys.has(facilityKey) ? facilityKey : null;
     const nextFacilityKey =
       state.activeRingEditorFacilityKey === normalizedFacilityKey ? null : normalizedFacilityKey;
 
