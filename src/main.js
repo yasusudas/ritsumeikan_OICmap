@@ -54,6 +54,13 @@ if (window.__FILE_MODE__) {
       svgUrl: new URL('../floor_img/6F7F8F9F_BldgH.svg', import.meta.url).href
     }
   ];
+  const SPECIAL_FLOOR_FILES_BY_FACILITY = {
+    printer: {
+      id: 'print-station',
+      label: 'プリンター',
+      svgUrl: new URL('../floor_img/print-station.svg', import.meta.url).href
+    }
+  };
   const PDF_SUPPORT_ASSET_BASE = import.meta.env.BASE_URL;
   const MANUAL_SEARCH_INDEX_FILENAME = 'manual-search-index.json';
   const SEARCH_INDEX_URL = `${PDF_SUPPORT_ASSET_BASE}${MANUAL_SEARCH_INDEX_FILENAME}`;
@@ -259,13 +266,28 @@ if (window.__FILE_MODE__) {
       return;
     }
 
+    const wasSpecialFloorActive = isSpecialFloorActive();
     const normalizedNextValue = nextValue === 1 ? 1 : 0;
 
     Object.keys(state.facilityToggleState).forEach((key) => {
       state.facilityToggleState[key] = normalizedNextValue === 1 && key === facilityKey ? 1 : 0;
     });
 
+    const isNextSpecialFloorActive = isSpecialFloorActive();
+
+    if (isNextSpecialFloorActive) {
+      clearMapSelectionsForSpecialFloor();
+      searchResults.hidden = true;
+      setSearchFeedback('プリンター設置図を表示中');
+    }
+
     renderFacilityToggleButtons();
+
+    if (wasSpecialFloorActive !== isNextSpecialFloorActive) {
+      void renderFloor({ resetZoom: true });
+      return;
+    }
+
     renderFacilityRings();
   }
 
@@ -313,6 +335,10 @@ if (window.__FILE_MODE__) {
     }
 
     state.ringLayer.replaceChildren();
+
+    if (isSpecialFloorActive()) {
+      return;
+    }
 
     const currentFloorRings = getCurrentFloorFacilityRings().filter(
       (ring) => state.facilityToggleState[ring.facilityKey] === 1
@@ -382,6 +408,47 @@ if (window.__FILE_MODE__) {
 
   function getFloorDefinition() {
     return FLOOR_FILES[state.floorIndex];
+  }
+
+  function getActiveSpecialFloorFacilityKey() {
+    return Object.keys(SPECIAL_FLOOR_FILES_BY_FACILITY).find(
+      (facilityKey) => state.facilityToggleState[facilityKey] === 1
+    ) ?? null;
+  }
+
+  function getActiveSpecialFloorDefinition() {
+    const facilityKey = getActiveSpecialFloorFacilityKey();
+    return facilityKey ? SPECIAL_FLOOR_FILES_BY_FACILITY[facilityKey] ?? null : null;
+  }
+
+  function getRenderedFloorDefinition() {
+    return getActiveSpecialFloorDefinition() ?? getFloorDefinition();
+  }
+
+  function isSpecialFloorActive() {
+    return getActiveSpecialFloorDefinition() !== null;
+  }
+
+  function deactivateSpecialFloorToggle() {
+    const facilityKey = getActiveSpecialFloorFacilityKey();
+
+    if (!facilityKey) {
+      return false;
+    }
+
+    state.facilityToggleState[facilityKey] = 0;
+    renderFacilityToggleButtons();
+    return true;
+  }
+
+  function clearMapSelectionsForSpecialFloor() {
+    state.activeSearchEntryId = null;
+
+    if (isEditorSite) {
+      state.activeEditorPinKey = null;
+      state.activeEditorRingId = null;
+      state.pendingEditorPoint = null;
+    }
   }
 
   function getFloorOrder(floorId) {
@@ -887,7 +954,7 @@ if (window.__FILE_MODE__) {
     canvasLayer.style.transform = `translate3d(${state.x}px, ${state.y}px, 0)`;
 
     const percent = Math.round(state.zoom * 100);
-    setStatus(`${getFloorDefinition().label} | ${percent}%`);
+    setStatus(`${getRenderedFloorDefinition().label} | ${percent}%`);
   }
 
   function scheduleViewRender() {
@@ -975,6 +1042,10 @@ if (window.__FILE_MODE__) {
     }
 
     state.highlightLayer.replaceChildren();
+
+    if (isSpecialFloorActive()) {
+      return;
+    }
 
     const activeEntry = getActiveSearchEntry();
 
@@ -1383,7 +1454,7 @@ if (window.__FILE_MODE__) {
 
     state.editorLayer.replaceChildren();
 
-    if (!state.editMode) {
+    if (!state.editMode || isSpecialFloorActive()) {
       return;
     }
 
@@ -1638,7 +1709,7 @@ if (window.__FILE_MODE__) {
     searchInput.value = entry.label;
     searchResults.hidden = true;
 
-    if (entry.floorId !== getFloorDefinition().id) {
+    if (entry.floorId !== getFloorDefinition().id || isSpecialFloorActive()) {
       await setActiveFloor(entry.floorId, { resetZoom: true });
     } else {
       renderSearchHighlights();
@@ -1917,7 +1988,7 @@ if (window.__FILE_MODE__) {
   }
 
   async function renderFloor({ resetZoom = false, preserveView = false } = {}) {
-    const floor = getFloorDefinition();
+    const floor = getRenderedFloorDefinition();
     const floorLoadToken = ++state.floorLoadToken;
     const centerRatios = preserveView ? captureViewportCenterRatios() : null;
 
@@ -1994,9 +2065,11 @@ if (window.__FILE_MODE__) {
       return;
     }
 
+    const wasSpecialFloorActive = deactivateSpecialFloorToggle();
+    const shouldResetZoom = resetZoom || wasSpecialFloorActive;
     state.floorIndex = nextIndex;
     updateTabSelection();
-    await renderFloor({ resetZoom, preserveView: !resetZoom });
+    await renderFloor({ resetZoom: shouldResetZoom, preserveView: !shouldResetZoom });
     if (isEditorSite) {
       refreshEditorUi();
     }
@@ -2233,7 +2306,7 @@ if (window.__FILE_MODE__) {
       return;
     }
 
-    if (ring.floorId !== getFloorDefinition().id) {
+    if (ring.floorId !== getFloorDefinition().id || isSpecialFloorActive()) {
       await setActiveFloor(ring.floorId, { resetZoom: false });
     }
 
@@ -2385,6 +2458,11 @@ if (window.__FILE_MODE__) {
 
   function captureEditorPointAtClient(clientX, clientY) {
     if (!isEditorSite || !state.editMode || state.dragMoved || state.isPinching) {
+      return;
+    }
+
+    if (isSpecialFloorActive()) {
+      setEditorFeedback('プリンター表示中は通常フロアの位置編集を無効にしています');
       return;
     }
 
